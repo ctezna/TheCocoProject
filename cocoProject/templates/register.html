@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="shortcut icon" href="static/img/favicon.ico"> 
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>The Coco Project</title>
+        <!-- Bootstrap -->
+        <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <label class="navbar-brand">
+                The Coco Project
+            </label>
+        </nav>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <div class="alert alert-danger" role="alert">
+                    <br>
+                    <li>{{ message }}</li>
+                </div>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+            <div class="row">
+                <div class="col-md-2 col-sm-2"></div>
+                <div class="col-md-8 col-sm-8">
+                    <body class="text-center">
+                        <br><br>
+                        <h1 class="h3 mb-3 font-weight-normal">{{ _('Create New User') }}</h1><br>
+                        <form action="{{ url_for('register') }}" method="post">
+                            <label for="inputUser" class="sr-only">{{ _('Username') }}</label>
+                            {{ form.hidden_tag() }}
+                            <p>
+                                {{ form.username(class="form-control", placeholder="Username", size=32) }}
+                                {% for error in form.username.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                                <small id="passwordHelpInline" class="text-muted">
+                                    {{ _('Username cannot be changed.') }}
+                                </small><br>
+                            </p>
+                            <label for="inputPassword" class="sr-only">{{ _('Password') }}</label>
+                            <p>
+                                {{ form.password(class="form-control", placeholder="Password", size=32) }}
+                                {% for error in form.password.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                                <small id="passwordHelpInline" class="text-muted">
+                                    {{ _('Should be 8-20 characters.') }}
+                                </small><br>
+                            </p>
+                            <p>
+                                {{ form.password2(class="form-control", placeholder="Repeat Password", size=32) }}
+                                {% for error in form.password2.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                            </p>
+                            <!-- <label for="picture"><p class="font-weight-light">Foto (Opcional)</p></label>
+                            <input type="file" class="form-control-file" id="picture"> -->
+                            <br><p>{{ form.submit(class="btn btn-lg btn-primary btn-block") }}</p>
+                        </form>
+                    </body>
+                </div>
+                <div class="col-md-2 col-sm-2"></div>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="static/js/bootstrap.min.js"></script>
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            feather.replace()
+        </script>
+    </body>
+    <footer>
+        <br><br>
+    </footer>
+</html>

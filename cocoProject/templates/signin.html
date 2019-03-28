@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="shortcut icon" href="static/img/favicon.ico"> 
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>The Coco Project</title>
+        <!-- Bootstrap -->
+        <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="signin">
+                The Coco Project
+            </a>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    <a class="nav-link" href="{{url_for('register')}}">{{ _('Register') }}</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong><p>{{ message }}</p></strong>
+                    </div>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %}
+            <div class="row">
+                <div class="col-md-4 col-sm-4"></div>
+                <div class="col-md-4 col-sm-4">
+                    <body class="text-center"><br>
+                        <img class="mb-4" src="static/img/Logo_big.png" alt="" width="270" height="180">
+                        <form action="{{ url_for('signin') }}" method="post">
+                            {{ form.hidden_tag() }}
+                            <p>
+                            {{ form.username(class="form-control", placeholder="Username", size=32) }}
+                            {% for error in form.username.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                            </p>
+                            <p>
+                            {{ form.password(class="form-control", placeholder="Password", size=32) }}
+                            {% for error in form.password.errors %}
+                                <span style="color: red;">[{{ error }}]</span>
+                            {% endfor %}
+                            </p>
+                            <p>{{ form.remember() }} {{ form.remember.label }}</p>
+                            <p>{{ form.submit(class="btn btn-lg btn-primary btn-block") }}</p>
+                        </form>
+                    </body>
+                </div>
+                <div class="col-md-4 col-sm-4"></div>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="static/js/bootstrap.min.js"></script>
+        <!-- Icons -->
+        <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+        <script>
+            feather.replace()
+        </script>
+    </body>
+    <footer>
+        <br><br>
+    </footer>
+</html>
