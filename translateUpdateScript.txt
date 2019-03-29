@@ -1,0 +1,4 @@
+$ pybabel extract -F babel.cfg -k _l -o messages.pot .
+$ pybabel update -i messages.pot -d cocoProject/translations
+GO TO messages.po AND UPDATE TRANSLATIONS
+$ pybabel compile -d cocoProject/translations

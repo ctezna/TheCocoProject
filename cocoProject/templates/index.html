@@ -14,11 +14,97 @@
 </style>
 {% endblock %}
 
-{% block nav %}
-{% endblock %}
-
-{% block topBody %}
-{% endblock %}
-
 {% block body %}
+<!-- <iframe width=”500” height=”340” src="{{proxy}}/camera" /> -->
+<!-- <img src="{{proxy}}/camera"> -->
+{% if not cocos %}
+<a href="{{url_for('connectCoco')}}">
+    <button class="btn btn-success btn-block">
+    {{ _('Add Coco') }}
+    </button>
+</a>
+{% else %}
+{% for coco in cocos %}
+<div class="card text-white bg-dark mb-3">
+    <div class="card-header text-center"><h5>{{coco.name}}</h5></div>
+    <div class="card-body text-center">
+        <div id='vid'>
+            <button id="play;{{coco.id}}" class="btn btn-primary" onclick="playVid({{coco.id}})">{{_('Play Stream')}}</button>
+            <iframe id='frame;{{coco.id}}' style="display:none;" height="100%" width="100%" src="{{coco.proxy}}/camera" >{{ _('iFrame not supported by your browser.')}}</iframe>
+        </div>
+        <button id="stop;{{coco.id}}" style="display:none;" class="btn btn-danger" onclick="stopVid({{coco.id}})">{{_('Stop Stream')}}</button>
+    </div>
+    <div class="card-footer text-center" id="container">
+        <button id="fullscreen" class="btn btn-success">{{ _('Fullscreen')}}</button>
+        <a href="{{coco.proxy}}/feed" rel="noopener" target="_blank" class="btn btn-success" style="float:left">{{_('Feed Coco')}}</a>
+        <a href="{{ url_for('cocoProfile') }}" class="btn btn-success" style="float:right">{{_('Coco Profile')}}</a>
+    </div>
+</div>
+{% endfor %}
+<script>
+    function playVid(id){
+        document.getElementById('play;'+id).style.display = 'none';
+        document.getElementById('frame;'+id).style.display = 'inline';
+        document.getElementById('stop;'+id).style.display = 'inline';
+    }
+    function stopVid(id){
+        document.getElementById('play;'+id).style.display = 'inline';
+        document.getElementById('frame;'+id).style.display = 'none';
+        document.getElementById('stop;'+id).style.display = 'none';
+    }
+</script>
+<script>
+    var button = document.querySelector('#container #fullscreen');
+    button.addEventListener('click', fullscreen);
+    // when you are in fullscreen, ESC and F11 may not be trigger by keydown listener. 
+    // so don't use it to detect exit fullscreen
+    document.addEventListener('keydown', function (e) {
+    console.log('key press' + e.keyCode);
+    });
+    // detect enter or exit fullscreen mode
+    document.addEventListener('webkitfullscreenchange', fullscreenChange);
+    document.addEventListener('mozfullscreenchange', fullscreenChange);
+    document.addEventListener('fullscreenchange', fullscreenChange);
+    document.addEventListener('MSFullscreenChange', fullscreenChange);
+
+    function fullscreen() {
+    // check if fullscreen mode is available
+    if (document.fullscreenEnabled || 
+        document.webkitFullscreenEnabled || 
+        document.mozFullScreenEnabled ||
+        document.msFullscreenEnabled) {
+        
+        // which element will be fullscreen
+        var iframe = document.querySelector('#vid iframe');
+        // Do fullscreen
+        if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+        } else if (iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+        } else if (iframe.mozRequestFullScreen) {
+        iframe.mozRequestFullScreen();
+        } else if (iframe.msRequestFullscreen) {
+        iframe.msRequestFullscreen();
+        }
+    }
+    }
+
+    function fullscreenChange() {
+    if (document.fullscreenEnabled ||
+        document.webkitIsFullScreen || 
+        document.mozFullScreen ||
+        document.msFullscreenElement) {
+        console.log('enter fullscreen');
+    }
+    else {
+        console.log('exit fullscreen');
+    }
+    // force to reload iframe once to prevent the iframe source didn't care about trying to resize the window
+    // comment this line and you will see
+    var iframe = document.querySelector('iframe');
+    //iframe.src = iframe.src;
+    }
+</script>
+{% endif %}
+
 {% endblock %}

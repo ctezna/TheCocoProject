@@ -43,7 +43,7 @@
                                     <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                                 <small id="passwordHelpInline" class="text-muted">
-                                    {{ _('Username cannot be changed.') }}
+                                    {{ _('Use same username/email from Remote.it account.') }}
                                 </small><br>
                             </p>
                             <label for="inputPassword" class="sr-only">{{ _('Password') }}</label>
@@ -61,6 +61,15 @@
                                 {% for error in form.password2.errors %}
                                     <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
+                            </p>
+                            <p>
+                                {{ form.devKey(class="form-control", placeholder="Developer Key ID", size=32) }}
+                                {% for error in form.devKey.errors %}
+                                    <span style="color: red;">[{{ error }}]</span>
+                                {% endfor %}
+                                <small id="passwordHelpInline" class="text-muted">
+                                    {{ _('Found under Settings>My Account>Developer API at Remote.it Console.') }}
+                                </small><br>
                             </p>
                             <!-- <label for="picture"><p class="font-weight-light">Foto (Opcional)</p></label>
                             <input type="file" class="form-control-file" id="picture"> -->

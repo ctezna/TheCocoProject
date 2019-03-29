@@ -25,36 +25,22 @@
             </ul>
         </nav>
         <div class="container-fluid">
-            <div class="row">
-                <nav id="two" class="col-md-2 bg-light sidebar">
-                    <div id="two" class="sidebar-sticky">
-                        {% block nav %}{% endblock %}
-                    </div>
-                </nav>
-                <div class="col-md-10 col-sm-10"><br>
-                    {% with messages = get_flashed_messages() %}
-                        {% if messages %}
-                            <ul>
-                            {% for message in messages %}
-                                <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                                    <strong><p>{{ message }}</p></strong>
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            {% endfor %}
-                            </ul>
-                        {% endif %}
-                    {% endwith %}
-                    {% block topBody %}{% endblock %}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-sm-0"></div>
-                <div class="col-md-10 col-sm-10">
-                    {% block body %}{% endblock %}
-                </div>
-            </div>
+            <br>
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul>
+                    {% for message in messages %}
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <strong><p>{{ message }}</p></strong>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
         </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

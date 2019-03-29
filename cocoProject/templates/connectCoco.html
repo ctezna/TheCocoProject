@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block refresh %}
+
+{% endblock %}
+
+{% block style%}
+<style>
+    @media only screen and (max-width: 1200px) {
+    /* #two{
+        display: none;
+    } */
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<form action="/connectCoco" onsubmit="progress()" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.name(class="form-control", placeholder="Personalized Name", size=32) }}
+        {% for error in form.name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.address(class="form-control", placeholder="Device Address", size=32) }}
+        {% for error in form.address.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <small id="passwordHelpInline" class="text-muted">
+            &emsp;{{ _('Found on Remote.it Console under View Devices>HTTP>Address.') }}
+        </small><br>
+    </p>
+    <p>
+        {{ form.img() }}
+        {% for error in form.img.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.password(class="form-control", placeholder="Remote.it Password", size=32) }}
+        {% for error in form.password.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <div class="progress">
+        <div id="prog" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="display: none;"></div>
+    </div><br>
+    <p>{{ form.submit(class="btn btn-primary btn-block") }}</p>
+</form>
+<script>
+    function progress(){
+        document.getElementById('prog').style.display = 'inline';
+        document.getElementById('prog').style.width = '10%';
+        setTimeout(function(){document.getElementById('prog').style.width = '40%';},1000);
+        setTimeout(function(){document.getElementById('prog').style.width = '73%';},1000);
+        setTimeout(function(){document.getElementById('prog').style.width = '99%';},1000);
+    }
+</script>
+{% endblock %}
