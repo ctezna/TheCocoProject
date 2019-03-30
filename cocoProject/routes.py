@@ -5,9 +5,9 @@ from passlib.hash import sha256_crypt
 from werkzeug.urls import url_parse
 import datetime, os, requests, json
 from flask_babel import _
-from cocoProject.forms import LoginForm, RegisterForm, AddCocoForm
+from cocoProject.forms import LoginForm, RegisterForm, AddCocoForm, AddRoutineForm
 from cocoProject.models import User, Coco
-from cocoProject import remoteit_api
+from cocoProject import remoteit_api, addRoutine
 
 
 @app.route('/index', methods=['GET', 'POST'])
@@ -15,7 +15,15 @@ from cocoProject import remoteit_api
 def index():
     user = User.query.filter_by(id=current_user.id).first_or_404()
     cocos = Coco.query.filter_by(user_id=user.id).all()
-    return render_template("index.html", cocos=cocos)
+    form = AddRoutineForm()
+    if form.validate_on_submit():
+        task = form.task.data
+        days = [form.mon.data, form.tue.data, form.wed.data, form.thur.data, form.fri.data, form.sat.data, form.sun.data]
+        times = form.times.data
+        proxy = form.proxy.data
+        routine = addRoutine.send(proxy, task, days, times)
+        flash(_('Routine Added Successfully.'))
+    return render_template("index.html", cocos=cocos, form=form)
 
 @app.route('/connectCoco', methods=['GET', 'POST'])
 @login_required
@@ -28,6 +36,12 @@ def connectCoco():
         password = form.password.data
         user_id = current_user.id
         proxy = remoteit_api.connect(current_user.dev_id, current_user.username, password, address)
+        if proxy == 800:
+            flash(_('Error Establishing Connection. Please check credentials and try again.'))
+            return redirect(url_for('connectCoco'))
+        elif proxy == 801:
+            flash(_('Timeout Error. Please try again.'))
+            return redirect(url_for('connectCoco'))
         coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id)
         db.session.add(coco)
         db.session.commit()

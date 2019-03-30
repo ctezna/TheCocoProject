@@ -33,7 +33,7 @@
         </small><br>
     </p>
     <p>
-        {{ form.img() }}
+        {{ form.img(class="form-control") }}
         {% for error in form.img.errors %}
             <span style="color: red;">[{{ error }}]</span>
         {% endfor %}

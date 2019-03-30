@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
-SelectField, DecimalField, IntegerField, TextAreaField, DateField, FileField
+SelectField, DecimalField, IntegerField, TextAreaField, DateField, FileField, RadioField, SelectMultipleField
 from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 from cocoProject.models import User, Coco
 from flask_babel import lazy_gettext as _l
@@ -33,3 +33,22 @@ class AddCocoForm(FlaskForm):
     address = StringField(_l('Device Address'), validators=[DataRequired()])
     password = PasswordField(_l('Password'), validators=[DataRequired()])
     submit = SubmitField(_l('Initialize Connection'))
+
+    def validate_address(self, address):
+        coco = Coco.query.filter_by(address=address.data).first()
+        if coco is not None:
+            raise ValidationError(_l('Device Address is already registered.'))
+
+class AddRoutineForm(FlaskForm):
+    task = RadioField(_l('Choose Task'), choices=[('Dispense Food','Dispense Food'), ('Light','Light')], validators=[DataRequired()])
+    mon = BooleanField('M')
+    tue = BooleanField('T')
+    wed = BooleanField('W')
+    thur = BooleanField('Th')
+    fri = BooleanField('F')
+    sat = BooleanField('S')
+    sun = BooleanField('Su')
+    days = BooleanField(_l('Select Days'))
+    times = StringField(_l('Set Times'), validators=[DataRequired()])
+    proxy = StringField('proxy', validators=[DataRequired()])
+    submit = SubmitField(_l('Create Routine'))

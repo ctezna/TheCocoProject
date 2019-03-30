@@ -15,15 +15,18 @@ def connect(key,username,password,address):
 
     response = requests.post(url, data=json.dumps(body), headers=headers)
     response_body = response.json()
-
-    # print("Status Code: %s" % response.status_code)
-    # print("Raw Response: %s" % response.raw)
-    # print("Body: %s" % response_body)
+    
+    try:
+        token = response_body['token']
+        pass
+    except KeyError as ke:
+        return(800)
+        pass
 
     headers = {
         "developerkey": key,
         # Created using the login API
-        "token": response_body['token']
+        "token": token
     } 
     body = {
         "deviceaddress": address
@@ -31,4 +34,9 @@ def connect(key,username,password,address):
     url = "https://api.remot3.it/apv/v27/device/connect"
     response = requests.post(url, data=json.dumps(body), headers=headers)
     response_body = response.json()
-    return(response_body['connection']['proxy'])
+    try:
+        return(response_body['connection']['proxy'])
+        pass
+    except KeyError as ke:
+        return(801)
+        pass

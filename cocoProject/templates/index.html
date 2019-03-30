@@ -35,27 +35,75 @@
         <button id="stop;{{coco.id}}" style="display:none;" class="btn btn-danger" onclick="stopVid({{coco.id}})">{{_('Stop Stream')}}</button>
     </div>
     <div class="card-footer text-center" id="container">
-        <button id="fullscreen" class="btn btn-success">{{ _('Fullscreen')}}</button>
+        <button id="fullscreen;{{coco.id}}" onclick="fullscreen()" class="btn btn-success" style="display:none;">{{ _('Fullscreen')}}</button>
+        <button id="routine;{{coco.id}}" data-toggle="modal" data-id="{{coco.proxy}}" data-target="#modalForm" class="open-AddRoutine btn btn-success">{{ _('Add Routine')}}</button>
         <a href="{{coco.proxy}}/feed" rel="noopener" target="_blank" class="btn btn-success" style="float:left">{{_('Feed Coco')}}</a>
         <a href="{{ url_for('cocoProfile') }}" class="btn btn-success" style="float:right">{{_('Coco Profile')}}</a>
     </div>
 </div>
 {% endfor %}
+<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Add New Routine</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form action="{{ url_for('index') }}" method="post">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.task.label }} {{ form.task() }}
+                </p>
+                <p>{{ form.days.label }}</p>
+                <p>
+                    {{ form.mon()}}{{ form.mon.label}} {{ form.tue()}}{{ form.tue.label}}
+                    {{ form.wed()}}{{ form.wed.label}} {{ form.thur()}}{{ form.thur.label}}
+                    {{ form.fri()}}{{ form.fri.label}} {{ form.sat()}}{{ form.sat.label}} {{ form.sun()}}{{ form.sun.label}}
+                </p>
+                <p>
+                    {{ form.times.label }}
+                    {{ form.times(class="form-control", placeholder="12:00 PM, 3:00 PM", size=32)}}
+                </p>
+
+                    {{ form.proxy(style="display:none;")}}
+                <small class="text-muted">
+                    Separate times with commas.
+                </small><br>
+        </div>
+        <div class="modal-footer">
+                <p>{{ form.submit(class="btn btn-primary btn-block") }}</p>
+            </form>
+        </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+    $(document).on("click", ".open-AddRoutine", function () {
+     var proxy = $(this).data('id');
+     $(".modal-body #proxy").val( proxy );
+    });
+</script>
 <script>
     function playVid(id){
         document.getElementById('play;'+id).style.display = 'none';
         document.getElementById('frame;'+id).style.display = 'inline';
         document.getElementById('stop;'+id).style.display = 'inline';
+        document.getElementById('routine;'+id).style.display = 'none';
+        document.getElementById('fullscreen;'+id).style.display = 'inline';
     }
     function stopVid(id){
         document.getElementById('play;'+id).style.display = 'inline';
         document.getElementById('frame;'+id).style.display = 'none';
         document.getElementById('stop;'+id).style.display = 'none';
+        document.getElementById('fullscreen;'+id).style.display = 'none';
+        document.getElementById('routine;'+id).style.display = 'inline';
     }
 </script>
 <script>
-    var button = document.querySelector('#container #fullscreen');
-    button.addEventListener('click', fullscreen);
     // when you are in fullscreen, ESC and F11 may not be trigger by keydown listener. 
     // so don't use it to detect exit fullscreen
     document.addEventListener('keydown', function (e) {
