@@ -22,7 +22,7 @@ def index():
         times = form.times.data
         proxy = form.proxy.data
         routine = addRoutine.send(proxy, task, days, times)
-        flash(_('Routine Added Successfully.'))
+        flash(_('Routine Added Successfully.'),'success')
     return render_template("index.html", cocos=cocos, form=form)
 
 @app.route('/connectCoco', methods=['GET', 'POST'])
@@ -37,15 +37,15 @@ def connectCoco():
         user_id = current_user.id
         proxy = remoteit_api.connect(current_user.dev_id, current_user.username, password, address)
         if proxy == 800:
-            flash(_('Error Establishing Connection. Please check credentials and try again.'))
+            flash(_('Error Establishing Connection. Please check credentials and try again.'),'danger')
             return redirect(url_for('connectCoco'))
         elif proxy == 801:
-            flash(_('Timeout Error. Please try again.'))
+            flash(_('Timeout Error. Please try again.'),'danger')
             return redirect(url_for('connectCoco'))
         coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id)
         db.session.add(coco)
         db.session.commit()
-        flash(_('New Coco Added Successfully!'))
+        flash(_('New Coco Added Successfully!'),'success')
         return redirect(url_for('index'))
     return render_template("connectCoco.html", form=form)
 
@@ -78,7 +78,7 @@ def signin():
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('index')
-            flash(_('Welcome %(username)s', username=user.username))
+            flash(_('Welcome %(username)s', username=user.username),'primary')
             return redirect(next_page)
         else:
             flash(_('Username or Password Incorrect'))
@@ -98,7 +98,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        flash(_('Registration Successful!'))
+        flash(_('Registration Successful!'),'primary')
         return redirect(url_for('index'))
     return render_template("register.html",form=form)
 

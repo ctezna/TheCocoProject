@@ -18,7 +18,7 @@ class User(UserMixin, db.Model):
 class Coco(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
-    img = db.Column(db.String(256), nullable=True)
+    img = db.Column(db.String(20), nullable=False, default='Logo_small.png')
     proxy = db.Column(db.String(256), nullable=True, unique=True)
     address = db.Column(db.String(256), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

@@ -5,13 +5,6 @@
 {% endblock %}
 
 {% block style%}
-<style>
-    @media only screen and (max-width: 1200px) {
-    /* #two{
-        display: none;
-    } */
-}
-</style>
 {% endblock %}
 
 {% block body %}
@@ -32,6 +25,9 @@
             <button id="play;{{coco.id}}" class="btn btn-primary" onclick="playVid({{coco.id}})">{{_('Play Stream')}}</button>
             <iframe id='frame;{{coco.id}}' style="display:none;" height="100%" width="100%" src="{{coco.proxy}}/camera" >{{ _('iFrame not supported by your browser.')}}</iframe>
         </div>
+
+
+
         <button id="stop;{{coco.id}}" style="display:none;" class="btn btn-danger" onclick="stopVid({{coco.id}})">{{_('Stop Stream')}}</button>
     </div>
     <div class="card-footer text-center" id="container">
