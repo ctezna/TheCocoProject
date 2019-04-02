@@ -21,4 +21,5 @@ class Coco(db.Model):
     img = db.Column(db.String(20), nullable=False, default='Logo_small.png')
     proxy = db.Column(db.String(256), nullable=True, unique=True)
     address = db.Column(db.String(256), nullable=False)
+    light = db.Column(db.Boolean, nullable=False, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)

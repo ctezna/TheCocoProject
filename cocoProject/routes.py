@@ -23,6 +23,25 @@ def index():
         proxy = form.proxy.data
         routine = addRoutine.send(proxy, task, days, times)
         flash(_('Routine Added Successfully.'),'success')
+    elif request.method == 'POST':
+        proxy = request.form['data']
+        id = request.form['id']
+        coco = Coco.query.filter_by(id=id).first_or_404()
+        if proxy.split('/')[3] == 'feed':
+            msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
+            cat = 'info'
+        elif proxy.split('/')[3] == 'lightOn':
+            msg = Markup('Light Activated for <strong>{}</strong>.'.format(coco.name))
+            cat = 'warning'
+            coco.light = 1
+            db.session.commit()
+        elif proxy.split('/')[3] == 'lightOff':
+            msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
+            cat = 'secondary'
+            coco.light = 0
+            db.session.commit()
+        response = requests.get(proxy)
+        flash(_(msg),cat)
     return render_template("index.html", cocos=cocos, form=form)
 
 @app.route('/connectCoco', methods=['GET', 'POST'])
@@ -49,10 +68,11 @@ def connectCoco():
         return redirect(url_for('index'))
     return render_template("connectCoco.html", form=form)
 
-@app.route('/cocoProfile', methods=['GET', 'POST'])
+@app.route('/cocoProfile/<id>', methods=['GET', 'POST'])
 @login_required
-def cocoProfile():
-    return render_template("cocoProfile.html")
+def cocoProfile(id):
+    coco = Coco.query.filter_by(id=id).first_or_404()
+    return render_template("cocoProfile.html", coco=coco)
 
 @app.route('/userProfile', methods=['GET', 'POST'])
 @login_required

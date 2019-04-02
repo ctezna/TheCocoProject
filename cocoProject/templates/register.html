@@ -33,7 +33,7 @@
                 <div class="col-md-8 col-sm-8">
                     <body class="text-center">
                         <br><br>
-                        <h1 class="h3 mb-3 font-weight-normal">{{ _('Create New User') }}</h1><br>
+                        <legend class="border-bottom mb-4">{{ _('Create New User') }}</legend>
                         <form action="{{ url_for('register') }}" method="post">
                             <label for="inputUser" class="sr-only">{{ _('Username') }}</label>
                             {{ form.hidden_tag() }}

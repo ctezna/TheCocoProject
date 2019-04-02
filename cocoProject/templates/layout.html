@@ -15,38 +15,39 @@
         
         <div>
             <style>
-                    #one{
+                    #small{
                         display: none;
                     }
                     @media only screen and (max-width: 500px) {
-                    #two{
+                    #big{
                         display: none;
                     }
-                    #one{
+                    #small{
                         display: inline;
                     }
                 }
                 {% block style %}{% endblock %}
-            </style></div>
+            </style>
+        </div>
     </head>
     <body>
         <header class="site-header"> 
         <nav class="navbar navbar-dark bg-dark">
-            <a id="two" class="navbar-brand" href="{{url_for('index')}}">
-                <img src="{{url_for('static', filename='img/Logo_small.png')}}" width="35" height="35" class="d-inline-block align-top" alt="Logo">
+            <a id="big" class="navbar-brand" href="{{url_for('index')}}">
+                <img src="{{url_for('static', filename='img/Logo_small.png')}}" width="35" height="35" style="border-radius: 50%" class="d-inline-block align-top" alt="Logo">
                 <text class="ml-2" id="two">The Coco Project</text>
             </a>
-            <a id="one" class="navbar-brand" href="{{url_for('index')}}">
-                <img id="one" src="{{url_for('static', filename='img/Logo_big.png')}}" width="65" height="45" class="d-inline-block align-top" alt="Logo">
+            <a id="small" class="navbar-brand" href="{{url_for('index')}}">
+                <img id="small" src="{{url_for('static', filename='img/Logo_big.png')}}" width="70" height="45" style="border-radius: 20%"class="d-inline-block align-top" alt="Logo">
             </a>
             <div class="navbar-nav">
-                <a id="one" class="nav-item nav-link" href="{{url_for('userProfile')}}">{{ _('Account') }}</a>
+                <a id="small" class="nav-item nav-link" href="{{url_for('userProfile')}}">{{ _('Account') }}</a>
             </div>
 
             <div class="navbar-nav">
                 <div class="row">
                     <div class="col-md-6 col-sm-6"> 
-                    <a id="two" class="nav-item nav-link" href="{{url_for('userProfile')}}">{{ _('Account') }}</a>
+                    <a id="big" class="nav-item nav-link" href="{{url_for('userProfile')}}">{{ _('Account') }}</a>
                     </div><div class="col-md-6 col-sm-6">
                     <a class="nav-item nav-link" href="{{url_for('logout')}}">{{ _('Log Out') }}</a>
                     </div>
@@ -87,5 +88,8 @@
     </body>
     <footer>
         <br><br>
+        <div class="text-center">
+            <small class="text-muted">You and your pet are one.</small>
+        </div>     
     </footer>
 </html>
