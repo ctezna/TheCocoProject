@@ -31,13 +31,13 @@ class AddCocoForm(FlaskForm):
     name = StringField(_l('Personalized Name'), validators=[DataRequired()])
     img = FileField(_l('Image File'))
     address = StringField(_l('Device Address'), validators=[DataRequired()])
-    password = PasswordField(_l('Password'), validators=[DataRequired()])
+    password = PasswordField(_l('Remote.it Password'), validators=[DataRequired()])
     submit = SubmitField(_l('Initialize Connection'))
 
-    def validate_address(self, address):
-        coco = Coco.query.filter_by(address=address.data).first()
-        if coco is not None:
-            raise ValidationError(_l('Device Address is already registered.'))
+    # def validate_address(self, address):
+    #     coco = Coco.query.filter_by(address=address.data).first()
+    #     if coco is not None:
+    #         raise ValidationError(_l('Device Address is already registered.'))
 
 class AddRoutineForm(FlaskForm):
     task = RadioField(_l('Choose Task'), choices=[('Dispense Food','Dispense Food'), ('Light','Light')], validators=[DataRequired()])

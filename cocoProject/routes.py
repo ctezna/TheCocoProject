@@ -44,6 +44,42 @@ def index():
         flash(_(msg),cat)
     return render_template("index.html", cocos=cocos, form=form)
 
+@app.route('/delete', methods=['POST'])
+@login_required
+def delete():
+    id = request.form['id']
+    coco = Coco.query.filter_by(id=id).first_or_404()
+    msg = Markup('<strong>{}</strong> Erased.'.format(coco.name))
+    db.session.delete(coco)
+    db.session.commit()
+    flash(_(msg),'warning')
+    return redirect(url_for('index'))
+
+@app.route('/refresh/<id>', methods=['GET','POST'])
+@login_required
+def refresh(id):
+    form = AddCocoForm()
+    coco = Coco.query.filter_by(id=id).first_or_404()
+    if request.method == 'POST':
+        proxy = remoteit_api.connect(current_user.dev_id, current_user.username, form.password.data, form.address.data)
+        if proxy == 800:
+            flash(_('Error Establishing Connection. Please check credentials and try again.'),'danger')
+            return redirect(url_for('refresh',id=id))
+        elif proxy == 801:
+            flash(_('Timeout Error. Please try again.'),'danger')
+            return redirect(url_for('refresh',id=id))
+        coco.proxy = proxy
+        db.session.commit()
+        flash(_('New Coco proxy url generated!'),'success')
+        return redirect(url_for('index'))
+    else:
+        form.name.data = coco.name
+        form.address.data = coco.address
+        form.img.data = coco.img
+        flash(_('Please enter password to refresh connection.'),'info')
+        return render_template("refresh.html", form=form, coco=coco)
+
+
 @app.route('/connectCoco', methods=['GET', 'POST'])
 @login_required
 def connectCoco():
@@ -51,6 +87,8 @@ def connectCoco():
     if form.validate_on_submit():
         name = form.name.data
         img = form.img.data
+        if img == '':
+            img = 'Logo_small.png'
         address = form.address.data
         password = form.password.data
         user_id = current_user.id

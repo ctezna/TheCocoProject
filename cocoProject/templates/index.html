@@ -17,8 +17,10 @@
 {% for coco in cocos %}
 <div class="card text-white bg-dark mb-3">
     <div class="card-header text-center">
+        <a href="{{ url_for('cocoProfile', id=coco.id) }}" style="text-decoration: none; color: #ffffff;">
         <img src="{{url_for('static', filename='img/'+coco.img)}}" width="50" height="50" class="mr-2" style="display: inline-block; border-radius: 50%;" alt="Avatar">
         <h4 style="display: inline-block;">{{coco.name}}</h4>
+        </a>
         {% if coco.light == 1 %}
             <button type="button" onclick="lightOff('{{coco.proxy}}','{{coco.id}}')" class="btn btn-warning btn-sm ml-3" style="display: inline-block;">
                 <span data-feather="moon"></span>
@@ -38,12 +40,34 @@
 
 
         <button id="stop;{{coco.id}}" style="display:none;" class="btn btn-danger" onclick="stopVid('{{coco.id}}')"><span data-feather="video-off"></span></button>
+        <a href="{{url_for('refresh', id=coco.id)}}">
+            <button id="refresh;{{coco.id}}" style="display:none;" class="btn btn-info"><span data-feather="refresh-cw"></span></button>
+        </a>
     </div>
     <div class="card-footer text-center" id="container">
         <button id="fullscreen;{{coco.id}}" onclick="fullscreen()" class="btn btn-success" style="display:none;"><span data-feather="maximize-2" id="small"></span><text id="big">{{ _('Fullscreen')}}</text></button>
         <button id="routine;{{coco.id}}" data-toggle="modal" data-id="{{coco.proxy}}" data-target="#modalForm" class="open-AddRoutine btn btn-success"><span data-feather="plus-circle" id="small"></span><text id="big">{{ _('Add Routine')}}</text></button>
         <button onclick="feedCoco('{{coco.proxy}}', '{{coco.id}}')" class="btn btn-success" style="float:left"><span data-feather="smile" id="small"></span><text id="big">{{_('Feed Coco')}}</text></button>
-        <a href="{{ url_for('cocoProfile', id=coco.id) }}" class="btn btn-success" style="float:right"><span data-feather="home" id="small"></span><text id="big">{{_('Coco Profile')}}</text></a>
+        <button id="delete;{{coco.id}}" data-toggle="modal" data-id="{{coco.id}}" data-target="#modalDelete{{coco.id}}" class="open-DeleteModal btn btn-danger" style="float:right"><span data-feather="x"></span><text id="big">{{_('Delete Coco')}}</text></button>
+    </div>
+</div>
+
+<div class="modal fade" id="modalDelete{{coco.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Removing Coco.</h5>
+        </div>
+        <div class="modal-body" id="deleteBody">
+            <p>Please confirm action, removing Coco is irreversible.
+            </p>
+            <label>Do you wish to remove Coco from list?</label>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-danger" onclick="deleteCoco('{{coco.id}}')" style="display:inline-block;"><span data-feather="check"></span>Yes</button>
+            <button class="btn btn-success" data-dismiss="modal" style="display:inline-block;"><span data-feather="x"></span>No</button>
+        </div>
+        </div>
     </div>
 </div>
 {% endfor %}
@@ -85,6 +109,7 @@
         </div>
     </div>
 </div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
     $(document).on("click", ".open-AddRoutine", function () {
@@ -97,6 +122,7 @@
         document.getElementById('play;'+id).style.display = 'none';
         document.getElementById('frame;'+id).style.display = 'inline';
         document.getElementById('stop;'+id).style.display = 'inline';
+        document.getElementById('refresh;'+id).style.display = 'inline';
         document.getElementById('routine;'+id).style.display = 'none';
         document.getElementById('fullscreen;'+id).style.display = 'inline';
     }
@@ -104,6 +130,7 @@
         document.getElementById('play;'+id).style.display = 'inline';
         document.getElementById('frame;'+id).style.display = 'none';
         document.getElementById('stop;'+id).style.display = 'none';
+        document.getElementById('refresh;'+id).style.display = 'none';
         document.getElementById('fullscreen;'+id).style.display = 'none';
         document.getElementById('routine;'+id).style.display = 'inline';
     }
@@ -118,6 +145,9 @@
     function lightOff(proxy,id){
         proxy = proxy + '/lightOff';
         post('index', {data:proxy, id:id},'post');
+    }
+    function deleteCoco(id){
+        post('delete', {id:id}, 'post');
     }
 </script>
 <script>
