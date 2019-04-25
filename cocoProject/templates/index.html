@@ -88,6 +88,9 @@
                 {{ form.hidden_tag() }}
                 <p>
                     {{ form.task.label }} {{ form.task() }}
+                    <small class="text-muted">
+                        Light turns off after 1 hour.
+                    </small><br>
                 </p>
                 <p>{{ form.days.label }}</p>
                 <p>
@@ -97,12 +100,12 @@
                 </p>
                 <p>
                     {{ form.times.label }}
-                    {{ form.times(class="form-control", placeholder="12:00 PM, 3:00 PM", size=32)}}
+                    {{ form.times(class="form-control", placeholder="10:00, 15:45, 22:30", size=32)}}
                 </p>
 
                     {{ form.proxy(style="display:none;")}}
                 <small class="text-muted">
-                    Separate times with commas.
+                    Please use 24 hour clock with intervals of 15 minutes. Separate times with commas.
                 </small><br>
         </div>
         <div class="modal-footer">

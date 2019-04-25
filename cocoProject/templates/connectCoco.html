@@ -15,7 +15,7 @@
 {% endblock %}
 
 {% block body %}
-<form action="/connectCoco" onsubmit="progress()" method="post">
+<form action="/connectCoco" onsubmit="progress()" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <p>
         {{ form.name(class="form-control", placeholder="Personalized Name", size=32) }}
@@ -33,7 +33,7 @@
         </small><br>
     </p>
     <p>
-        {{ form.img(class="form-control") }}
+        {{ form.img(class="form-control-file") }}
         {% for error in form.img.errors %}
             <span style="color: red;">[{{ error }}]</span>
         {% endfor %}

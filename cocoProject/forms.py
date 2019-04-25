@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField,\
-SelectField, DecimalField, IntegerField, TextAreaField, DateField, FileField, RadioField, SelectMultipleField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField
 from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 from cocoProject.models import User, Coco
+from flask_wtf.file import FileField, FileAllowed
 from flask_babel import lazy_gettext as _l
 
 class LoginForm(FlaskForm):
@@ -29,7 +29,7 @@ class RegisterForm(FlaskForm):
 
 class AddCocoForm(FlaskForm):
     name = StringField(_l('Personalized Name'), validators=[DataRequired()])
-    img = FileField(_l('Image File'))
+    img = FileField(_l('Coco Profile Picture'), validators=[FileAllowed(['jpg', 'png'])])
     address = StringField(_l('Device Address'), validators=[DataRequired()])
     password = PasswordField(_l('Remote.it Password'), validators=[DataRequired()])
     submit = SubmitField(_l('Initialize Connection'))
@@ -52,3 +52,14 @@ class AddRoutineForm(FlaskForm):
     times = StringField(_l('Set Times'), validators=[DataRequired()])
     proxy = StringField('proxy', validators=[DataRequired()])
     submit = SubmitField(_l('Create Routine'))
+
+class EditCocoForm(FlaskForm):
+    name = StringField(_l('Personalized Name'))
+    img = FileField(_l('Change Coco Picture'), validators=[FileAllowed(['jpg', 'png'])])
+    submit = SubmitField(_l('Save'))
+
+class EditProfileForm(FlaskForm):
+    password = PasswordField(_l('Password'), validators=[DataRequired()])
+    password2 = PasswordField(_l('Repeat Password'), validators=[DataRequired(), EqualTo('password')])
+    devKey = StringField(_l('Developer Key ID'))
+    submit = SubmitField(_l('Make Changes'))

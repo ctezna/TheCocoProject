@@ -18,8 +18,17 @@ class User(UserMixin, db.Model):
 class Coco(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
-    img = db.Column(db.String(20), nullable=False, default='Logo_small.png')
+    img = db.Column(db.String(32), nullable=False, default='Logo_small.png')
     proxy = db.Column(db.String(256), nullable=True, unique=True)
     address = db.Column(db.String(256), nullable=False)
     light = db.Column(db.Boolean, nullable=False, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    routines = db.relationship('Routine', backref='coco', lazy='dynamic')
+
+
+class Routine(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    task = db.Column(db.String(20), nullable=False)
+    days = db.Column(db.String(7), nullable=False)
+    times = db.Column(db.String(20), nullable=False)
+    coco_id = db.Column(db.Integer, db.ForeignKey('coco.id'), nullable=False)

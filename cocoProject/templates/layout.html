@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.ico')}}"> 
+        <link rel="shortcut icon" href="{{url_for('static', filename='img/favicon.ico')}}" type="image/x-icon"> 
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,13 +41,13 @@
                 <img id="small" src="{{url_for('static', filename='img/Logo_big.png')}}" width="70" height="45" style="border-radius: 20%"class="d-inline-block align-top" alt="Logo">
             </a>
             <div class="navbar-nav">
-                <a id="small" class="nav-item nav-link" href="{{url_for('userProfile')}}">{{ _('Account') }}</a>
+                <a id="small" class="nav-item nav-link" href="{{ url_for('userProfile', username=current_user.username) }}">{{ _('Account') }}</a>
             </div>
 
             <div class="navbar-nav">
                 <div class="row">
                     <div class="col-md-6 col-sm-6"> 
-                    <a id="big" class="nav-item nav-link" href="{{url_for('userProfile')}}">{{ _('Account') }}</a>
+                    <a id="big" class="nav-item nav-link" href="{{ url_for('userProfile', username=current_user.username) }}">{{ _('Account') }}</a>
                     </div><div class="col-md-6 col-sm-6">
                     <a class="nav-item nav-link" href="{{url_for('logout')}}">{{ _('Log Out') }}</a>
                     </div>

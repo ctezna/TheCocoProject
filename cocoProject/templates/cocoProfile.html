@@ -15,7 +15,90 @@
 {% endblock %}
 
 {% block body %}
+    <form action="{{ url_for('cocoProfile', id=coco.id) }}" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div class="row">
+            <div class="col-md-6 col-sm-6">
+                <img src="{{url_for('static', filename='img/'+coco.img)}}" width="150" height="150" class="mr-2 ml-5" style="display: inline-block; border-radius: 50%;" alt="Avatar">
+            </div>
+            <div class="col-md-6 col-sm-6">
+                {{ form.img.label(class="form-control-label") }}
+                {{ form.img(class="form-control-file") }}
+                {% for error in form.img.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                <br>
+                {{ form.name(class="form-control", size=32) }}<br>
+                {{ form.submit(class="btn btn-primary") }}
+            </div> 
+            
+        </div>
+    </form><br>
+<div class="table-responsive">
+    <table id="routineTable" class="table table-sm table-striped table-bordered table-hover table-condensed">
+        <thead class="thead-dark">
+            <tr>
+                <th>Task</th>
+                <th>Days</th>
+                <th>Times</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for routine in routines %}
+                <tr>
+                    <td>{{ routine.task }}</td>
+                    <td>{{ routine.days }}</td>
+                    <td>{{ routine.times }}</td>
+                    <td>
+                            <button id="delete;{{routine.id}}" data-toggle="modal" data-id="{{routine.id}}" data-target="#modalDelete{{routine.id}}" class="open-DeleteModal btn btn-danger" style="float:right"><span data-feather="x" class="mr-1"></span><text id="big">{{_('Delete')}}</text></button>
+                    </td>
+                </tr>
+                <div class="modal fade" id="modalDelete{{routine.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Removing Routine.</h5>
+                        </div>
+                        <div class="modal-body" id="deleteBody">
+                            <p>Please confirm action, removing this Routine from your Coco is irreversible.
+                            </p>
+                            <label>Do you wish to remove Routine from list?</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" onclick="deleteRoutine('{{routine.id}}')" style="display:inline-block;"><span data-feather="check"></span>Yes</button>
+                            <button class="btn btn-success" data-dismiss="modal" style="display:inline-block;"><span data-feather="x"></span>No</button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
-{{ coco.name }}
-
+<script>
+    function deleteRoutine(id){
+        post('/deleteRoutine', {id:id}, 'post');
+    }
+</script>
+<script>
+    function post(path, params, method) {
+        method = method || "post"; // Set method to post by default if not specified.
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+        for(var key in params) {
+            if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
+            }
+        }
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 {% endblock %}

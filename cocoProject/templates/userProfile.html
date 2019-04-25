@@ -6,15 +6,70 @@
 
 {% block style%}
 <style>
-    @media only screen and (max-width: 1200px) {
-    /* #two{
-        display: none;
-    } */
+    @media only screen and (max-width: 780px) {
+    #user{
+        font-size: 25px;
+    }
 }
 </style>
 {% endblock %}
 
 {% block body %}
 
-
+<div class="jumbotron">
+    <h1 class="display-4"><strong>User: </strong><text id="user">{{user.username}}</text></h1>
+    <p class="lead">User settings. Use the following form to make changes in your password or Developer Key.</p>
+    <hr class="my-4">
+    <p>
+        <form action="{{ url_for('userProfile', username=current_user.username) }}" method="post">
+            {{ form.hidden_tag() }}
+            <p class="lead">Change Password</p>
+            <p>
+                {{ form.password(class="form-control", placeholder="Password", size=32) }}
+                {% for error in form.password.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+                <small id="passwordHelpInline" class="text-muted">
+                    Should be 8-20 characters.
+                </small><br>
+            </p>
+            <p>
+                {{ form.password2(class="form-control", placeholder="Repeat Password", size=32) }}
+                {% for error in form.password2.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>
+                <p class="lead">Change Developer Key</p>
+                {{ form.devKey(class="form-control", placeholder=user.dev_id, size=32) }}
+                {% for error in form.devKey.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <br>
+            <p>
+                {{ form.submit(class="btn btn-primary btn-lg") }}
+            </p>
+        </form>
+    </p>
+</div>
+<script>
+    function post(path, params, method) {
+        method = method || "post"; // Set method to post by default if not specified.
+        var form = document.createElement("form");
+        form.setAttribute("method", method);
+        form.setAttribute("action", path);
+        for(var key in params) {
+            if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
+            }
+        }
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
 {% endblock %}
