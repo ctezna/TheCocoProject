@@ -3,7 +3,6 @@ __pycache__
 cocoProject/__pycache__
 cocoProject/logs
 logs/
-migrations/
 babel.cfg
 .DS_Store
 cocoProject/.DS_Store
