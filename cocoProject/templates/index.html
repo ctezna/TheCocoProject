@@ -43,6 +43,7 @@
 
 
         <button id="stop;{{coco.id}}" style="display:none;" class="btn btn-danger" onclick="stopVid('{{coco.id}}')"><span data-feather="video-off"></span></button>
+        <button id="ring;{{coco.id}}" style="display:none;" class="btn btn-info" onclick="ring('{{coco.proxy}}','{{coco.id}}')"><span data-feather="bell"></span></button>
         <a href="{{url_for('refresh', id=coco.id)}}">
             <button id="refresh;{{coco.id}}" style="display:none;" class="btn btn-info"><span data-feather="refresh-cw"></span></button>
         </a>
@@ -128,6 +129,7 @@
         document.getElementById('play;'+id).style.display = 'none';
         document.getElementById('frame;'+id).style.display = 'inline';
         document.getElementById('stop;'+id).style.display = 'inline';
+        document.getElementById('ring;'+id).style.display = 'inline';
         document.getElementById('refresh;'+id).style.display = 'inline';
         document.getElementById('routine;'+id).style.display = 'none';
         document.getElementById('fullscreen;'+id).style.display = 'inline';
@@ -136,6 +138,7 @@
         document.getElementById('play;'+id).style.display = 'inline';
         document.getElementById('frame;'+id).style.display = 'none';
         document.getElementById('stop;'+id).style.display = 'none';
+        document.getElementById('ring;'+id).style.display = 'none';
         document.getElementById('refresh;'+id).style.display = 'none';
         document.getElementById('fullscreen;'+id).style.display = 'none';
         document.getElementById('routine;'+id).style.display = 'inline';
@@ -154,6 +157,10 @@
     }
     function deleteCoco(id){
         post('delete', {id:id}, 'post');
+    }
+    function ring(proxy, id){
+        console.log('ring');
+        httpGet(proxy+'/ring');
     }
 </script>
 <script>
@@ -224,6 +231,14 @@
         document.body.appendChild(form);
         form.submit();
     }
+</script>
+<script>
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+}
 </script>
 
 {% endblock %}
