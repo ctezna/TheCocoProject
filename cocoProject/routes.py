@@ -81,14 +81,14 @@ def deleteRoutine():
 def refresh(id):
     form = AddCocoForm()
     coco = Coco.query.filter_by(id=id).first_or_404()
-    if request.method == 'POST':
+    if form.validate_on_submit():
         proxy = remoteit_api.connect(current_user.dev_id, current_user.username, form.password.data, form.address.data)
         if proxy == 800:
             flash(_('Error Establishing Connection. Please check credentials and try again.'),'danger')
-            return redirect(url_for('refresh',id=id))
+            return redirect(url_for('index'))
         elif proxy == 801:
             flash(_('Timeout Error. Please try again.'),'danger')
-            return redirect(url_for('refresh',id=id))
+            return redirect(url_for('index'))
         coco.proxy = proxy
         db.session.commit()
         flash(_('New Coco proxy url generated!'),'success')
@@ -99,6 +99,11 @@ def refresh(id):
         form.img.data = coco.img
         flash(_('Please enter password to refresh connection.'),'info')
         return render_template("refresh.html", form=form, coco=coco)
+
+# @app.route('/proxyGen/<id>', methods=['GET', 'POST'])
+# @login_required
+# def proxyGen(id):
+
 
 def save_img(img_data):
     random_hex = secrets.token_hex(8)

@@ -7,3 +7,4 @@ babel.cfg
 .DS_Store
 cocoProject/.DS_Store
 cocoProject/static/.DS_Store
+cocoProject/static/img/cocoPics/
