@@ -59,7 +59,11 @@ def index():
 def delete():
     id = request.form['id']
     coco = Coco.query.filter_by(id=id).first_or_404()
+    routines = Routine.query.filter_by(coco_id=id).all()
     msg = Markup('<strong>{}</strong> Erased.'.format(coco.name))
+    for r in routines:
+        db.session.delete(r)
+        db.session.commit()
     db.session.delete(coco)
     db.session.commit()
     flash(_(msg),'warning')
@@ -81,24 +85,9 @@ def deleteRoutine():
 def refresh(id):
     form = AddCocoForm()
     coco = Coco.query.filter_by(id=id).first_or_404()
-    if form.validate_on_submit():
-        proxy = remoteit_api.connect(current_user.dev_id, current_user.username, form.password.data, form.address.data)
-        if proxy == 800:
-            flash(_('Error Establishing Connection. Please check credentials and try again.'),'danger')
-            return redirect(url_for('index'))
-        elif proxy == 801:
-            flash(_('Timeout Error. Please try again.'),'danger')
-            return redirect(url_for('index'))
-        coco.proxy = proxy
-        db.session.commit()
-        flash(_('New Coco proxy url generated!'),'success')
-        return redirect(url_for('index'))
-    else:
-        form.name.data = coco.name
-        form.address.data = coco.address
-        form.img.data = coco.img
-        flash(_('Please enter password to refresh connection.'),'info')
-        return render_template("refresh.html", form=form, coco=coco)
+    response = requests.get(coco.proxy+'/reboot')
+    flash(_('Please wait for Coco to reboot and start up.'), 'info')
+    return redirect(url_for('index'))
 
 # @app.route('/proxyGen/<id>', methods=['GET', 'POST'])
 # @login_required
