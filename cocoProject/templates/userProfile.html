@@ -18,7 +18,7 @@
 
 <div class="jumbotron">
     <h1 class="display-4"><strong>User: </strong><text id="user">{{user.username}}</text></h1>
-    <p class="lead">User settings. Use the following form to make changes in your password or Developer Key.</p>
+    <p class="lead">User settings. Use the following form to make changes to your password or Developer Key.</p>
     <hr class="my-4">
     <p>
         <form action="{{ url_for('userProfile', username=current_user.username) }}" method="post">
