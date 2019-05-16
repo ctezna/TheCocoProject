@@ -38,7 +38,7 @@
                             <label for="inputUser" class="sr-only">{{ _('Username') }}</label>
                             {{ form.hidden_tag() }}
                             <p>
-                                {{ form.username(class="form-control", placeholder="Username", size=32) }}
+                                {{ form.username(class="form-control", placeholder=_("Username"), size=32) }}
                                 {% for error in form.username.errors %}
                                     <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
@@ -48,7 +48,7 @@
                             </p>
                             <label for="inputPassword" class="sr-only">{{ _('Password') }}</label>
                             <p>
-                                {{ form.password(class="form-control", placeholder="Password", size=32) }}
+                                {{ form.password(class="form-control", placeholder=_("Password"), size=32) }}
                                 {% for error in form.password.errors %}
                                     <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
@@ -57,13 +57,13 @@
                                 </small><br>
                             </p>
                             <p>
-                                {{ form.password2(class="form-control", placeholder="Repeat Password", size=32) }}
+                                {{ form.password2(class="form-control", placeholder=_("Repeat Password"), size=32) }}
                                 {% for error in form.password2.errors %}
                                     <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </p>
                             <p>
-                                {{ form.devKey(class="form-control", placeholder="Developer Key ID", size=32) }}
+                                {{ form.devKey(class="form-control", placeholder=_("Developer Key ID"), size=32) }}
                                 {% for error in form.devKey.errors %}
                                     <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
@@ -71,7 +71,7 @@
                                     {{ _('Found under Settings>My Account>Developer API at Remote.it Console.') }}
                                 </small><br>
                             </p>
-                                <small class="text-muted">Already have an account? <a href="{{url_for('signin')}}">Sign In</a>
+                                <small class="text-muted">{{_('Already have an account?')}} <a href="{{url_for('signin')}}">{{_('Sign In')}}</a>
                                 </small><br>
                             <br><p>{{ form.submit(class="btn btn-lg btn-primary btn-block") }}</p>
                         </form>

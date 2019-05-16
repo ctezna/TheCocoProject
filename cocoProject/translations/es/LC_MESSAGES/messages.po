@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-05-16 11:01-0500\n"
+"POT-Creation-Date: 2019-05-16 11:35-0500\n"
 "PO-Revision-Date: 2019-05-16 11:05-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -20,11 +20,14 @@ msgstr ""
 
 #: cocoProject/forms.py:9 cocoProject/forms.py:15
 #: cocoProject/templates/register.html:38
+#: cocoProject/templates/register.html:41 cocoProject/templates/signin.html:43
 msgid "Username"
 msgstr "Usuario"
 
 #: cocoProject/forms.py:10 cocoProject/forms.py:16 cocoProject/forms.py:62
 #: cocoProject/templates/register.html:49
+#: cocoProject/templates/register.html:51 cocoProject/templates/signin.html:49
+#: cocoProject/templates/userProfile.html:28
 msgid "Password"
 msgstr "Contraseña"
 
@@ -37,10 +40,13 @@ msgid "Log In"
 msgstr "Iniciar Sessión"
 
 #: cocoProject/forms.py:17 cocoProject/forms.py:63
+#: cocoProject/templates/register.html:60
+#: cocoProject/templates/userProfile.html:37
 msgid "Repeat Password"
 msgstr "Repite Contraseña"
 
 #: cocoProject/forms.py:18 cocoProject/forms.py:64
+#: cocoProject/templates/register.html:66
 msgid "Developer Key ID"
 msgstr "Clave de Desarrollador"
 
@@ -57,6 +63,7 @@ msgid "Please select a password with correct length."
 msgstr "Por favor seleccione una contraseña de longitud adecuada."
 
 #: cocoProject/forms.py:31 cocoProject/forms.py:57
+#: cocoProject/templates/connectCoco.html:21
 msgid "Personalized Name"
 msgstr "Nombre Personalizado"
 
@@ -64,11 +71,11 @@ msgstr "Nombre Personalizado"
 msgid "Coco Profile Picture"
 msgstr "Foto Perfil Coco"
 
-#: cocoProject/forms.py:33
+#: cocoProject/forms.py:33 cocoProject/templates/connectCoco.html:27
 msgid "Device Address"
 msgstr "Dirección Fisicó Dispositivo"
 
-#: cocoProject/forms.py:34
+#: cocoProject/forms.py:34 cocoProject/templates/connectCoco.html:42
 msgid "Remote.it Password"
 msgstr "Contraseña Remote.it"
 
@@ -114,7 +121,9 @@ msgstr "Por favor espere para que Coco se rebute y arranque de nuevo."
 
 #: cocoProject/routes.py:124
 msgid "Error Establishing Connection. Please check credentials and try again."
-msgstr "Error Establesiendo Conneción. Por favor verifique datos y ensaye de nuevo."
+msgstr ""
+"Error Establesiendo Conneción. Por favor verifique datos y ensaye de "
+"nuevo."
 
 #: cocoProject/routes.py:127
 msgid "Timeout Error. Please try again."
@@ -145,9 +154,41 @@ msgstr "Bienvenido %(username)s"
 msgid "Registration Successful!"
 msgstr "¡Registración Exitoso!"
 
+#: cocoProject/templates/cocoProfile.html:41
+msgid "Task"
+msgstr "Tarea"
+
+#: cocoProject/templates/cocoProfile.html:42
+msgid "Days"
+msgstr "Días"
+
+#: cocoProject/templates/cocoProfile.html:43
+msgid "Times"
+msgstr "Tiempos"
+
+#: cocoProject/templates/cocoProfile.html:44
 #: cocoProject/templates/cocoProfile.html:54
 msgid "Delete"
 msgstr "Eliminar"
+
+#: cocoProject/templates/cocoProfile.html:61
+msgid "Removing Routine."
+msgstr "Eliminando Rutina."
+
+#: cocoProject/templates/cocoProfile.html:64
+msgid ""
+"Please confirm action, removing this Routine from your Coco is "
+"irreversible."
+msgstr "Por favor confirme acción, eliminando esta Rutina de tu Coco es irreversible."
+
+#: cocoProject/templates/cocoProfile.html:66
+msgid "Do you wish to remove Routine from list?"
+msgstr "¿Deseas eliminar esta Rutina de tu lista?"
+
+#: cocoProject/templates/cocoProfile.html:69
+#: cocoProject/templates/index.html:71
+msgid "Yes"
+msgstr "Si"
 
 #: cocoProject/templates/connectCoco.html:32
 msgid "Found on Remote.it Console under View Devices>HTTP>Address."
@@ -181,13 +222,43 @@ msgstr "Alimentar Coco"
 msgid "Delete Coco"
 msgstr "Eliminar Coco"
 
+#: cocoProject/templates/index.html:63
+msgid "Removing Coco."
+msgstr "Eliminando Coco."
+
+#: cocoProject/templates/index.html:66
+msgid "Please confirm action, removing Coco is irreversible."
+msgstr "Por favor confirme acción, eliminar Coco es irreversible."
+
+#: cocoProject/templates/index.html:68
+msgid "Do you wish to remove Coco from list?"
+msgstr "¿Deseas eliminar este Coco de tu lista?"
+
+#: cocoProject/templates/index.html:82
+msgid "Add New Routine"
+msgstr "Agregar Nueva Rutina."
+
+#: cocoProject/templates/index.html:93
+msgid "Light turns off after 1 hour."
+msgstr "Luces se apagan despues de 1 hora."
+
+#: cocoProject/templates/index.html:109
+msgid ""
+"Please use 24 hour clock with intervals of 15 minutes. Separate times "
+"with commas."
+msgstr "Por favor use reloj de 24 horas con intervalos de 15 minutos. Separe tiempos usando commas."
+
 #: cocoProject/templates/layout.html:44 cocoProject/templates/layout.html:50
 msgid "Account"
 msgstr "Cuenta"
 
 #: cocoProject/templates/layout.html:52
 msgid "Log Out"
-msgstr "Cerrar Sessión"
+msgstr "Salir"
+
+#: cocoProject/templates/layout.html:92
+msgid "You and your pet are one."
+msgstr "Usted y su animal son uno."
 
 #: cocoProject/templates/register.html:36
 msgid "Create New User"
@@ -198,10 +269,39 @@ msgid "Use same username/email from Remote.it account."
 msgstr "Use el mismo usuario/correo electronico de su cuenta Remote.it."
 
 #: cocoProject/templates/register.html:56
+#: cocoProject/templates/userProfile.html:33
 msgid "Should be 8-20 characters."
 msgstr "Debe ser de 8-20 caracteres."
 
 #: cocoProject/templates/register.html:71
 msgid "Found under Settings>My Account>Developer API at Remote.it Console."
-msgstr "Encontrado debajo Settings>My Account>Developer API en la Consola de Remote.it."
+msgstr ""
+"Encontrado debajo Settings>My Account>Developer API en la Consola de "
+"Remote.it."
+
+#: cocoProject/templates/register.html:74
+msgid "Already have an account?"
+msgstr "Ya tienes una cuenta?"
+
+#: cocoProject/templates/register.html:74
+msgid "Sign In"
+msgstr "Iniciar Sessión"
+
+#: cocoProject/templates/userProfile.html:20
+msgid "User"
+msgstr "Usuario"
+
+#: cocoProject/templates/userProfile.html:21
+msgid ""
+"User settings. Use the following form to make changes to your password or"
+" Developer Key."
+msgstr "Configuraciones de usuario. Use el siguiente formulario para realizar cambios a tu contraseña or Clave de Desarrollador."
+
+#: cocoProject/templates/userProfile.html:26
+msgid "Change Password"
+msgstr "Cambiar Contraseña"
+
+#: cocoProject/templates/userProfile.html:43
+msgid "Change Developer Key"
+msgstr "Cambiar Clave de Desarrollador"
 

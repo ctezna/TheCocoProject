@@ -17,30 +17,30 @@
 {% block body %}
 
 <div class="jumbotron">
-    <h1 class="display-4"><strong>User: </strong><text id="user">{{user.username}}</text></h1>
-    <p class="lead">User settings. Use the following form to make changes to your password or Developer Key.</p>
+    <h1 class="display-4"><strong>{{_('User')}}: </strong><text id="user">{{user.username}}</text></h1>
+    <p class="lead">{{_('User settings. Use the following form to make changes to your password or Developer Key.')}}</p>
     <hr class="my-4">
     <p>
         <form action="{{ url_for('userProfile', username=current_user.username) }}" method="post">
             {{ form.hidden_tag() }}
-            <p class="lead">Change Password</p>
+            <p class="lead">{{_('Change Password')}}</p>
             <p>
-                {{ form.password(class="form-control", placeholder="Password", size=32) }}
+                {{ form.password(class="form-control", placeholder=_("Password"), size=32) }}
                 {% for error in form.password.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
                 <small id="passwordHelpInline" class="text-muted">
-                    Should be 8-20 characters.
+                    {{_('Should be 8-20 characters.')}}
                 </small><br>
             </p>
             <p>
-                {{ form.password2(class="form-control", placeholder="Repeat Password", size=32) }}
+                {{ form.password2(class="form-control", placeholder=_("Repeat Password"), size=32) }}
                 {% for error in form.password2.errors %}
                     <span style="color: red;">[{{ error }}]</span>
                 {% endfor %}
             </p>
             <p>
-                <p class="lead">Change Developer Key</p>
+                <p class="lead">{{_('Change Developer Key')}}</p>
                 {{ form.devKey(class="form-control", placeholder=user.dev_id, size=32) }}
                 {% for error in form.devKey.errors %}
                     <span style="color: red;">[{{ error }}]</span>

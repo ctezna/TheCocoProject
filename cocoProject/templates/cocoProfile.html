@@ -38,10 +38,10 @@
     <table id="routineTable" class="table table-sm table-striped table-bordered table-hover table-condensed">
         <thead class="thead-dark">
             <tr>
-                <th>Task</th>
-                <th>Days</th>
-                <th>Times</th>
-                <th>Delete</th>
+                <th>{{_('Task')}}</th>
+                <th>{{_('Days')}}</th>
+                <th>{{_('Times')}}</th>
+                <th>{{_('Delete')}}</th>
             </tr>
         </thead>
         <tbody>
@@ -58,15 +58,15 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Removing Routine.</h5>
+                            <h5 class="modal-title" id="exampleModalCenterTitle">{{_('Removing Routine.')}}</h5>
                         </div>
                         <div class="modal-body" id="deleteBody">
-                            <p>Please confirm action, removing this Routine from your Coco is irreversible.
+                            <p>{{_('Please confirm action, removing this Routine from your Coco is irreversible.')}}
                             </p>
-                            <label>Do you wish to remove Routine from list?</label>
+                            <label>{{_('Do you wish to remove Routine from list?')}}</label>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-danger" onclick="deleteRoutine('{{routine.id}}')" style="display:inline-block;"><span data-feather="check"></span>Yes</button>
+                            <button class="btn btn-danger" onclick="deleteRoutine('{{routine.id}}')" style="display:inline-block;"><span data-feather="check"></span>{{_('Yes')}}</button>
                             <button class="btn btn-success" data-dismiss="modal" style="display:inline-block;"><span data-feather="x"></span>No</button>
                         </div>
                         </div>

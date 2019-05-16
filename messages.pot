@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-05-16 11:01-0500\n"
+"POT-Creation-Date: 2019-05-16 11:35-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,11 +19,14 @@ msgstr ""
 
 #: cocoProject/forms.py:9 cocoProject/forms.py:15
 #: cocoProject/templates/register.html:38
+#: cocoProject/templates/register.html:41 cocoProject/templates/signin.html:43
 msgid "Username"
 msgstr ""
 
 #: cocoProject/forms.py:10 cocoProject/forms.py:16 cocoProject/forms.py:62
 #: cocoProject/templates/register.html:49
+#: cocoProject/templates/register.html:51 cocoProject/templates/signin.html:49
+#: cocoProject/templates/userProfile.html:28
 msgid "Password"
 msgstr ""
 
@@ -36,10 +39,13 @@ msgid "Log In"
 msgstr ""
 
 #: cocoProject/forms.py:17 cocoProject/forms.py:63
+#: cocoProject/templates/register.html:60
+#: cocoProject/templates/userProfile.html:37
 msgid "Repeat Password"
 msgstr ""
 
 #: cocoProject/forms.py:18 cocoProject/forms.py:64
+#: cocoProject/templates/register.html:66
 msgid "Developer Key ID"
 msgstr ""
 
@@ -56,6 +62,7 @@ msgid "Please select a password with correct length."
 msgstr ""
 
 #: cocoProject/forms.py:31 cocoProject/forms.py:57
+#: cocoProject/templates/connectCoco.html:21
 msgid "Personalized Name"
 msgstr ""
 
@@ -63,11 +70,11 @@ msgstr ""
 msgid "Coco Profile Picture"
 msgstr ""
 
-#: cocoProject/forms.py:33
+#: cocoProject/forms.py:33 cocoProject/templates/connectCoco.html:27
 msgid "Device Address"
 msgstr ""
 
-#: cocoProject/forms.py:34
+#: cocoProject/forms.py:34 cocoProject/templates/connectCoco.html:42
 msgid "Remote.it Password"
 msgstr ""
 
@@ -144,8 +151,40 @@ msgstr ""
 msgid "Registration Successful!"
 msgstr ""
 
+#: cocoProject/templates/cocoProfile.html:41
+msgid "Task"
+msgstr ""
+
+#: cocoProject/templates/cocoProfile.html:42
+msgid "Days"
+msgstr ""
+
+#: cocoProject/templates/cocoProfile.html:43
+msgid "Times"
+msgstr ""
+
+#: cocoProject/templates/cocoProfile.html:44
 #: cocoProject/templates/cocoProfile.html:54
 msgid "Delete"
+msgstr ""
+
+#: cocoProject/templates/cocoProfile.html:61
+msgid "Removing Routine."
+msgstr ""
+
+#: cocoProject/templates/cocoProfile.html:64
+msgid ""
+"Please confirm action, removing this Routine from your Coco is "
+"irreversible."
+msgstr ""
+
+#: cocoProject/templates/cocoProfile.html:66
+msgid "Do you wish to remove Routine from list?"
+msgstr ""
+
+#: cocoProject/templates/cocoProfile.html:69
+#: cocoProject/templates/index.html:71
+msgid "Yes"
 msgstr ""
 
 #: cocoProject/templates/connectCoco.html:32
@@ -180,12 +219,42 @@ msgstr ""
 msgid "Delete Coco"
 msgstr ""
 
+#: cocoProject/templates/index.html:63
+msgid "Removing Coco."
+msgstr ""
+
+#: cocoProject/templates/index.html:66
+msgid "Please confirm action, removing Coco is irreversible."
+msgstr ""
+
+#: cocoProject/templates/index.html:68
+msgid "Do you wish to remove Coco from list?"
+msgstr ""
+
+#: cocoProject/templates/index.html:82
+msgid "Add New Routine"
+msgstr ""
+
+#: cocoProject/templates/index.html:93
+msgid "Light turns off after 1 hour."
+msgstr ""
+
+#: cocoProject/templates/index.html:109
+msgid ""
+"Please use 24 hour clock with intervals of 15 minutes. Separate times "
+"with commas."
+msgstr ""
+
 #: cocoProject/templates/layout.html:44 cocoProject/templates/layout.html:50
 msgid "Account"
 msgstr ""
 
 #: cocoProject/templates/layout.html:52
 msgid "Log Out"
+msgstr ""
+
+#: cocoProject/templates/layout.html:92
+msgid "You and your pet are one."
 msgstr ""
 
 #: cocoProject/templates/register.html:36
@@ -197,10 +266,37 @@ msgid "Use same username/email from Remote.it account."
 msgstr ""
 
 #: cocoProject/templates/register.html:56
+#: cocoProject/templates/userProfile.html:33
 msgid "Should be 8-20 characters."
 msgstr ""
 
 #: cocoProject/templates/register.html:71
 msgid "Found under Settings>My Account>Developer API at Remote.it Console."
+msgstr ""
+
+#: cocoProject/templates/register.html:74
+msgid "Already have an account?"
+msgstr ""
+
+#: cocoProject/templates/register.html:74
+msgid "Sign In"
+msgstr ""
+
+#: cocoProject/templates/userProfile.html:20
+msgid "User"
+msgstr ""
+
+#: cocoProject/templates/userProfile.html:21
+msgid ""
+"User settings. Use the following form to make changes to your password or"
+" Developer Key."
+msgstr ""
+
+#: cocoProject/templates/userProfile.html:26
+msgid "Change Password"
+msgstr ""
+
+#: cocoProject/templates/userProfile.html:43
+msgid "Change Developer Key"
 msgstr ""
 

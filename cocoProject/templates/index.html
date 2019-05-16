@@ -60,15 +60,15 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Removing Coco.</h5>
+            <h5 class="modal-title" id="exampleModalCenterTitle">{{_('Removing Coco.')}}</h5>
         </div>
         <div class="modal-body" id="deleteBody">
-            <p>Please confirm action, removing Coco is irreversible.
+            <p>{{_('Please confirm action, removing Coco is irreversible.')}}
             </p>
-            <label>Do you wish to remove Coco from list?</label>
+            <label>{{_('Do you wish to remove Coco from list?')}}</label>
         </div>
         <div class="modal-footer">
-            <button class="btn btn-danger" onclick="deleteCoco('{{coco.id}}')" style="display:inline-block;"><span data-feather="check"></span>Yes</button>
+            <button class="btn btn-danger" onclick="deleteCoco('{{coco.id}}')" style="display:inline-block;"><span data-feather="check"></span>{{_('Yes')}}</button>
             <button class="btn btn-success" data-dismiss="modal" style="display:inline-block;"><span data-feather="x"></span>No</button>
         </div>
         </div>
@@ -79,7 +79,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalCenterTitle">Add New Routine</h5>
+            <h5 class="modal-title" id="exampleModalCenterTitle">{{_('Add New Routine')}}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -90,7 +90,7 @@
                 <p>
                     {{ form.task.label }} {{ form.task() }}
                     <small class="text-muted">
-                        Light turns off after 1 hour.
+                        {{_('Light turns off after 1 hour.')}}
                     </small><br>
                 </p>
                 <p>{{ form.days.label }}</p>
@@ -106,7 +106,7 @@
 
                     {{ form.proxy(style="display:none;")}}
                 <small class="text-muted">
-                    Please use 24 hour clock with intervals of 15 minutes. Separate times with commas.
+                    {{_('Please use 24 hour clock with intervals of 15 minutes. Separate times with commas.')}}
                 </small><br>
         </div>
         <div class="modal-footer">

@@ -18,13 +18,13 @@
 <form action="/connectCoco" onsubmit="progress()" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <p>
-        {{ form.name(class="form-control", placeholder="Personalized Name", size=32) }}
+        {{ form.name(class="form-control", placeholder=_("Personalized Name"), size=32) }}
         {% for error in form.name.errors %}
             <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </p>
     <p>
-        {{ form.address(class="form-control", placeholder="Device Address", size=32) }}
+        {{ form.address(class="form-control", placeholder=_("Device Address"), size=32) }}
         {% for error in form.address.errors %}
             <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -39,7 +39,7 @@
         {% endfor %}
     </p>
     <p>
-        {{ form.password(class="form-control", placeholder="Remote.it Password", size=32) }}
+        {{ form.password(class="form-control", placeholder=_("Remote.it Password"), size=32) }}
         {% for error in form.password.errors %}
             <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
