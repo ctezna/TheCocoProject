@@ -85,9 +85,15 @@ def deleteRoutine():
 def refresh(id):
     form = AddCocoForm()
     coco = Coco.query.filter_by(id=id).first_or_404()
+    routines = Routine.query.filter_by(coco_id=id).all()
     response = requests.get(coco.proxy+'/reboot')
     flash(_('Please wait for Coco to reboot and start up.'), 'info')
-    return redirect(url_for('index'))
+    for r in routines:
+        db.session.delete(r)
+        db.session.commit()
+    db.session.delete(coco)
+    db.session.commit()
+    return redirect(url_for('connectCoco'))
 
 # @app.route('/proxyGen/<id>', methods=['GET', 'POST'])
 # @login_required
