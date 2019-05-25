@@ -87,7 +87,8 @@ def refresh(id):
     coco = Coco.query.filter_by(id=id).first_or_404()
     routines = Routine.query.filter_by(coco_id=id).all()
     response = requests.get(coco.proxy+'/reboot')
-    flash(_('Please wait for Coco to reboot and start up.'), 'info')
+    msg = Markup('Coco Restarting. Please wait for <strong>light to turn on.</strong>')
+    flash(_(msg), 'info')
     for r in routines:
         db.session.delete(r)
         db.session.commit()
