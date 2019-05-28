@@ -166,7 +166,7 @@
         proxy = proxy + '/feed';
         httpGet(proxy);
         document.getElementById('cat').className = "alert alert-info alert-dismissible fade show";
-        document.getElementById('flash').innerText = "Feeding " + name + " ...";
+        document.getElementById('flash').innerHTML = "Feeding " + name + " ...";
         //post('index', {data:proxy, id:id},'post');
     }
     function lightOn(proxy,id){
