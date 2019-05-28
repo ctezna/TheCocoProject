@@ -37,8 +37,8 @@
 </a>
 {% for coco in cocos %}
 <div id="cat;{{coco.id}}" class="alert alert-info alert-dismissible fade show" role="alert" style="display:hidden;">
-    <strong><p id="flash;{{coco.id}}">Feeding {{ coco.name }} ...</p></strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <strong><p id="flash;{{coco.id}}" style="display:hidden;">Feeding {{ coco.name }} ...</p></strong>
+    <button type="button" id="flash;{{coco.id}}" class="close" data-dismiss="alert" aria-label="Close" style="display:hidden;">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
