@@ -64,13 +64,13 @@
         <button id="stop;{{coco.id}}" style="display:none;" class="btn btn-danger" onclick="stopVid('{{coco.id}}')"><span data-feather="video-off"></span></button>
         <button id="ring;{{coco.id}}" style="display:none;" class="btn btn-secondary" onclick="ring('{{coco.proxy}}','{{coco.id}}')" disabled><span data-feather="bell"></span></button>
         <a href="{{url_for('refresh', id=coco.id)}}">
-            <button id="refresh;{{coco.id}}" style="display:none;" class="btn btn-info"><span data-feather="refresh-cw"></span></button>
+            <button id="refresh;{{coco.id}}" class="btn btn-info"><span data-feather="refresh-cw"></span></button>
         </a>
     </div>
     <div class="card-footer text-center" id="container">
         <button id="fullscreen;{{coco.id}}" onclick="fullscreen()" class="btn btn-success" style="display:none;"><span data-feather="maximize-2" class="mr-1"></span><text id="big">{{ _('Fullscreen')}}</text></button>
         <button id="routine;{{coco.id}}" data-toggle="modal" data-id="{{coco.proxy}}" data-target="#modalForm" class="open-AddRoutine btn btn-success"><span data-feather="plus-circle" class="mr-1"></span><text id="big">{{ _('Add Routine')}}</text></button>
-        <button onclick="feedCoco('{{coco.proxy}}', '{{coco.id}}')" class="btn btn-success" style="float:left"><span data-feather="smile" class="mr-1"></span><text id="big">{{_('Feed Coco')}}</text></button>
+        <button onclick="feedCoco('{{coco.proxy}}', '{{coco.id}}', '{{coco.name}}')" class="btn btn-success" style="float:left"><span data-feather="smile" class="mr-1"></span><text id="big">{{_('Feed Coco')}}</text></button>
         <button id="delete;{{coco.id}}" data-toggle="modal" data-id="{{coco.id}}" data-target="#modalDelete{{coco.id}}" class="open-DeleteModal btn btn-danger" style="float:right"><span data-feather="x" class="mr-1"></span><text id="big">{{_('Delete Coco')}}</text></button>
     </div>
 </div>
@@ -149,7 +149,7 @@
         document.getElementById('frame;'+id).style.display = 'inline';
         document.getElementById('stop;'+id).style.display = 'inline';
         document.getElementById('ring;'+id).style.display = 'inline';
-        document.getElementById('refresh;'+id).style.display = 'inline';
+        //document.getElementById('refresh;'+id).style.display = 'inline';
         document.getElementById('routine;'+id).style.display = 'none';
         document.getElementById('fullscreen;'+id).style.display = 'inline';
     }
@@ -158,13 +158,16 @@
         document.getElementById('frame;'+id).style.display = 'none';
         document.getElementById('stop;'+id).style.display = 'none';
         document.getElementById('ring;'+id).style.display = 'none';
-        document.getElementById('refresh;'+id).style.display = 'none';
+        //document.getElementById('refresh;'+id).style.display = 'none';
         document.getElementById('fullscreen;'+id).style.display = 'none';
         document.getElementById('routine;'+id).style.display = 'inline';
     }
-    function feedCoco(proxy,id){
+    function feedCoco(proxy,id,name){
         proxy = proxy + '/feed';
-        post('index', {data:proxy, id:id},'post');
+        httpGet(proxy);
+        document.getElementById('cat').className = "alert alert-info alert-dismissible fade show";
+        document.getElementById('flash').innerText = "Feeding " + name + " ...";
+        //post('index', {data:proxy, id:id},'post');
     }
     function lightOn(proxy,id){
         proxy = proxy + '/lightOn';
