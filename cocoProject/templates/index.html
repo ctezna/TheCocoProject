@@ -43,7 +43,7 @@
 
 
         <button id="stop;{{coco.id}}" style="display:none;" class="btn btn-danger" onclick="stopVid('{{coco.id}}')"><span data-feather="video-off"></span></button>
-        <button id="ring;{{coco.id}}" style="display:none;" class="btn btn-info" onclick="ring('{{coco.proxy}}','{{coco.id}}')"><span data-feather="bell"></span></button>
+        <button id="ring;{{coco.id}}" style="display:none;" class="btn btn-secondary" onclick="ring('{{coco.proxy}}','{{coco.id}}')" disabled><span data-feather="bell"></span></button>
         <a href="{{url_for('refresh', id=coco.id)}}">
             <button id="refresh;{{coco.id}}" style="display:none;" class="btn btn-info"><span data-feather="refresh-cw"></span></button>
         </a>
