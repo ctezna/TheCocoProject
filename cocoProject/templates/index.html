@@ -6,7 +6,7 @@
 
 {% block style%}
 <style>
-   .iframe-container {
+   /* .iframe-container {
   overflow: scroll;
   padding-top: 56.25%;
   position: relative;
@@ -22,9 +22,9 @@
 }
  
 /* 4x3 Aspect Ratio */
-.iframe-container-4x3 {
+/* .iframe-container-4x3 {
   padding-top: 75%;
-}
+} */ */
 </style>
 {% endblock %}
 
@@ -64,7 +64,7 @@
         <button id="stop;{{coco.id}}" style="display:none;" class="btn btn-danger" onclick="stopVid('{{coco.id}}')"><span data-feather="video-off"></span></button>
         <button id="ring;{{coco.id}}" style="display:none;" class="btn btn-secondary" onclick="ring('{{coco.proxy}}','{{coco.id}}')" disabled><span data-feather="bell"></span></button>
         <a href="{{url_for('refresh', id=coco.id)}}">
-            <button id="refresh;{{coco.id}}" class="btn btn-info"><span data-feather="refresh-cw"></span></button>
+            <button id="refresh;{{coco.id}}" class="btn btn-info"><span data-feather="power"></span></button>
         </a>
     </div>
     <div class="card-footer text-center" id="container">
