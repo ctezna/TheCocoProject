@@ -52,7 +52,7 @@
             </button>
         {% endif %}
         <a href="{{url_for('refresh', id=coco.id)}}">
-                <button id="refresh;{{coco.id}}" class="btn btn-info btn-sm ml-3" style="display: inline-block;"><span data-feather="power"></span></button>
+                <button id="refresh;{{coco.id}}" class="btn btn-info btn-sm ml-3" style="display: inline-block;" data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco."><span data-feather="power"></span></button>
         </a>
     </div>
     <div class="card-body text-center">
