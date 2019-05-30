@@ -54,6 +54,7 @@
                     <a id="big" class="nav-item nav-link" href="{{ url_for('userProfile', username=current_user.username) }}">{{ _('Account') }}</a>
                     </div><div class="col-md-6 col-sm-6">
                     <span id="small" data-feather="log-out" class="mr-1"></span>
+                    <a id="small" class="nav-item nav-link" href="{{url_for('logout')}}"></a>
                     <a id="big" class="nav-item nav-link" href="{{url_for('logout')}}">{{ _('Log Out') }}</a>
                     </div>
                 </div>
