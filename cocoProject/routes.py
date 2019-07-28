@@ -134,7 +134,6 @@ def connectCoco():
         elif proxy == 801:
             flash(_('Timeout Error. Please try again.'),'danger')
             return redirect(url_for('connectCoco'))
-        print("Expiration:", expiration)
         coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id)
         db.session.add(coco)
         db.session.commit()
