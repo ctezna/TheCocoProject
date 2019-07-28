@@ -2,7 +2,7 @@ import requests
 import json
 import os
 
-def connect(key,username,password,address):
+def login(key,username,password):
     # need to change to env variables
     headers = {
         "developerkey": key
@@ -17,12 +17,13 @@ def connect(key,username,password,address):
     response_body = response.json()
     
     try:
-        token = response_body['token']
+        return token = response_body['token']
         pass
     except KeyError as ke:
         return(800)
         pass
 
+def connect(key, token, address):
     headers = {
         "developerkey": key,
         # Created using the login API
