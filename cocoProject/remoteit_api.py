@@ -17,7 +17,7 @@ def login(key,username,password):
     response_body = response.json()
     
     try:
-        return token = response_body['token']
+        return(response_body['token'])
         pass
     except KeyError as ke:
         return(800)
