@@ -127,7 +127,6 @@ def connectCoco():
         password = form.password.data
         user_id = current_user.id
         proxy = remoteit_api.connect(current_user.dev_id, current_user.username, password, address)
-        proxy = remoteit_api.connect(current_user.dev_id, current_user.username, password, address)
         if proxy == 800:
             flash(_('Error Establishing Connection. Please check credentials and try again.'),'danger')
             return redirect(url_for('connectCoco'))
