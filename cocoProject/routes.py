@@ -131,6 +131,7 @@ def connectCoco():
             flash(_('Error Establishing Connection. Please check credentials and try again.'),'danger')
             return redirect(url_for('connectCoco'))
         elif proxy == 801:
+            proxy = remoteit_api.connect(current_user.dev_id, current_user.username, password, address)
             flash(_('Timeout Error. Please try again.'),'danger')
             return redirect(url_for('connectCoco'))
         coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id)
