@@ -127,13 +127,14 @@ def connectCoco():
         password = form.password.data
         user_id = current_user.id
         token = remoteit_api.login(current_user.dev_id, current_user.username, password)
-        proxy = remoteit_api.connect(current_user.dev_id, token, address)
+        expiration, proxy = remoteit_api.connect(current_user.dev_id, token, address)
         if token == 800:
             flash(_('Error Establishing Connection. Please check credentials and try again.'),'danger')
             return redirect(url_for('connectCoco'))
         elif proxy == 801:
             flash(_('Timeout Error. Please try again.'),'danger')
             return redirect(url_for('connectCoco'))
+        print(expiration)
         coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id)
         db.session.add(coco)
         db.session.commit()
