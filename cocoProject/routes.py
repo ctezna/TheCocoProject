@@ -116,6 +116,7 @@ def save_img(img_data):
 @login_required
 def connectCoco():
     form = AddCocoForm()
+    form.password.data = current_user.password
     if form.validate_on_submit():
         name = form.name.data
         if form.img.data:
