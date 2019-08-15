@@ -133,7 +133,8 @@ def proxyGen(ids):
         elif proxy == 801:
             print("proxy fail")
         coco.proxy = proxy
-        db.session.commit() if proxy != 801
+        if proxy != 801:
+            db.session.commit()
         print(proxy)
     return "proxy"
 
