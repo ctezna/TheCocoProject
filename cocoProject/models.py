@@ -22,6 +22,9 @@ class Coco(db.Model):
     proxy = db.Column(db.String(256), nullable=True, unique=True)
     address = db.Column(db.String(256), nullable=False)
     light = db.Column(db.Boolean, nullable=False, default=0)
+    cred = db.Column(db.String(256), nullable=False)
+    # timeConnection = db.Column(db.DateTime, nullable=False)
+    # expirationSec = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     routines = db.relationship('Routine', backref='coco', lazy='dynamic')
 

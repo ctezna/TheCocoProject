@@ -1,0 +1,5 @@
+docker build -t cocoproject .
+docker run --name cocoproject -d -p 8000:5000 --rm cocoproject:latest
+
+docker ps
+docker stop <containerID>

@@ -1,0 +1,6 @@
+taskLabels
+
+0: feed
+1: lightOn
+2: lightOff
+3: ring

@@ -54,6 +54,29 @@ def index():
         flash(_(msg),cat)
     return render_template("index.html", cocos=cocos, form=form)
 
+@app.route('/task', methods=['POST'])
+@login_required
+def task():
+    proxy = request.form['data']
+    id = request.form['id']
+    coco = Coco.query.filter_by(id=id).first_or_404()
+    if proxy.split('/')[3] == 'feed':
+        msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
+        cat = 'info'
+    elif proxy.split('/')[3] == 'lightOn':
+        msg = Markup('Light Activated for <strong>{}</strong>.'.format(coco.name))
+        cat = 'warning'
+        coco.light = 1
+        db.session.commit()
+    elif proxy.split('/')[3] == 'lightOff':
+        msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
+        cat = 'secondary'
+        coco.light = 0
+        db.session.commit()
+    response = requests.get(proxy)
+    flash(_(msg),cat)
+    return 'task completed'
+
 @app.route('/delete', methods=['POST'])
 @login_required
 def delete():
@@ -96,9 +119,23 @@ def refresh(id):
     db.session.commit()
     return redirect(url_for('connectCoco'))
 
-# @app.route('/proxyGen/<id>', methods=['GET', 'POST'])
-# @login_required
-# def proxyGen(id):
+@app.route('/proxyGen/<ids>', methods=['GET'])
+@login_required
+def proxyGen(ids):
+    for id in ids:
+        coco = Coco.query.filter_by(id=id).first_or_404()
+        address = coco.address
+        password = coco.cred
+        token = remoteit_api.login(current_user.dev_id, current_user.username, password)
+        proxy, expirationSec = remoteit_api.connect(current_user.dev_id, token, address)
+        if token == 800:
+            print("token fail")
+        elif proxy == 801:
+            print("proxy fail")
+        coco.proxy = proxy
+        print(proxy)
+        print(expirationSec)
+    return "proxy"
 
 
 def save_img(img_data):
@@ -134,7 +171,7 @@ def connectCoco():
         elif proxy == 801:
             flash(_('Timeout Error. Please try again.'),'danger')
             return redirect(url_for('connectCoco'))
-        coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id)
+        coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id, cred=password)
         db.session.add(coco)
         db.session.commit()
         flash(_('New Coco Added Successfully!'),'success')
@@ -159,6 +196,8 @@ def cocoProfile(id):
         return redirect(url_for('index'))
     elif request.method == 'GET':
         form.name.data = coco.name
+        for routine in routines:
+            print(routine.days)
     return render_template("cocoProfile.html", coco=coco, routines=routines, form=form)
 
 @app.route('/userProfile/<username>', methods=['GET', 'POST'])
