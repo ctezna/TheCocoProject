@@ -127,17 +127,13 @@ def proxyGen(ids):
         address = coco.address
         password = coco.cred
         token = remoteit_api.login(current_user.dev_id, current_user.username, password)
-        proxy, expirationSec = remoteit_api.connect(current_user.dev_id, token, address)
+        proxy = remoteit_api.connect(current_user.dev_id, token, address)
         if token == 800:
             print("token fail")
         elif proxy == 801:
             print("proxy fail")
-        if (proxy[0] == "("):
-            proxy.replace("(","");
-            proxy.replace(")","");
         coco.proxy = proxy
         print(proxy)
-        print(expirationSec)
     return "proxy"
 
 

@@ -36,7 +36,8 @@ def connect(key, token, address):
     response = requests.post(url, data=json.dumps(body), headers=headers)
     response_body = response.json()
     try:
-        return(response_body['connection']['proxy'],response_body['connection']['expirationsec'])
+        #return(response_body['connection']['proxy'],response_body['connection']['expirationsec'])
+        return(response_body['connection']['proxy'])
         pass
     except KeyError as ke:
         return(801)
