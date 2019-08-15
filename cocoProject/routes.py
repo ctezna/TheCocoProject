@@ -132,6 +132,10 @@ def proxyGen(ids):
             print("token fail")
         elif proxy == 801:
             print("proxy fail")
+        if (proxy[0] == "("){
+            proxy.replace("(","");
+            proxy.replace(")","");
+        }
         coco.proxy = proxy
         print(proxy)
         print(expirationSec)
