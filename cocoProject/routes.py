@@ -33,25 +33,6 @@ def index():
         db.session.commit()
         routine = addRoutine.send(proxy, task, action_days, times)
         flash(_('Routine Added Successfully.'),'success')
-    elif request.method == 'POST':
-        proxy = request.form['data']
-        id = request.form['id']
-        coco = Coco.query.filter_by(id=id).first_or_404()
-        if proxy.split('/')[3] == 'feed':
-            msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
-            cat = 'info'
-        elif proxy.split('/')[3] == 'lightOn':
-            msg = Markup('Light Activated for <strong>{}</strong>.'.format(coco.name))
-            cat = 'warning'
-            coco.light = 1
-            db.session.commit()
-        elif proxy.split('/')[3] == 'lightOff':
-            msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
-            cat = 'secondary'
-            coco.light = 0
-            db.session.commit()
-        response = requests.get(proxy)
-        flash(_(msg),cat)
     return render_template("index.html", cocos=cocos, form=form)
 
 @app.route('/task', methods=['POST'])
@@ -108,15 +89,9 @@ def deleteRoutine():
 def refresh(id):
     form = AddCocoForm()
     coco = Coco.query.filter_by(id=id).first_or_404()
-    routines = Routine.query.filter_by(coco_id=id).all()
     response = requests.get(coco.proxy+'/reboot')
     msg = Markup('Coco Restarting. Please wait for <strong>light to turn on.</strong>')
     flash(_(msg), 'info')
-    for r in routines:
-        db.session.delete(r)
-        db.session.commit()
-    db.session.delete(coco)
-    db.session.commit()
     return redirect(url_for('connectCoco'))
 
 @app.route('/proxyGen/<ids>', methods=['GET'])
@@ -132,8 +107,9 @@ def proxyGen(ids):
             print("token fail")
         elif proxy == 801:
             print("proxy fail")
-        coco.proxy = proxy
-        if proxy != 801:
+        else
+            coco.proxy = proxy
+            coco.timeConnection = datetime.utcnow()
             db.session.commit()
         print(proxy)
     return "proxy"
@@ -172,7 +148,8 @@ def connectCoco():
         elif proxy == 801:
             flash(_('Timeout Error. Please try again.'),'danger')
             return redirect(url_for('connectCoco'))
-        coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id, cred=password)
+        coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id, 
+                    cred=password, timeConnection=datetime.utcnow())
         db.session.add(coco)
         db.session.commit()
         flash(_('New Coco Added Successfully!'),'success')
@@ -197,8 +174,6 @@ def cocoProfile(id):
         return redirect(url_for('index'))
     elif request.method == 'GET':
         form.name.data = coco.name
-        for routine in routines:
-            print(routine.days)
     return render_template("cocoProfile.html", coco=coco, routines=routines, form=form)
 
 @app.route('/userProfile/<username>', methods=['GET', 'POST'])

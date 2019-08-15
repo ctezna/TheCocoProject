@@ -6,7 +6,7 @@ requires = (
 
 setup(
     name='cocoProject',
-    version='1.0',
+    version='2.0',
     author='Carlos Tezna',
     author_email='coco.project3@gmail.com',
     description='Client controller for Coco Project "Coco" Device',
