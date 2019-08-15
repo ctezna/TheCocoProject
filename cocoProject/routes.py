@@ -107,7 +107,7 @@ def proxyGen(ids):
             print("token fail")
         elif proxy == 801:
             print("proxy fail")
-        else
+        else:
             coco.proxy = proxy
             coco.timeConnection = datetime.utcnow()
             db.session.commit()
