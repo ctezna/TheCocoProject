@@ -1,5 +1,5 @@
 $ heroku apps:create cocoproject
 $ heroku addons:add heroku-postgresql:hobby-dev
 $ git add .
-$ git commit -m "message"
+$ git commit -m "deploy"
 $ git push heroku master
