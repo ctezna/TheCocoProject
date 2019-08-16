@@ -36,6 +36,7 @@
 {% endblock %}
 
 {% block body %}
+<div id="message"></div>
 <a href="{{url_for('connectCoco')}}">
     <button class="btn btn-success btn-block mb-4">
         <span data-feather="user-plus" class="mr-1"></span>
@@ -50,13 +51,14 @@
         <img src="{{url_for('static', filename='img/'+coco.img)}}" width="50" height="50" class="mr-2" style="display: inline-block; border-radius: 50%;" alt="Avatar">
         <h4 style="display: inline-block;">{{coco.name}}</h4>
         </a>
-        <button type="button" 
-        onclick="taskController('{{coco.proxy}}','{{coco.id}}',{% if coco.light == 1 %}2{% elif coco.light == 0 %}1{% endif %})" 
-        class="btn btn-{% if coco.light == 1 %}{% elif coco.light == 0 %}outline-{% endif %}warning btn-sm ml-3" 
-        style="display: inline-block;">
-                <span id="lightIcon{{coco.id}}" data-feather="{% if coco.light == 1 %}moon{% elif coco.light == 0 %}sun{% endif %}"></span>
-        </button>
-
+        <span id="light{{coco.id}}">
+            <button type="button" 
+            onclick="taskController('{{coco.proxy}}','{{coco.id}}',{% if coco.light == 1 %}2{% elif coco.light == 0 %}1{% endif %})" 
+            class="btn btn-{% if coco.light == 1 %}{% elif coco.light == 0 %}outline-{% endif %}warning btn-sm ml-3" 
+            style="display: inline-block;">
+                    <span data-feather="{% if coco.light == 1 %}moon{% elif coco.light == 0 %}sun{% endif %}"></span>
+            </button>
+        </span>
         <a href="{{url_for('refresh', id=coco.id)}}">
                 <button id="refresh;{{coco.id}}" class="btn btn-info btn-sm ml-3" style="display: inline-block;" data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco."><span data-feather="power"></span></button>
         </a>
@@ -182,12 +184,36 @@
             data:proxy, 
             id:id
         }).done(function(response){
-            // if (response == 'lightOn'){
-            //     light = "#lightIcon"+id +" feather.feather-moon";
-            //     $(light).replaceWith(feather.icons.sun.toSvg());
-            // }else if(response == 'lightOff'){
-            //     light = "#lightIcon"+id +" feather.feather-sun";
-            //     $(light).replaceWith(feather.icons.moon.toSvg());
+            $('#message').html('');
+            $('#message').append(
+                  '<div class="alert alert-success alert-dismissable">'+
+                    '<button type="button" class="close" data-dismiss="alert">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                        '<span class="sr-only">Close</span>'+
+                    '</button>'+
+                    response.msg+
+                  '</div>'
+            );
+            // if (response.cocoLight == 1){
+            //     $('#light'+response.cocoId.toString()).html('');
+            //     $('#light'+response.cocoId.toString()).append(
+            //         '<button type="button"'+
+            //         'onclick="taskController('+response.cocoProxy+','+response.cocoId+',2)"'+
+            //         'class="btn btn-warning btn-sm ml-3" '+
+            //         'style="display: inline-block;">'+
+            //                 '<span data-feather="moon"></span>'+
+            //         '</button>'
+            // );
+            // } else {
+            //     $('#light'+response.cocoId.toString()).html('');
+            //     $('#light'+response.cocoId.toString()).append(
+            //         '<button type="button"'+
+            //         'onclick="taskController('+response.cocoProxy+','+response.cocoId+',1)"'+
+            //         'class="btn btn-outline-warning btn-sm ml-3" '+
+            //         'style="display: inline-block;">'+
+            //                 '<span data-feather="sun"></span>'+
+            //         '</button>'
+            // );
             // }
             
         }).fail(function(){

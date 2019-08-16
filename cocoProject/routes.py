@@ -1,5 +1,5 @@
 from cocoProject import app, db
-from flask import render_template, request, redirect, flash, url_for, Markup
+from flask import render_template, request, redirect, flash, url_for, Markup, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from passlib.hash import sha256_crypt
 from werkzeug.urls import url_parse
@@ -56,8 +56,13 @@ def task():
         coco.light = 0
         db.session.commit()
     response = requests.get(proxy)
-    flash(_(msg),cat)
-    return 'task completed'
+    #flash(_(msg),cat)
+    rsp = { "cocoId":coco.id,
+            "cocoProxy":coco.proxy,
+            "cocoLight":coco.light,
+            "msg":msg
+            }
+    return jsonify(rsp)
 
 @app.route('/delete', methods=['POST'])
 @login_required
