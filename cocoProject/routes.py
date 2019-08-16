@@ -98,6 +98,7 @@ def refresh(id):
 @app.route('/proxyGen/<ids>', methods=['GET'])
 @login_required
 def proxyGen(ids):
+    ids = ids.split(",")
     for id in ids:
         coco = Coco.query.filter_by(id=id).first_or_404()
         address = coco.address
