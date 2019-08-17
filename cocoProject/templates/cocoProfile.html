@@ -66,7 +66,8 @@
                             <label>{{_('Do you wish to remove Routine from list?')}}</label>
                         </div>
                         <div class="modal-footer">
-                            <button class="btn btn-danger" onclick="deleteRoutine('{{routine.id}}')" style="display:inline-block;"><span data-feather="check"></span>{{_('Yes')}}</button>
+                            {% set url = url_for('deleteRoutine', id=routine.id) %}
+                            <button class="btn btn-danger" onclick="deleteData('{{url}}')" style="display:inline-block;"><span data-feather="check"></span>{{_('Yes')}}</button>
                             <button class="btn btn-success" data-dismiss="modal" style="display:inline-block;"><span data-feather="x"></span>No</button>
                         </div>
                         </div>
@@ -78,27 +79,7 @@
 </div>
 
 <script>
-    function deleteRoutine(id){
-        post('/deleteRoutine', {id:id}, 'post');
-    }
+    
 </script>
-<script>
-    function post(path, params, method) {
-        method = method || "post"; // Set method to post by default if not specified.
-        var form = document.createElement("form");
-        form.setAttribute("method", method);
-        form.setAttribute("action", path);
-        for(var key in params) {
-            if(params.hasOwnProperty(key)) {
-            var hiddenField = document.createElement("input");
-            hiddenField.setAttribute("type", "hidden");
-            hiddenField.setAttribute("name", key);
-            hiddenField.setAttribute("value", params[key]);
-            form.appendChild(hiddenField);
-            }
-        }
-        document.body.appendChild(form);
-        form.submit();
-    }
-</script>
+
 {% endblock %}

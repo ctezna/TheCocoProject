@@ -55,19 +55,20 @@ def task():
         cat = 'secondary'
         coco.light = 0
         db.session.commit()
+
     response = requests.get(proxy)
-    #flash(_(msg),cat)
-    rsp = { "cocoId":coco.id,
+    rsp = { 
+            "cocoId":coco.id,
             "cocoProxy":coco.proxy,
             "cocoLight":coco.light,
-            "msg":msg
+            "msg":msg,
+            "msgcat":cat
             }
     return jsonify(rsp)
 
-@app.route('/delete', methods=['POST'])
+@app.route('/deleteCoco/<id>', methods=['GET'])
 @login_required
-def delete():
-    id = request.form['id']
+def deleteCoco(id):
     coco = Coco.query.filter_by(id=id).first_or_404()
     routines = Routine.query.filter_by(coco_id=id).all()
     msg = Markup('<strong>{}</strong> Erased.'.format(coco.name))
@@ -79,10 +80,9 @@ def delete():
     flash(_(msg),'warning')
     return redirect(url_for('index'))
 
-@app.route('/deleteRoutine', methods=['POST'])
+@app.route('/deleteRoutine/<id>', methods=['GET'])
 @login_required
-def deleteRoutine():
-    id = request.form['id']
+def deleteRoutine(id):
     routine = Routine.query.filter_by(id=id).first_or_404()
     msg = Markup('<strong>{}</strong> Routine Erased.'.format(routine.task))
     db.session.delete(routine)
@@ -90,15 +90,15 @@ def deleteRoutine():
     flash(_(msg),'warning')
     return redirect(url_for('index'))
 
-@app.route('/refresh/<id>', methods=['GET','POST'])
+@app.route('/reboot/<id>', methods=['GET'])
 @login_required
-def refresh(id):
+def reboot(id):
     form = AddCocoForm()
     coco = Coco.query.filter_by(id=id).first_or_404()
     response = requests.get(coco.proxy+'/reboot')
     msg = Markup('Coco Restarting. Please wait for <strong>light to turn on.</strong>')
     flash(_(msg), 'info')
-    return redirect(url_for('connectCoco'))
+    return redirect(url_for('index'))
 
 @app.route('/proxyGen/<ids>', methods=['GET'])
 @login_required

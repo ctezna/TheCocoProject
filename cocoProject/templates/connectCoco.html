@@ -49,13 +49,4 @@
     </div><br>
     <p>{{ form.submit(class="btn btn-primary btn-block") }}</p>
 </form>
-<script>
-    function progress(){
-        document.getElementById('prog').style.display = 'inline';
-        document.getElementById('prog').style.width = '10%';
-        setTimeout(function(){document.getElementById('prog').style.width = '40%';},1000);
-        setTimeout(function(){document.getElementById('prog').style.width = '73%';},1000);
-        setTimeout(function(){document.getElementById('prog').style.width = '99%';},1000);
-    }
-</script>
 {% endblock %}

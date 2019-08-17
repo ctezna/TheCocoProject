@@ -3,8 +3,8 @@ __pycache__
 cocoProject/__pycache__
 cocoProject/logs
 logs/
-babel.cfg
 .DS_Store
 cocoProject/.DS_Store
 cocoProject/static/.DS_Store
 cocoProject/static/img/cocoPics/
+.env
