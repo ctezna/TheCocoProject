@@ -42,6 +42,8 @@ def task():
     proxy = request.form['data']
     id = request.form['id']
     coco = Coco.query.filter_by(id=id).first_or_404()
+    msg = '';
+    cat = '';
     if proxy.split('/')[3] == 'feed':
         msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
         cat = 'info'
@@ -104,6 +106,7 @@ def reboot(id):
 @login_required
 def proxyGen(ids):
     ids = ids.split(",")
+    rsp = []
     for id in ids:
         coco = Coco.query.filter_by(id=id).first_or_404()
         address = coco.address
@@ -119,7 +122,13 @@ def proxyGen(ids):
             coco.timeConnection = datetime.utcnow()
             db.session.commit()
         print(proxy)
-    return "proxy"
+        item = { 
+            "cocoId":coco.id,
+            "cocoProxy":coco.proxy,
+            }
+        rsp.append(item)
+    print(rsp)
+    return jsonify(rsp)
 
 
 def save_img(img_data):

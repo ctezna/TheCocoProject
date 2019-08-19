@@ -37,9 +37,11 @@ function taskController(proxy, id, taskLabel){
             break;
         case 1:
             proxy = proxy + '/lightOn';
+            document.getElementById('lightOff'+id).innerHTML = '';
             break;
         case 2:
             proxy = proxy + '/lightOff';
+            document.getElementById('lightOn'+id).innerHTML = '';
             break;
         case 3:
             proxy = proxy + '/ring';
@@ -49,34 +51,58 @@ function taskController(proxy, id, taskLabel){
         data:proxy, 
         id:id
     }).done(function(response){
-        $('#message').html('');
-        $('#message').append(
-              '<div class="alert alert-'+response.msgcat +' alert-dismissable fade show">'+
-                '<button type="button" class="close" data-dismiss="alert">'+
-                    '<span aria-hidden="true">&times;</span>'+
-                    '<span class="sr-only">Close</span>'+
-                '</button>'+
-                response.msg+
-              '</div>'
-        );
+        if (response.msg.length > 0){
+            $('#message').html('');
+            $('#message').append(
+                '<div class="alert alert-'+response.msgcat +' alert-dismissable fade show">'+
+                    '<button type="button" class="close" data-dismiss="alert">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                        '<span class="sr-only">Close</span>'+
+                    '</button>'+
+                    response.msg+
+                '</div>'
+            );
+        }
+        if (response.cocoLight == 1){
+            $('#lightOn'+response.cocoId).attr('style', 'display: inline-block;');
+            $('#lightOff'+response.cocoId).attr('style', 'display: none;');
+        }else {
+            $('#lightOff'+response.cocoId).attr('style', 'display: inline-block;');
+            $('#lightOn'+response.cocoId).attr('style', 'display: none;');
+        }
     }).fail(function(){
 
     });
 }
 
-function playVid(id){
+function proxyGen(cocoId){
+    $.ajax('/proxyGen/'+ cocoId).done(function(data){
+        var frameName = '#frame'+data[0].cocoId.toString();
+        var url = data[0].cocoProxy + '/cam';
+        var $iframe = $(frameName);
+        if ( $iframe.length ) {
+            $iframe.attr('src',url);
+        }
+    });
+}
+
+function playVid(id, proxy){
     document.getElementById('play;'+id).style.display = 'none';
-    document.getElementById('frame;'+id).style.display = 'inline';
+    document.getElementById('frame'+id).src = proxy+'/cam';
+    document.getElementById('frame'+id).style.display = 'inline';
     document.getElementById('stop;'+id).style.display = 'inline';
     document.getElementById('ring;'+id).style.display = 'inline';
+    document.getElementById('refresh;'+id).style.display = 'inline';
     document.getElementById('routine;'+id).style.display = 'none';
     document.getElementById('fullscreen;'+id).style.display = 'inline';
 }
 function stopVid(id){
     document.getElementById('play;'+id).style.display = 'inline';
-    document.getElementById('frame;'+id).style.display = 'none';
+    document.getElementById('frame'+id).src = '';
+    document.getElementById('frame'+id).style.display = 'none';
     document.getElementById('stop;'+id).style.display = 'none';
     document.getElementById('ring;'+id).style.display = 'none';
+    document.getElementById('refresh;'+id).style.display = 'none';
     document.getElementById('fullscreen;'+id).style.display = 'none';
     document.getElementById('routine;'+id).style.display = 'inline';
 }

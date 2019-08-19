@@ -1,5 +1,6 @@
 $ heroku apps:create cocoproject
 $ heroku addons:add heroku-postgresql:hobby-dev
+go to heroku and add environment variable
 $ git add .
 $ git commit -m "deploy"
 $ git push heroku master
