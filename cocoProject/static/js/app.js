@@ -76,20 +76,26 @@ function taskController(proxy, id, taskLabel){
 }
 
 function proxyGen(cocoId){
+    $('#loading'+cocoId).attr('style', 'display:inline;');
+    $('#frame'+cocoId).attr('style', 'display:none;');
     $.ajax('/proxyGen/'+ cocoId).done(function(data){
         var frameName = '#frame'+data[0].cocoId.toString();
         var url = data[0].cocoProxy + '/cam';
         var $iframe = $(frameName);
         if ( $iframe.length ) {
             $iframe.attr('src',url);
+            $('#loading'+data[0].cocoId).attr('style', 'display:none;');
+            $iframe.attr('style', 'display: inline; width:100%; height: 535px;');
+
         }
     });
 }
 
 function playVid(id, proxy){
     document.getElementById('play;'+id).style.display = 'none';
-    document.getElementById('frame'+id).src = proxy+'/cam';
-    document.getElementById('frame'+id).style.display = 'inline';
+    proxyGen(id);
+    //document.getElementById('frame'+id).src = proxy+'/cam';
+    //document.getElementById('frame'+id).style.display = 'inline';
     document.getElementById('stop;'+id).style.display = 'inline';
     document.getElementById('ring;'+id).style.display = 'inline';
     document.getElementById('refresh;'+id).style.display = 'inline';

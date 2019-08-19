@@ -75,6 +75,7 @@
         <div id="vid" class="iframe-container">
             <button id="play;{{coco.id}}" class="btn btn-primary" onclick="playVid('{{coco.id}}', '{{coco.proxy}}')"><span data-feather="video" class="mr-1"></span>{{_('Play Stream')}}</button>
             <img id="frame{{coco.id}}" style="display:none; width: 100%; height: 535px;" src="">
+            <img id="loading{{coco.id}}" style="display:none;" src="{{url_for('static',filename='img/loading.gif')}}">
         </div>
 
 
