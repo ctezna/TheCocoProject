@@ -59,6 +59,9 @@ def task():
         db.session.commit()
 
     response = requests.get(proxy)
+    taskSuccess = response.json()['response']
+    if  taskSuccess != 1:
+        msg = Markup('Task Unsuccessful: Please refresh page to or use refresh link.')
     rsp = { 
             "cocoId":coco.id,
             "cocoProxy":coco.proxy,
