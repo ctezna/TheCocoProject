@@ -121,7 +121,7 @@ function fullscreen() {
         document.msFullscreenEnabled) {
         
         // which element will be fullscreen
-        var iframe = document.querySelector('#vid iframe');
+        var iframe = document.querySelector('#vid img');
         // Do fullscreen
         if (iframe.requestFullscreen) {
         iframe.requestFullscreen();
