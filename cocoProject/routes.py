@@ -59,7 +59,13 @@ def task():
         db.session.commit()
 
     response = requests.get(proxy)
-    taskSuccess = response.json()['response']
+    try:
+        taskSuccess = response.json()['response']
+        pass
+    except:
+        taskSuccess = 0
+        pass
+    
     if  taskSuccess != 1:
         msg = Markup('Task Unsuccessful: Please refresh page to or use refresh link.')
     rsp = { 
