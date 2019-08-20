@@ -29,11 +29,11 @@
             <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
         <small id="passwordHelpInline" class="text-muted">
-            &emsp;{{ _('Found on Remote.it Console under View Devices>HTTP>Address.') }}
+            &emsp;<text style="color:lightgray;">{{ _('Found on Remote.it Console under View Devices>HTTP>Address.') }}</text>
         </small><br>
     </p>
     <p>
-        {{ form.img(class="form-control-file") }}
+        {{ form.img(class="form-control-file", style="color:lightgray;") }}
         {% for error in form.img.errors %}
             <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
@@ -47,6 +47,6 @@
     <div class="progress">
         <div id="prog" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="display: none;"></div>
     </div><br>
-    <p>{{ form.submit(class="btn btn-primary btn-block") }}</p>
+    <p>{{ form.submit(class="btn btn-block", style="background-color:rgb(18,103,174); color: lightgray;") }}</p>
 </form>
 {% endblock %}

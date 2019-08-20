@@ -54,7 +54,7 @@ class AddRoutineForm(FlaskForm):
     submit = SubmitField(_l('Create Routine'))
 
 class EditCocoForm(FlaskForm):
-    name = StringField(_l('Personalized Name'))
+    name = StringField(_l('Change Name'))
     img = FileField(_l('Change Coco Picture'), validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField(_l('Save'))
 

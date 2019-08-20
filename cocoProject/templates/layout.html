@@ -8,6 +8,7 @@
         {% block refresh %}{% endblock %}
         <title>The Coco Project</title>
         <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <script src="{{url_for('static', filename='js/app.js')}}"></script>
 
 
@@ -21,20 +22,24 @@
                     #big{
                         display: none;
                     }
-                    .fullscreen{
-                        display: none;
-                    }
                     #small{
                         display: inline;
                     }
+                }
+                .sticky {
+                    position: fixed;
+                    top: 0;
+                    width: 100%;
+                    z-index: 1;
                 }
             </style>
             {% block style %}{% endblock %}
         </div>
     </head>
-    <body>
-        <header class="site-header"> 
-        <nav class="navbar navbar-dark bg-dark">
+    <body style="background-color: rgb(15,15,15);">
+        <header class="site-header">
+        <div id="navbar">
+        <nav class="navbar navbar-dark" style="background-color: rgb(15,15,15);">
             <a id="big" class="navbar-brand" href="{{url_for('index')}}">
                 <img src="{{url_for('static', filename='img/Logo_small.png')}}" width="35" height="35" style="border-radius: 50%" class="d-inline-block align-top" alt="Logo">
                 <text class="ml-2" id="two">The Coco Project</text>
@@ -42,23 +47,20 @@
             <a id="small" class="navbar-brand" href="{{url_for('index')}}">
                 <img id="small" src="{{url_for('static', filename='img/Logo_big.png')}}" width="70" height="45" style="border-radius: 20%"class="d-inline-block align-top" alt="Logo">
             </a>
-            <div class="navbar-nav">
-                <span id="small" data-feather="user"></span>
-                <a id="small" class="nav-item nav-link" href="{{ url_for('userProfile', username=current_user.username) }}"></a>
-            </div>
 
             <div class="navbar-nav">
                 <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                    <a id="big" class="nav-item nav-link" href="{{ url_for('userProfile', username=current_user.username) }}">{{ _('Account') }}</a>
-                    </div><div class="col-md-6 col-sm-6">
-                    <span id="small" data-feather="log-out" class="mr-1"></span>
-                    <a id="small" class="nav-item nav-link" href="{{url_for('logout')}}"></a>
-                    <a id="big" class="nav-item nav-link" href="{{url_for('logout')}}">{{ _('Log Out') }}</a>
+                    <div class="col-md-6 col-sm-6 col-6">
+                    <a class="nav-item nav-link" href="{{ url_for('userProfile', username=current_user.username) }}">
+                        <text id="account">{{ _('Account') }}</text></a>
+                    </div><div class="col-md-6 col-sm-6 col-6">
+                    <a class="nav-item nav-link" href="{{url_for('logout')}}">
+                        <text id="logout">{{ _('Log Out') }}</text></a>
                     </div>
                 </div>
             </div> 
         </nav>
+        </div>
         </header>
         <main role="main" class="container">
         <!-- <div class="container-fluid"> -->
@@ -89,6 +91,20 @@
         <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
         <script>
             feather.replace()
+        </script>
+        <script>
+                window.onscroll = function() {myFunction()};
+                
+                var navbar = document.getElementById("navbar");
+                var sticky = navbar.offsetTop;
+                
+                function myFunction() {
+                  if (window.pageYOffset >= sticky) {
+                    navbar.classList.add("sticky")
+                  } else {
+                    navbar.classList.remove("sticky");
+                  }
+                }
         </script>
     </body>
     <footer>
