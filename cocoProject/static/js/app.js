@@ -84,7 +84,7 @@ function proxyGen(cocoId){
         var $iframe = $(frameName);
         if ( $iframe.length ) {
             $iframe.attr('src',url);
-            $iframe.attr('style', 'display: inline; width:85%; height: 85%;');
+            $iframe.attr('style', 'display: inline; width:100%; height: 530px;');
             $('#loading'+data[0].cocoId).attr('style', 'display:none;');
         }
     });
@@ -97,7 +97,6 @@ function playVid(id, proxy){
     document.getElementById('ring;'+id).style.display = 'inline';
     document.getElementById('refresh;'+id).style.display = 'inline';
     document.getElementById('routine;'+id).style.display = 'none';
-    //document.getElementById('fullscreen;'+id).style.display = 'inline';
 }
 function stopVid(id){
     document.getElementById('play;'+id).style.display = 'inline';
@@ -106,7 +105,6 @@ function stopVid(id){
     document.getElementById('stop;'+id).style.display = 'none';
     document.getElementById('ring;'+id).style.display = 'none';
     document.getElementById('refresh;'+id).style.display = 'none';
-    //document.getElementById('fullscreen;'+id).style.display = 'none';
     document.getElementById('routine;'+id).style.display = 'inline';
 }
 
