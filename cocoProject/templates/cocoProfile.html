@@ -47,9 +47,9 @@
         <tbody>
             {% for routine in routines %}
                 <tr>
-                    <td><text style="color:lightgray;">{{ routine.task }}</text></td>
-                    <td><text style="color:lightgray;">{{ routine.days }}</text></td>
-                    <td><text style="color:lightgray;">{{ routine.times }}</text></td>
+                    <td><text style="color:lightgray;">{{ routine['task'] }}</text></td>
+                    <td><text style="color:lightgray;">{{ routine['days'] }}</text></td>
+                    <td><text style="color:lightgray;">{{ routine['times'] }}</text></td>
                     <td>
                             <button id="delete;{{routine.id}}" data-toggle="modal" data-id="{{routine.id}}" data-target="#modalDelete{{routine.id}}" 
                             class="open-DeleteModal btn" style="float:right; background-color: rgb(205,103,122);">
@@ -58,7 +58,7 @@
                             </button>
                     </td>
                 </tr>
-                <div class="modal fade" id="modalDelete{{routine.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal fade" id="modalDelete{{routine['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -70,7 +70,7 @@
                             <label>{{_('Do you wish to remove Routine from list?')}}</label>
                         </div>
                         <div class="modal-footer">
-                            {% set url = url_for('deleteRoutine', id=routine.id) %}
+                            {% set url = url_for('deleteRoutine', id=routine['id']) %}
                             <button class="btn btn" onclick="deleteData('{{url}}')" style="display:inline-block; background-color: rgb(205,103,122);">
                                 <span data-feather="check"></span>{{_('Yes')}}
                             </button>

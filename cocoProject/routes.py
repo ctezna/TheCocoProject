@@ -8,7 +8,7 @@ from datetime import datetime
 from flask_babel import _
 from cocoProject.forms import LoginForm, RegisterForm, AddCocoForm, AddRoutineForm, EditCocoForm, EditProfileForm
 from cocoProject.models import User, Coco, Routine
-from cocoProject import remoteit_api, addRoutine
+from cocoProject import remoteit_api, routine_control
 from PIL import Image
 
 
@@ -30,9 +30,12 @@ def index():
         proxy = form.proxy.data
         coco = Coco.query.filter_by(proxy=proxy).first_or_404()
         routine = Routine(task=task, days=action_days, times=times, coco_id=coco.id)
+        response = routine_control.send(routine.id, proxy, task, action_days, times)
+        if response == 0:
+            flash(_('Routine Created Unsuccessfully.'),'danger')
+            return render_template("index.html", cocos=cocos, form=form)
         db.session.add(routine)
         db.session.commit()
-        routine = addRoutine.send(proxy, task, action_days, times)
         flash(_('Routine Added Successfully.'),'success')
     return render_template("index.html", cocos=cocos, form=form)
 
@@ -99,6 +102,12 @@ def deleteCoco(id):
 @login_required
 def deleteRoutine(id):
     routine = Routine.query.filter_by(id=id).first_or_404()
+    coco = Coco.query.filter_by(id=routine.coco_id).first_or_404()
+    response = routine_control.remove(routine.id, coco.proxy)
+    if response == 0:
+        msg = Markup('Unable to remove Routine. Please check connection.')
+        flash(_(msg),'danger')
+        return redirect(url_for('index'))
     msg = Markup('<strong>{}</strong> Routine Erased.'.format(routine.task))
     db.session.delete(routine)
     db.session.commit()
@@ -179,7 +188,8 @@ def connectCoco():
 @login_required
 def cocoProfile(id):
     coco = Coco.query.filter_by(id=id).first_or_404()
-    routines = Routine.query.filter_by(coco_id=coco.id).all()
+    #routines = Routine.query.filter_by(coco_id=coco.id).all()
+    routines = routine_control.get(coco.proxy)
     form = EditCocoForm()
     if form.validate_on_submit():
         if form.img.data:
@@ -193,7 +203,7 @@ def cocoProfile(id):
         return redirect(url_for('index'))
     elif request.method == 'GET':
         form.name.data = coco.name
-    return render_template("cocoProfile.html", coco=coco, routines=routines, form=form)
+    return render_template("cocoProfile.html", coco=coco, routines=routines[0]['routines'], form=form)
 
 @app.route('/userProfile/<username>', methods=['GET', 'POST'])
 @login_required

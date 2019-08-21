@@ -1,0 +1,5 @@
+maintain heroku database and coco database as copies of one another
+500.html error page and route
+help widgets
+pan tilt controls
+finish routine control
