@@ -49,6 +49,9 @@ function taskController(proxy, id, taskLabel){
         case 4:
             proxy = proxy + '/camOff';
             break;
+        case 5:
+            proxy = proxy + '/reboot';
+            break;
     }
     $.post('/task', {
         data:proxy, 

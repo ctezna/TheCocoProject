@@ -51,7 +51,6 @@ def task():
     except:
         taskSuccess = 0
         pass
-    print(taskSuccess)
     if proxy.split('/')[3] == 'feed' and taskSuccess == 1:
         msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
         cat = 'info'
@@ -65,6 +64,9 @@ def task():
         cat = 'secondary'
         coco.light = 0
         db.session.commit()
+    elif proxy.split('/')[3] == 'reboot' and taskSuccess == 1:
+        msg = Markup('Coco Restarting. Please wait for <strong>light to turn on.</strong>')
+        cat = 'info'
     elif proxy.split('/')[3] == 'camOff':
         taskSuccess = 1
     elif taskSuccess != 1:
@@ -101,16 +103,6 @@ def deleteRoutine(id):
     db.session.delete(routine)
     db.session.commit()
     flash(_(msg),'warning')
-    return redirect(url_for('index'))
-
-@app.route('/reboot/<id>', methods=['GET'])
-@login_required
-def reboot(id):
-    form = AddCocoForm()
-    coco = Coco.query.filter_by(id=id).first_or_404()
-    response = requests.get(coco.proxy+'/reboot')
-    msg = Markup('Coco Restarting. Please wait for <strong>light to turn on.</strong>')
-    flash(_(msg), 'info')
     return redirect(url_for('index'))
 
 @app.route('/proxyGen/<ids>', methods=['GET'])

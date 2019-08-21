@@ -44,13 +44,12 @@
                     <span data-feather="sun"></span>
             </button>
         </span>
-        <a href="{{url_for('reboot', id=coco.id)}}">
-                <button id="reboot;{{coco.id}}" class="btn btn btn-sm ml-3" 
-                style="display: inline-block; background-color:rgb(26,86,63);" 
-                data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco.">
-                    <span data-feather="power" style="color:lightgray;"></span>
-                </button>
-        </a>
+        <button id="reboot;{{coco.id}}" class="btn btn btn-sm ml-3" 
+        style="display: inline-block; background-color:rgb(26,86,63);" 
+        onclick="taskController('{{coco.proxy}}','{{coco.id}}',5)"
+        data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco.">
+            <span data-feather="power" style="color:lightgray;"></span>
+        </button>
     </div>
     <div class="card-body text-center">
         <div id="vid" class="vid-container mb-3">
