@@ -44,20 +44,6 @@ def task():
     coco = Coco.query.filter_by(id=id).first_or_404()
     msg = '';
     cat = '';
-    if proxy.split('/')[3] == 'feed':
-        msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
-        cat = 'info'
-    elif proxy.split('/')[3] == 'lightOn':
-        msg = Markup('Light Activated for <strong>{}</strong>.'.format(coco.name))
-        cat = 'warning'
-        coco.light = 1
-        db.session.commit()
-    elif proxy.split('/')[3] == 'lightOff':
-        msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
-        cat = 'secondary'
-        coco.light = 0
-        db.session.commit()
-
     response = requests.get(proxy)
     try:
         taskSuccess = response.json()['response']
@@ -65,9 +51,25 @@ def task():
     except:
         taskSuccess = 0
         pass
-    
-    if  taskSuccess != 1:
-        msg = Markup('Task Unsuccessful: Please refresh page to or use refresh link.')
+    print(taskSuccess)
+    if proxy.split('/')[3] == 'feed' and taskSuccess == 1:
+        msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
+        cat = 'info'
+    elif proxy.split('/')[3] == 'lightOn' and taskSuccess == 1:
+        msg = Markup('Light Activated for <strong>{}</strong>.'.format(coco.name))
+        cat = 'warning'
+        coco.light = 1
+        db.session.commit()
+    elif proxy.split('/')[3] == 'lightOff' and taskSuccess == 1:
+        msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
+        cat = 'secondary'
+        coco.light = 0
+        db.session.commit()
+    elif proxy.split('/')[3] == 'camOff':
+        taskSuccess = 1
+    elif taskSuccess != 1:
+        msg = Markup('Task Unsuccessful: Please refresh page or use refresh link to generate new proxy.')
+        cat = 'danger'
     rsp = { 
             "cocoId":coco.id,
             "cocoProxy":coco.proxy,

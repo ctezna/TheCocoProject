@@ -37,21 +37,24 @@ function taskController(proxy, id, taskLabel){
             break;
         case 1:
             proxy = proxy + '/lightOn';
-            document.getElementById('lightOff'+id).innerHTML = '';
+            document.getElementById('lightOff'+id).style.display = 'none';
             break;
         case 2:
             proxy = proxy + '/lightOff';
-            document.getElementById('lightOn'+id).innerHTML = '';
+            document.getElementById('lightOn'+id).style.display = 'none';
             break;
         case 3:
             proxy = proxy + '/ring';
+            break;
+        case 4:
+            proxy = proxy + '/camOff';
             break;
     }
     $.post('/task', {
         data:proxy, 
         id:id
     }).done(function(response){
-        if (response.msg.length > 0){
+        if (response.msg.length > 1){
             $('#message').html('');
             $('#message').append(
                 '<div class="alert alert-'+response.msgcat +' alert-dismissable fade show">'+
@@ -62,14 +65,18 @@ function taskController(proxy, id, taskLabel){
                     response.msg+
                 '</div>'
             );
+            if (response.cocoLight == true){
+                $('#lightOn'+response.cocoId).attr('style', 'display: inline-block;');
+                console.log($('#lightOn'+response.cocoId).html());
+                $('#lightOff'+response.cocoId).attr('style', 'display: none;');
+                console.log(response.cocoLight);
+            }else {
+                $('#lightOff'+response.cocoId).attr('style', 'display: inline-block;');
+                $('#lightOn'+response.cocoId).attr('style', 'display: none;');
+                console.log(response.cocoLight);
+            }
         }
-        if (response.cocoLight == 1){
-            $('#lightOn'+response.cocoId).attr('style', 'display: inline-block;');
-            $('#lightOff'+response.cocoId).attr('style', 'display: none;');
-        }else {
-            $('#lightOff'+response.cocoId).attr('style', 'display: inline-block;');
-            $('#lightOn'+response.cocoId).attr('style', 'display: none;');
-        }
+        
     }).fail(function(){
 
     });
@@ -90,15 +97,16 @@ function proxyGen(cocoId){
     });
 }
 
-function playVid(id, proxy){
+function playVid(id){
     document.getElementById('play;'+id).style.display = 'none';
     proxyGen(id);
     document.getElementById('stop;'+id).style.display = 'inline';
     document.getElementById('ring;'+id).style.display = 'inline';
     document.getElementById('refresh;'+id).style.display = 'inline';
 }
-function stopVid(id){
+function stopVid(id, proxy){
     document.getElementById('play;'+id).style.display = 'inline';
+    taskController(proxy,id,4);
     document.getElementById('frame'+id).src = '';
     document.getElementById('frame'+id).style.display = 'none';
     document.getElementById('stop;'+id).style.display = 'none';
