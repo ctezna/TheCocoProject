@@ -190,6 +190,9 @@ def cocoProfile(id):
     coco = Coco.query.filter_by(id=id).first_or_404()
     #routines = Routine.query.filter_by(coco_id=coco.id).all()
     routines = routine_control.get(coco.proxy)
+    if routines == 0:
+        flash(_('Profile loaded unsucessfully. Check connection.'),'danger')
+        return redirect(url_for('index'))
     form = EditCocoForm()
     if form.validate_on_submit():
         if form.img.data:
