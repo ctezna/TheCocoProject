@@ -36,12 +36,13 @@ function taskController(proxy, id, taskLabel){
             proxy = proxy + '/feed';
             break;
         case 1:
-            proxy = proxy + '/lightOn';
-            document.getElementById('lightOff'+id).style.display = 'none';
+            var colorRGB = hexToRgb(document.getElementById('color'+id).value);
+            proxy = proxy + '/light?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness=0.2';
+            document.getElementById('lightOn'+id).style.display = 'none';
             break;
         case 2:
-            proxy = proxy + '/lightOff';
-            document.getElementById('lightOn'+id).style.display = 'none';
+            proxy = proxy + '/light?red=0&green=0&blue=0&brightness=0';
+            document.getElementById('lightOff'+id).style.display = 'none';
             break;
         case 3:
             proxy = proxy + '/ring';
@@ -51,6 +52,10 @@ function taskController(proxy, id, taskLabel){
             break;
         case 5:
             proxy = proxy + '/reboot';
+            break;
+        case 6:
+            proxy = proxy + '/light?red=-1&green=-1&blue=-1&brightness=0.2';
+            document.getElementById('lightOn'+id).style.display = 'none';
             break;
     }
     $.post('/task', {
@@ -69,14 +74,11 @@ function taskController(proxy, id, taskLabel){
                 '</div>'
             );
             if (response.cocoLight == true){
-                $('#lightOn'+response.cocoId).attr('style', 'display: inline-block;');
-                console.log($('#lightOn'+response.cocoId).html());
-                $('#lightOff'+response.cocoId).attr('style', 'display: none;');
-                console.log(response.cocoLight);
-            }else {
                 $('#lightOff'+response.cocoId).attr('style', 'display: inline-block;');
                 $('#lightOn'+response.cocoId).attr('style', 'display: none;');
-                console.log(response.cocoLight);
+            }else {
+                $('#lightOn'+response.cocoId).attr('style', 'display: inline-block;');
+                $('#lightOff'+response.cocoId).attr('style', 'display: none;');
             }
         }
         
@@ -84,6 +86,15 @@ function taskController(proxy, id, taskLabel){
 
     });
 }
+
+function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : null;
+  }
 
 function proxyGen(cocoId){
     $('#loading'+cocoId).attr('style', 'display:inline;');

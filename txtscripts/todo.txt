@@ -3,4 +3,5 @@ maintain heroku database and coco database as copies of one another
 help widgets
 pan tilt controls
 finish routine control
+delete routine modal on mobile
 change feather icons to google icons
