@@ -10,6 +10,8 @@
         <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
         <link rel="stylesheet" 
         href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp">
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{url_for('static', filename='js/app.js')}}"></script>
 
 
@@ -83,8 +85,6 @@
             {% block body %}{% endblock %}
         <!-- </div> -->
     </main>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
         <!-- Icons -->

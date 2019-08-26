@@ -65,8 +65,8 @@ def task():
     elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) > 0) or \
             (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) > 0) or \
             (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) > 0) and taskSuccess == 1:
-        msg = Markup('Light Activated for <strong>{}</strong>.'.format(coco.name))
-        cat = 'warning'
+        msg = ''
+        cat = ''
         coco.light = 1
         db.session.commit()
     elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) < 0) or \
