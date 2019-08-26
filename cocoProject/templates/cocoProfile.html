@@ -53,7 +53,7 @@
                     <td>
                             <button id="delete;{{routine.id}}" data-toggle="modal" data-id="{{routine.id}}" data-target="#modalDelete{{routine.id}}" 
                             class="open-DeleteModal btn" style="float:right; background-color: rgb(205,103,122);">
-                                <span data-feather="x" class="mr-1"></span>
+                            <i class="material-icons" style="vertical-align:middle;">delete</i>
                                 <text id="big">{{_('Delete')}}</text>
                             </button>
                     </td>
@@ -72,10 +72,10 @@
                         <div class="modal-footer">
                             {% set url = url_for('deleteRoutine', id=routine['id']) %}
                             <button class="btn btn" onclick="deleteData('{{url}}')" style="display:inline-block; background-color: rgb(205,103,122);">
-                                <span data-feather="check"></span>{{_('Yes')}}
+                                <i class="material-icons mr-1" style="vertical-align:middle;">check</i>{{_('Yes')}}
                             </button>
                             <button class="btn btn" data-dismiss="modal" style="display:inline-block; background-color: rgb(26,86,63);">
-                                <span data-feather="x"></span>No
+                                <i class="material-icons mr-1" style="vertical-align:middle;">clear</i>No
                             </button>
                         </div>
                         </div>

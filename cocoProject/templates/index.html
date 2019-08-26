@@ -16,8 +16,8 @@
 <div id="message"></div>
 <a href="{{url_for('connectCoco')}}">
     <button class="btn btn btn-block mb-4" style="background-color: rgb(26,86,63);">
-        <span data-feather="user-plus" class="mr-1" style="color:lightgray;"></span>
-        <text style="color:lightgray;">{{ _('Add Coco') }}</text>
+        <i class="material-icons mr-1" style="color: lightgray; vertical-align:middle;">person_add</i>
+        <text style="color:lightgray; vertical-align:middle;">{{ _('Add Coco') }}</text>
     </button>
 </a>
 {% for coco in cocos %}
@@ -33,7 +33,7 @@
             onclick="taskController('{{coco.proxy}}','{{coco.id}}',2)" 
             class="btn btn-warning btn-sm ml-3" 
             style="display: inline-block;">
-                    <span data-feather="moon"></span>
+                <i class="material-icons" style="vertical-align:middle;">toggle_off</i>
             </button>
         </span>
         <span id="lightOn{{coco.id}}" style="display: {% if coco.light == 1 %}none;{% elif coco.light == 0 %}inline-block;{% endif %}">
@@ -42,21 +42,30 @@
             onclick="taskController('{{coco.proxy}}','{{coco.id}}',1)" 
             class="btn btn-outline-warning btn-sm ml-3" 
             style="display: inline-block;">
-                    <span data-feather="sun"></span>
+                <i class="material-icons" style="vertical-align:middle;">toggle_on</i>
             </button>
         </span>
-    <button id="reboot;{{coco.id}}" class="btn btn btn-sm ml-3" 
+        <button id="reboot;{{coco.id}}" class="btn btn btn-sm ml-3" 
         style="display: inline-block; background-color:rgb(26,86,63);" 
         onclick="taskController('{{coco.proxy}}','{{coco.id}}',5)"
         data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco.">
-            <span data-feather="power" style="color:lightgray;"></span>
+            <i class="material-icons" style="color: lightgray; vertical-align:middle;">power_settings_new</i>
         </button>
+        <br>
+        <div id="lightBright{{coco.id}}" style="display: {% if coco.light == 1 %}none;{% elif coco.light == 0 %}inline-block;{% endif %}"
+        data-toggle="tooltip" data-placement="top" title="Light brightness setting.">
+            <i class="material-icons-outlined mr-1" style="color: lightgray; vertical-align:middle;">highlight</i>
+            <input type="range" id="lightBright{{coco.id}}" name="lightBright{{coco.id}}" 
+            min="0" max="0.9" value="0.2" step="0.1">
+            <i class="material-icons ml-1" style="color: lightgray; vertical-align:middle;">highlight</i>
+            <span class="sr-only">Light brightness setting.</span>
+        </div>
     </div>
     <div class="card-body text-center">
         <div id="vid" class="vid-container mb-3">
             <button id="play;{{coco.id}}" style="background-image: linear-gradient(to bottom, rgb(33,33,33), rgb(100,100,100));" 
             class="btn btn" onclick="playVid('{{coco.id}}')">
-                <span data-feather="video" style="color:lightgray;" class="mr-1"></span>
+                <i class="material-icons mr-1" style="color: lightgray; vertical-align:middle;">videocam</i>
                 <text style="color: lightgray;">{{_('Play Stream')}}</text>
             </button>
             <img id="frame{{coco.id}}" class="videoFeed m-1" style="display:none;" src="">
@@ -66,31 +75,31 @@
 
         <button id="refresh;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
         class="btn btn" onclick="proxyGen('{{coco.id}}')">
-            <span data-feather="refresh-cw" style="color: lightgray;"></span>
+            <i class="material-icons" style="color: lightgray; vertical-align:middle;">refresh</i>
         </button>
         <button id="stop;{{coco.id}}" style="display:none; background-color: rgb(205,103,122);" 
         class="btn btn" onclick="stopVid('{{coco.id}}', '{{coco.proxy}}')">
-            <span data-feather="video-off"></span>
+            <i class="material-icons" style="vertical-align:middle;">videocam_off</i>
         </button>
         <button id="ring;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
         class="btn btn" onclick="taskController('{{coco.proxy}}','{{coco.id}}',3)" disabled>
-            <span data-feather="bell" style="color: lightgray;"></span>
+            <i class="material-icons" style="color: lightgray; vertical-align:middle;">notifications_active</i>
         </button>
     </div>
     <div class="card-footer text-center" id="container">
         <button id="routine;{{coco.id}}" style="background-color: rgb(26,86,63);" data-toggle="modal" 
         data-id="{{coco.proxy}}" data-target="#modalForm" class="open-AddRoutine btn btn">
-            <span data-feather="plus-circle" style="color: lightgray;" class="mr-1"></span>
+            <i class="material-icons mr-1" style="color: lightgray; vertical-align:middle;">alarm_add</i>
             <text id="big" style="color: lightgray;">{{ _('Add Routine')}}</text>
         </button>
         <button id="feed{{coco.id}}" onclick="taskController('{{coco.proxy}}', '{{coco.id}}', 0)" 
             class="btn btn" style="float: left;background-color: rgb(26,86,63);">
-            <i class="material-icons mr-1" style="color: lightgray;">fastfood</i>
+            <i class="material-icons mr-1" style="color: lightgray; vertical-align:middle;">fastfood</i>
             <text id="big" style="color: lightgray;" >{{_('Feed Coco')}}</text>
         </button>
         <button id="delete;{{coco.id}}" data-toggle="modal" data-id="{{coco.id}}" data-target="#modalDelete{{coco.id}}" 
         class="open-DeleteModal btn btn" style="float:right; background-color: rgb(205,103,122);">
-            <span data-feather="x" class="mr-1"></span>
+            <i class="material-icons mr-1" style="vertical-align:middle;">delete</i>
             <text id="big">{{_('Delete Coco')}}</text>
         </button>
     </div>
@@ -110,10 +119,10 @@
         <div class="modal-footer">
             {% set url = url_for('deleteCoco', id=coco.id) %}
             <button class="btn btn" onclick="deleteData('{{url}}')" style="display:inline-block; background-color: rgb(205,103,122);">
-                <span data-feather="check"></span>{{_('Yes')}}
+                <i class="material-icons mr-1" style="vertical-align:middle;">check</i>{{_('Yes')}}
             </button>
             <button class="btn btn" data-dismiss="modal" style="display:inline-block; background-color: rgb(26,86,63);">
-                <span data-feather="x"></span>No
+                <i class="material-icons mr-1" style="vertical-align:middle;">clear</i>No
             </button>
         </div>
         </div>
@@ -155,7 +164,7 @@
                 </small><br>
         </div>
         <div class="modal-footer">
-                <p>{{ form.submit(class="btn btn-block", style="background-color:rgb(38,138,241); color: lightgray;") }}</p>
+                <p>{{ form.submit(class="btn btn-block", style="background-color:rgb(38,138,241); color: white;") }}</p>
             </form>
         </div>
         </div>
