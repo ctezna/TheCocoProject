@@ -37,7 +37,7 @@ function taskController(proxy, id, taskLabel){
             break;
         case 1:
             var colorRGB = hexToRgb(document.getElementById('color'+id).value);
-            var brightness = hexToRgb(document.getElementById('lightBright'+id).value);
+            var brightness = document.getElementById('brightInput'+id).value;
             proxy = proxy + '/light?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
             document.getElementById('lightOn'+id).style.display = 'none';
             document.getElementById('lightBright'+id).style.display = 'none';

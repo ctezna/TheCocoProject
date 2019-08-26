@@ -35,7 +35,7 @@
             onclick="taskController('{{coco.proxy}}','{{coco.id}}',2)" 
             class="btn btn-warning btn-sm ml-3" 
             style="display: inline-block;">
-                <i class="material-icons" style="vertical-align:middle;">toggle_off</i>
+                <i class="material-icons" style="color: black; vertical-align:middle;">toggle_off</i>
             </button>
         </span>
         <span id="lightOn{{coco.id}}" style="display: {% if coco.light == 1 %}none;{% elif coco.light == 0 %}inline-block;{% endif %}">
@@ -57,8 +57,8 @@
         <div id="lightBright{{coco.id}}" style="display: {% if coco.light == 1 %}none;{% elif coco.light == 0 %}inline-block;{% endif %}"
         data-toggle="tooltip" data-placement="top" title="Light brightness setting.">
             <i class="material-icons-outlined mr-1" style="color: lightgray; vertical-align:middle;">highlight</i>
-            <input type="range" id="lightBright{{coco.id}}" name="lightBright{{coco.id}}" 
-            min="0" max="0.9" value="0.2" step="0.1">
+            <input type="range" id="brightInput{{coco.id}}" name="brightInput{{coco.id}}" 
+            min="0.1" max="0.9" value="0.3" step="0.1">
             <i class="material-icons ml-1" style="color: lightgray; vertical-align:middle;">highlight</i>
             <span class="sr-only">Light brightness setting.</span>
         </div>

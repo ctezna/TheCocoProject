@@ -54,6 +54,7 @@ def task():
     except:
         taskSuccess = 0
         pass
+    print(proxy)
     if proxy.split('/')[3] == 'feed' and taskSuccess == 1:
         msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
         cat = 'info'
