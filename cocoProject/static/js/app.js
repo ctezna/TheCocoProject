@@ -41,6 +41,7 @@ function taskController(proxy, id, taskLabel){
             proxy = proxy + '/light?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
             document.getElementById('lightOn'+id).style.display = 'none';
             document.getElementById('lightBright'+id).style.display = 'inline';
+            document.getElementById('lightOff'+id).style.display = 'inline';
             break;
         case 2:
             proxy = proxy + '/light?red=0&green=0&blue=0&brightness=0';
@@ -58,6 +59,7 @@ function taskController(proxy, id, taskLabel){
         case 6:
             proxy = proxy + '/light?red=-1&green=-1&blue=-1&brightness=0.2';
             document.getElementById('lightBright'+id).style.display = 'inline';
+            document.getElementById('lightOff'+id).style.display = 'inline';
             break;
     }
     $.post('/task', {
