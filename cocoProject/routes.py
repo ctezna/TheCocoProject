@@ -67,7 +67,12 @@ def task():
             (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) > 0) and taskSuccess == 1:
         msg = ''
         cat = ''
+        red = int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1])
+        green = int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1])
+        blue = int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1])
         coco.light = 1
+        coco.lightBrightness = float(proxy.split('/')[3].split('?')[1].split('&')[3].split('=')[1])
+        coco.lightColor = '#%02x%02x%02x' % (red, green, blue)
         db.session.commit()
     elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) < 0) or \
             (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) < 0) or \
@@ -75,6 +80,7 @@ def task():
         msg = Markup('Party for <strong>{}</strong>!'.format(coco.name))
         cat = 'warning'
         coco.light = 1
+        coco.lightBrightness = float(proxy.split('/')[3].split('?')[1].split('&')[3].split('=')[1])
         db.session.commit()
     elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) == 0) and \
             (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) == 0) and \
@@ -82,6 +88,8 @@ def task():
         msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
         cat = 'secondary'
         coco.light = 0
+        coco.lightBrightness = 0.3
+        coco.lightColor = '#ffffff'
         db.session.commit()
     elif taskSuccess != 1:
         msg = Markup('Task Unsuccessful: Please refresh page or use refresh link to generate new proxy.')
@@ -90,6 +98,8 @@ def task():
             "cocoId":coco.id,
             "cocoProxy":coco.proxy,
             "cocoLight":coco.light,
+            "lightColor":coco.lightColor,
+            "lightBrightness":coco.lightBrightness,
             "msg":msg,
             "msgcat":cat
             }

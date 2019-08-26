@@ -80,10 +80,14 @@ function taskController(proxy, id, taskLabel){
             $('#lightOff'+response.cocoId).attr('style', 'display: inline-block;');
             $('#lightOn'+response.cocoId).attr('style', 'display: none;');
             $('#lightBright'+response.cocoId).attr('style', 'display: inline-block;');
+            $('#color'+response.cocoId).attr('value', response.lightColor);
+            $('#brightInput'+response.cocoId).attr('value', response.lightBrightness);
         }else {
             $('#lightOn'+response.cocoId).attr('style', 'display: inline-block;');
             $('#lightBright'+response.cocoId).attr('style', 'display: none;');
             $('#lightOff'+response.cocoId).attr('style', 'display: none;');
+            $('#color'+response.cocoId).attr('value', response.lightColor);
+            $('#brightInput'+response.cocoId).attr('value', response.lightBrightness);
         }   
     }).fail(function(){
 
