@@ -30,31 +30,31 @@
         <img src="{{url_for('static', filename='img/'+coco.img)}}" width="50" height="50" class="mr-2" style="display: inline-block; border-radius: 50%;" alt="Avatar">
         <h4 class="mr-1" style="display: inline-block;"><text id="coconame">{{coco.name}}</text></h4>
         </a>
+        <input type="color" id="color{{coco.id}}" name="color{{coco.id}}" value="#ffffff">
         <span id="lightOff{{coco.id}}" style="display: {% if coco.light == 1 %}inline-block;{% elif coco.light == 0 %}none;{% endif %}">
             <button type="button" 
             onclick="taskController('{{coco.proxy}}','{{coco.id}}',2)" 
             class="btn btn-warning btn-sm ml-3" 
             style="display: inline-block;">
-                <i class="material-icons" style="color: black; vertical-align:middle;">toggle_off</i>
+                <i class="material-icons-outlined" style="color: black; vertical-align:middle;">brightness_2</i>
             </button>
         </span>
         <span id="lightOn{{coco.id}}" style="display: {% if coco.light == 1 %}none;{% elif coco.light == 0 %}inline-block;{% endif %}">
-            <input type="color" id="color{{coco.id}}" name="color{{coco.id}}" value="#ffffff">
             <button type="button" 
             onclick="taskController('{{coco.proxy}}','{{coco.id}}',1)" 
             class="btn btn-outline-warning btn-sm ml-3" 
             style="display: inline-block;">
-                <i class="material-icons" style="vertical-align:middle;">toggle_on</i>
+                <i class="material-icons-outlined" style="vertical-align:middle;">wb_sunny</i>
             </button>
         </span>
-        <button id="reboot;{{coco.id}}" class="btn btn btn-sm ml-3" 
-        style="display: inline-block; background-color:rgb(26,86,63);" 
-        onclick="taskController('{{coco.proxy}}','{{coco.id}}',5)"
-        data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco.">
-            <i class="material-icons" style="color: lightgray; vertical-align:middle;">power_settings_new</i>
+        <button id="party;{{coco.id}}" class="btn btn btn-sm ml-3" 
+        style="display: inline-block; background: rgb(238,174,202);background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);" 
+        onclick="taskController('{{coco.proxy}}','{{coco.id}}',6)"
+        data-toggle="tooltip" data-placement="top" title="Time to party!">
+            <i class="material-icons" style="color:royalblue; vertical-align:middle;">blur_on</i>
         </button>
         <br>
-        <div id="lightBright{{coco.id}}" style="display: {% if coco.light == 1 %}none;{% elif coco.light == 0 %}inline-block;{% endif %}"
+        <div id="lightBright{{coco.id}}" style="display: {% if coco.light == 0 %}none;{% elif coco.light == 1 %}inline-block;{% endif %}"
         data-toggle="tooltip" data-placement="top" title="Light brightness setting.">
             <i class="material-icons-outlined mr-1" style="color: lightgray; vertical-align:middle;">highlight</i>
             <input type="range" id="brightInput{{coco.id}}" name="brightInput{{coco.id}}" 

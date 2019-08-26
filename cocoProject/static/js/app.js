@@ -40,7 +40,6 @@ function taskController(proxy, id, taskLabel){
             var brightness = document.getElementById('brightInput'+id).value;
             proxy = proxy + '/light?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
             document.getElementById('lightOn'+id).style.display = 'none';
-            document.getElementById('lightBright'+id).style.display = 'none';
             break;
         case 2:
             proxy = proxy + '/light?red=0&green=0&blue=0&brightness=0';
@@ -57,8 +56,6 @@ function taskController(proxy, id, taskLabel){
             break;
         case 6:
             proxy = proxy + '/light?red=-1&green=-1&blue=-1&brightness=0.2';
-            document.getElementById('lightOn'+id).style.display = 'none';
-            document.getElementById('lightBright'+id).style.display = 'none';
             break;
     }
     $.post('/task', {
@@ -79,10 +76,10 @@ function taskController(proxy, id, taskLabel){
             if (response.cocoLight == true){
                 $('#lightOff'+response.cocoId).attr('style', 'display: inline-block;');
                 $('#lightOn'+response.cocoId).attr('style', 'display: none;');
-                $('#lightBright'+response.cocoId).attr('style', 'display: none;');
+                $('#lightBright'+response.cocoId).attr('style', 'display: inline-block;');
             }else {
                 $('#lightOn'+response.cocoId).attr('style', 'display: inline-block;');
-                $('#lightBright'+response.cocoId).attr('style', 'display: inline-block;');
+                $('#lightBright'+response.cocoId).attr('style', 'display: none;');
                 $('#lightOff'+response.cocoId).attr('style', 'display: none;');
             }
         }

@@ -54,7 +54,6 @@ def task():
     except:
         taskSuccess = 0
         pass
-    print(proxy)
     if proxy.split('/')[3] == 'feed' and taskSuccess == 1:
         msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
         cat = 'info'
@@ -67,6 +66,13 @@ def task():
             (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) > 0) or \
             (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) > 0) and taskSuccess == 1:
         msg = Markup('Light Activated for <strong>{}</strong>.'.format(coco.name))
+        cat = 'warning'
+        coco.light = 1
+        db.session.commit()
+    elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) < 0) or \
+            (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) < 0) or \
+            (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) < 0) and taskSuccess == 1:
+        msg = Markup('Party for <strong>{}</strong>!'.format(coco.name))
         cat = 'warning'
         coco.light = 1
         db.session.commit()

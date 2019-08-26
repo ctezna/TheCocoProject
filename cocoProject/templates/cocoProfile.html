@@ -18,10 +18,17 @@
     <form action="{{ url_for('cocoProfile', id=coco.id) }}" method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="row">
-            <div class="col-md-6 col-sm-6">
-                <img src="{{url_for('static', filename='img/'+coco.img)}}" width="150" height="150" class="mr-2 ml-5" style="display: inline-block; border-radius: 50%;" alt="Avatar">
+            <div class="col-md-6 col-sm-6 col-12">
+                <img src="{{url_for('static', filename='img/'+coco.img)}}" width="150" height="150" 
+                class="mr-2 ml-5" style="display: inline-block; border-radius: 50%;" alt="Avatar">
+                <button id="reboot;{{coco.id}}" class="btn btn btn-block mt-3" 
+                style="background-color:rgb(26,86,63); max-width: 250px;" 
+                onclick="taskController('{{coco.proxy}}','{{coco.id}}',5)"
+                data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco.">
+                    <i class="material-icons" style="color: lightgray; vertical-align:middle;">power_settings_new</i>
+                </button>
             </div>
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-6 col-sm-6 col-12">
                 {{ form.img.label(class="form-control-label", style="color:lightgray;") }}
                 {{ form.img(class="form-control-file mb-2", style="color:lightgray;") }}
                 {% for error in form.img.errors %}
@@ -29,11 +36,12 @@
                 {% endfor %}
                 {{ form.name.label(class="form-control-label", style="color:lightgray;") }}
                 {{ form.name(class="form-control", size=32) }}<br>
-                {{ form.submit(class="btn btn", style="background-color:rgb(38,138,241); color: lightgray;") }}
+                {{ form.submit(class="btn btn", style="background-color:rgb(38,138,241); color: white;") }}
             </div> 
             
         </div>
-    </form><br>
+    </form>
+    <br>
 <div class="table-responsive">
     <table id="routineTable" class="table table-sm table-striped table-bordered table-hover table-condensed">
         <thead class="thead-dark">
