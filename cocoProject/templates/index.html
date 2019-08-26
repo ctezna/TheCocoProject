@@ -7,8 +7,10 @@
 {% block style%}
 <style>
 @media only screen and (max-width: 500px) {
-    
-                }
+        #coconame{
+            font-size: 35px;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -26,7 +28,7 @@
     <div class="card-header text-center">
         <a href="{{ url_for('cocoProfile', id=coco.id) }}" style="text-decoration: none; color: #ffffff;">
         <img src="{{url_for('static', filename='img/'+coco.img)}}" width="50" height="50" class="mr-2" style="display: inline-block; border-radius: 50%;" alt="Avatar">
-        <h4 style="display: inline-block;">{{coco.name}}</h4>
+        <h4 class="mr-1" style="display: inline-block;"><text id="coconame">{{coco.name}}</text></h4>
         </a>
         <span id="lightOff{{coco.id}}" style="display: {% if coco.light == 1 %}inline-block;{% elif coco.light == 0 %}none;{% endif %}">
             <button type="button" 
