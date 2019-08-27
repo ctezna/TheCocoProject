@@ -88,8 +88,6 @@ def task():
         msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
         cat = 'secondary'
         coco.light = 0
-        coco.lightBrightness = 0.3
-        coco.lightColor = '#ffffff'
         db.session.commit()
     elif taskSuccess != 1:
         msg = Markup('Task Unsuccessful: Please refresh page or use refresh link to generate new proxy.')
