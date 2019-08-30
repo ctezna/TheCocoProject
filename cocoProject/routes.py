@@ -54,7 +54,10 @@ def task():
     except:
         taskSuccess = 0
         pass
-    if proxy.split('/')[3] == 'feed' and taskSuccess == 1:
+    if taskSuccess != 1:
+        msg = Markup('Task Unsuccessful: Please refresh page or use refresh link to generate new proxy.')
+        cat = 'danger'
+    elif proxy.split('/')[3] == 'feed' and taskSuccess == 1:
         msg = Markup('Feeding <strong>{}</strong>. . .'.format(coco.name))
         cat = 'info'
     elif proxy.split('/')[3] == 'reboot' and taskSuccess == 1:
@@ -89,9 +92,6 @@ def task():
         cat = 'secondary'
         coco.light = 0
         db.session.commit()
-    elif taskSuccess != 1:
-        msg = Markup('Task Unsuccessful: Please refresh page or use refresh link to generate new proxy.')
-        cat = 'danger'
     rsp = { 
             "cocoId":coco.id,
             "cocoProxy":coco.proxy,
@@ -152,7 +152,6 @@ def proxyGen(ids):
             coco.proxy = proxy
             coco.timeConnection = datetime.utcnow()
             db.session.commit()
-        print(proxy)
         item = { 
             "cocoId":coco.id,
             "cocoProxy":coco.proxy,
