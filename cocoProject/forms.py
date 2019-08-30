@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField, SelectField
 from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 from cocoProject.models import User, Coco
 from flask_wtf.file import FileField, FileAllowed
@@ -32,6 +32,7 @@ class AddCocoForm(FlaskForm):
     img = FileField(_l('Coco Profile Picture'), validators=[FileAllowed(['jpg', 'png'])])
     address = StringField(_l('Device Address'), validators=[DataRequired()])
     password = PasswordField(_l('Remote.it Password'), validators=[DataRequired()])
+    deviceType = SelectField(_l('Device Type'), choices=[('coco','Coco'), ('horus','Horus')])
     submit = SubmitField(_l('Initialize Connection'))
 
     # def validate_address(self, address):

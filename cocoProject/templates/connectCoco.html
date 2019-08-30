@@ -18,6 +18,10 @@
 <form action="/connectCoco" onsubmit="progress()" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <p>
+        {{ form.deviceType.label(style="color:lightgray;")}}
+        {{ form.deviceType(class="ml-3")}}
+    </p>
+    <p>
         {{ form.name(class="form-control", placeholder=_("Personalized Name"), size=32) }}
         {% for error in form.name.errors %}
             <span style="color: red;">[{{ error }}]</span>

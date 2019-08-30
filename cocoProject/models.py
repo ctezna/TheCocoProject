@@ -22,10 +22,11 @@ class Coco(db.Model):
     proxy = db.Column(db.String(256), nullable=True, unique=True)
     address = db.Column(db.String(256), nullable=False)
     light = db.Column(db.Boolean, nullable=False, default=0)
-    lightColor = db.Column(db.String(12), default='#ffffff')
+    lightColor = db.Column(db.String(7), default='#ffffff')
     lightBrightness = db.Column(db.Float, default=0.3)
     cred = db.Column(db.String(256), nullable=False)
     timeConnection = db.Column(db.DateTime, nullable=False)
+    deviceType = db.Column(db.String(7), default='coco')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     routines = db.relationship('Routine', backref='coco', lazy='dynamic')
 
