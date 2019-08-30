@@ -187,6 +187,7 @@ def connectCoco():
         address = form.address.data
         password = form.password.data
         user_id = current_user.id
+        deviceType = form.deviceType.data
         token = remoteit_api.login(current_user.dev_id, current_user.username, password)
         proxy = remoteit_api.connect(current_user.dev_id, token, address)
         if token == 800:
@@ -196,7 +197,7 @@ def connectCoco():
             flash(_('Timeout Error. Please try again.'),'danger')
             return redirect(url_for('connectCoco'))
         coco = Coco(name=name, img=img, proxy=proxy, address=address, user_id=user_id, 
-                    cred=password, timeConnection=datetime.utcnow())
+                    cred=password, timeConnection=datetime.utcnow(), deviceType=deviceType)
         db.session.add(coco)
         db.session.commit()
         flash(_('New Coco Added Successfully!'),'success')
