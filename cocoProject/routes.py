@@ -121,7 +121,7 @@ def deleteCoco(id):
 @app.route('/deleteRoutine/<id>', methods=['GET'])
 @login_required
 def deleteRoutine(id):
-    #routine = Routine.query.filter_by(id=id).first_or_404()
+    routine = Routine.query.filter_by(id=id).first_or_404()
     coco = Coco.query.filter_by(id=routine.coco_id).first_or_404()
     response = routine_control.remove(routine.id, coco.proxy)
     if response == 0:
@@ -129,8 +129,8 @@ def deleteRoutine(id):
         flash(_(msg),'danger')
         return redirect(url_for('index'))
     msg = Markup('<strong>{}</strong> Routine Erased.'.format(routine.task))
-    #db.session.delete(routine)
-    #db.session.commit()
+    db.session.delete(routine)
+    db.session.commit()
     flash(_(msg),'warning')
     return redirect(url_for('index'))
 
