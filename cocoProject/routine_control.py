@@ -4,7 +4,7 @@ import json, datetime
 def send(routineId, proxy, task, days, times):
     url = proxy + '/addRoutine'
     payload = {
-        "id": routineId,
+        "routine_id": routineId,
         "task": task,
         "days": days,
         "times": times
@@ -21,7 +21,7 @@ def send(routineId, proxy, task, days, times):
 def remove(routineId, proxy):
     url = proxy + '/removeRoutine'
     payload = {
-        "id": routineId
+        "routine_id": routineId
     }
     try:
         response = requests.get(url, params=payload)
