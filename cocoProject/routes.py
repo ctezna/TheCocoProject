@@ -30,12 +30,14 @@ def index():
         proxy = form.proxy.data
         coco = Coco.query.filter_by(proxy=proxy).first_or_404()
         routine = Routine(task=task, days=action_days, times=times, coco_id=coco.id)
-        response = routine_control.send(routine.id, proxy, task, action_days, times)
-        if response == 0:
-            flash(_('Routine Created Unsuccessfully.'),'danger')
-            return render_template("index.html", cocos=cocos, form=form)
         db.session.add(routine)
         db.session.commit()
+        response = routine_control.send(routine.id, proxy, task, action_days, times)
+        if response == 0:
+            db.session.remove(routine)
+            db.session.commit()
+            flash(_('Routine Created Unsuccessfully.'),'danger')
+            return render_template("index.html", cocos=cocos, form=form)
         flash(_('Routine Added Successfully.'),'success')
     return render_template("index.html", cocos=cocos, form=form)
 
