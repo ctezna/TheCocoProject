@@ -155,9 +155,6 @@
                 {{ form.hidden_tag() }}
                 <p>
                     {{ form.task.label }} {{ form.task() }}
-                    <small class="text-muted">
-                        {{_('Light turns off after 1 hour.')}}
-                    </small><br>
                 </p>
                 <p>{{ form.days.label }}</p>
                 <p>
@@ -172,7 +169,7 @@
 
                     {{ form.proxy(style="display:none;")}}
                 <small class="text-muted">
-                    {{_('Please use 24 hour clock with intervals of 15 minutes. Separate times with commas.')}}
+                    {{_('Please use 24 hour clock. Separate times with commas.')}}
                 </small><br>
         </div>
         <div class="modal-footer">
