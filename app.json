@@ -1,0 +1,40 @@
+{
+    "name": "The Coco Project",
+    "description": "Client app for IoT device.",
+    "keywords": [
+      "IoT",
+      "python",
+      "flask"
+    ],
+    "website": "https://cocoproject.herokuapp.com/",
+    "repository": "https://github.com/ctezna/thecocoproject",
+    "logo": "https://cocoproject.herouapp.com/static/img/logo_big.png",
+    "success_url": "/index",
+    "env": {
+      "SECRET_KEY": {
+        "description": "A secret key for verifying the integrity of signed cookies.",
+        "generator": "secret"
+      },
+      "LOG_TO_STDOUT": {
+        "value": "0"
+      }
+    },
+    "formation": {
+      "web": {
+        "quantity": 1,
+        "size": "free"
+      }
+    },
+    "addons": [
+      {
+        "plan": "heroku-postgresql-hobby-dev"
+      }
+    ],
+    "environments": {
+      "test": {
+        "scripts": {
+          "test": "python3 tests_coco.py"
+        }
+      }
+    }
+  }

@@ -7,6 +7,14 @@ import logging, os
 from logging.handlers import SMTPHandler, RotatingFileHandler
 from flask_babel import Babel
 
+
+def create_test_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+    db.init_app(app)
+    return app, db
+
+
 app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
