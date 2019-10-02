@@ -28,7 +28,6 @@ def index():
                 action_days += week[i]
         times = form.times.data
         proxy = form.proxy.data
-        print(request.form['color'])
         coco = Coco.query.filter_by(proxy=proxy).first_or_404()
         routine = Routine(task=task, days=action_days, times=times, coco_id=coco.id)
         db.session.add(routine)
