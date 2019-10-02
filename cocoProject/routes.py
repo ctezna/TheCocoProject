@@ -29,17 +29,17 @@ def index():
         times = form.times.data
         proxy = form.proxy.data
         print(request.form['color'])
-        # coco = Coco.query.filter_by(proxy=proxy).first_or_404()
-        # routine = Routine(task=task, days=action_days, times=times, coco_id=coco.id)
-        # db.session.add(routine)
-        # db.session.commit()
-        # response = routine_control.send(routine.id, proxy, task, action_days, times)
-        # if response == 0:
-        #     db.session.remove(routine)
-        #     db.session.commit()
-        #     flash(_('Routine Created Unsuccessfully.'),'danger')
-        #     return render_template("index.html", cocos=cocos, form=form)
-        # flash(_('Routine Added Successfully.'),'success')
+        coco = Coco.query.filter_by(proxy=proxy).first_or_404()
+        routine = Routine(task=task, days=action_days, times=times, coco_id=coco.id)
+        db.session.add(routine)
+        db.session.commit()
+        response = routine_control.send(routine.id, proxy, task, action_days, times)
+        if response == 0:
+            db.session.remove(routine)
+            db.session.commit()
+            flash(_('Routine Created Unsuccessfully.'),'danger')
+            return render_template("index.html", cocos=cocos, form=form)
+        flash(_('Routine Added Successfully.'),'success')
     return render_template("index.html", cocos=cocos, form=form)
 
 @app.route('/task', methods=['POST'])
