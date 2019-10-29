@@ -1,13 +1,14 @@
 import requests
 import json, datetime
 
-def send(routineId, proxy, task, days, times):
+def send(routineId, proxy, task, days, times, light_splice):
     url = proxy + '/addRoutine'
     payload = {
         "routine_id": routineId,
         "task": task,
         "days": days,
-        "times": times
+        "times": times,
+        "light_splice": light_splice
     }
     try:
         response = requests.get(url, params=payload)
@@ -26,7 +27,7 @@ def remove(routineId, proxy):
     try:
         response = requests.get(url, params=payload)
         response_body = response.json()
-        print(response_body)
+        #print(response_body)
         return 1
     except:
         return 0
@@ -36,7 +37,7 @@ def get(proxy):
     try:
         response = requests.get(url)
         response_body = response.json()
-        print(response_body)
+        #print(response_body)
         return response_body
     except:
         return 0

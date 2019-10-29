@@ -35,7 +35,7 @@ def connect(key, token, address):
     url = "https://api.remot3.it/apv/v27/device/connect"
     response = requests.post(url, data=json.dumps(body), headers=headers)
     response_body = response.json()
-    print(response_body)
+    #print(response_body)
     try:
         #return(response_body['connection']['proxy'],response_body['connection']['expirationsec'])
         return(response_body['connection']['proxy'])

@@ -8,3 +8,5 @@ cocoProject/.DS_Store
 cocoProject/static/.DS_Store
 cocoProject/static/img/cocoPics/
 .env
+app.db
+*.db
