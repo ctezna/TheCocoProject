@@ -215,6 +215,8 @@ def cocoProfile(id):
     if routines == 0:
         flash(_('Profile loaded unsucessfully. Check connection.'),'danger')
         return redirect(url_for('index'))
+    if len(routines) > 1:
+        routines = ['']
     form = EditCocoForm()
     if form.validate_on_submit():
         if form.img.data:
