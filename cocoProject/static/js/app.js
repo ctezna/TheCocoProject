@@ -22,9 +22,10 @@ function deleteData(url){
     post(url,null,'get');
 }
 
-function pantiltControl(move, proxy){
+function pantiltControl(move, proxy, id){
+    taskController(proxy, id, 4);
     $.ajax('https://ctezna.ngrok.io/cam/move/'+ move).done(function(){});
-
+    
 }
 
 
