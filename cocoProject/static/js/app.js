@@ -39,6 +39,7 @@ function progress(){
 }
 
 function taskController(proxy, id, taskLabel, horus=null, move=null){
+    var p2;
     switch (taskLabel) {
         case 0:
             proxy = proxy + '/feed';
@@ -80,6 +81,7 @@ function taskController(proxy, id, taskLabel, horus=null, move=null){
             break;
         case 8:
             taskController(proxy, id, 4);
+            p2 = proxy;
             proxy = 'https://ctezna.ngrok.io/cam/move/'+ move;
             break;
     }
@@ -88,7 +90,7 @@ function taskController(proxy, id, taskLabel, horus=null, move=null){
         id:id
     }).done(function(response){
         if (response.move == true){
-            taskController(proxy, id, 7);
+            taskController(p2, id, 7);
         }
         if (response.msg.length > 1){
             $('#message').html('');
