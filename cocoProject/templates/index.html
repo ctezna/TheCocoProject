@@ -30,6 +30,8 @@
         <img src="{{url_for('static', filename='img/'+coco.img)}}" width="50" height="50" class="mr-2" style="display: inline-block; border-radius: 50%;" alt="Avatar">
         <h4 class="mr-1" style="display: inline-block;"><text id="coconame">{{coco.name}}</text></h4>
         </a>
+
+        {% if coco.deviceType == 'coco' %}
         <span id="lightBar{{coco.id}}" 
         style="display: {% if coco.deviceType == 'coco' %}inline;{% elif coco.deviceType == 'horus' %}none;{%endif%}">
         <input type="color" id="color{{coco.id}}" onchange="taskController('{{coco.proxy}}','{{coco.id}}',1)" 
@@ -67,8 +69,9 @@
         </div>
         </span>
 
+        {% else %}
 
-        <span id="lightBar-horus{{coco.id}}" 
+        <span id="lightBar{{coco.id}}" 
         style="display: {% if coco.deviceType == 'horus' %}inline;{% elif coco.deviceType == 'coco' %}none;{%endif%}">
         <input type="color" id="color{{coco.id}}" onchange="taskController('{{coco.proxy}}','{{coco.id}}',1, horus=1)" 
         name="color{{coco.id}}" value="{{coco.lightColor}}">
@@ -99,7 +102,7 @@
         </div>
         </span>
 
-
+        {% endif %}
 
     </div>
     <div class="card-body text-center">
