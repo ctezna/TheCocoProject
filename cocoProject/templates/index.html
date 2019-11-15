@@ -157,25 +157,25 @@
                 </button>
             
                 <button id="up;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="pantiltControl('up', '{{coco.proxy}}','{{coco.id}}')">
+                class="btn btn" onclick="taskController('{{coco.proxy}}','{{coco.id}}', 8, horus=null, move='up')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">keyboard_arrow_up</i>
                     <text id="big" style="color: lightgray;" >{{_('Up')}}</text>
                 </button>
             
                 <button id="center;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="pantiltControl('center', '{{coco.proxy}}','{{coco.id}}')">
+                class="btn btn" onclick="taskController('{{coco.proxy}}','{{coco.id}}', 8, horus=null, move='center')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">adjust</i>
                     <text id="big" style="color: lightgray;" >{{_('Center')}}</text>
                 </button>
         
                 <button id="down;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="pantiltControl('down', '{{coco.proxy}}','{{coco.id}}')">
+                class="btn btn" onclick="taskController('{{coco.proxy}}','{{coco.id}}', 8, horus=null, move='down')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">keyboard_arrow_down</i>
                     <text id="big" style="color: lightgray;" >{{_('Down')}}</text>
                 </button>
 
                 <button id="right;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="pantiltControl('left', '{{coco.proxy}}','{{coco.id}}')">
+                class="btn btn" onclick="taskController('{{coco.proxy}}','{{coco.id}}', 8, horus=null, move='left')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">keyboard_arrow_right</i>
                     <text id="big" style="color: lightgray;" >{{_('Right')}}</text>
                 </button>
