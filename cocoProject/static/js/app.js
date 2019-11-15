@@ -30,7 +30,7 @@ function progress(){
     setTimeout(function(){document.getElementById('prog').style.width = '99%';},1000);
 }
 
-function taskController(proxy, id, taskLabel){
+function taskController(proxy, id, taskLabel, horus=null){
     switch (taskLabel) {
         case 0:
             proxy = proxy + '/feed';
@@ -39,12 +39,18 @@ function taskController(proxy, id, taskLabel){
             var colorRGB = hexToRgb(document.getElementById('color'+id).value);
             var brightness = document.getElementById('brightInput'+id).value;
             proxy = proxy + '/light?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
+            if (horus){
+                proxy = 'https://ctezna.ngrok.io/light/switch?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
+            }
             document.getElementById('lightOn'+id).style.display = 'none';
             document.getElementById('lightBright'+id).style.display = 'inline';
             document.getElementById('lightOff'+id).style.display = 'inline';
             break;
         case 2:
             proxy = proxy + '/light?red=0&green=0&blue=0&brightness=0';
+            if (horus){
+                proxy = 'https://ctezna.ngrok.io/light/switch?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
+            }
             document.getElementById('lightOff'+id).style.display = 'none';
             break;
         case 3:

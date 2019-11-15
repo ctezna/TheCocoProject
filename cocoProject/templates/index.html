@@ -66,6 +66,41 @@
             <span class="sr-only">Light brightness setting.</span>
         </div>
         </span>
+
+
+        <span id="lightBar-horus{{coco.id}}" 
+        style="display: {% if coco.deviceType == 'horus' %}inline;{% elif coco.deviceType == 'coco' %}none;{%endif%}">
+        <input type="color" id="color{{coco.id}}" onchange="taskController('{{coco.proxy}}','{{coco.id}}',1, horus=1)" 
+        name="color{{coco.id}}" value="{{coco.lightColor}}">
+        <span id="lightOff{{coco.id}}" style="display: {% if coco.light == 1 %}inline-block;{% elif coco.light == 0 %}none;{% endif %}">
+            <button type="button" 
+            onclick="taskController('{{coco.proxy}}','{{coco.id}}',2, horus=1)" 
+            class="btn btn-warning btn-sm ml-3" 
+            style="display: inline-block;">
+                <i class="material-icons-outlined" style="color: black; vertical-align:middle;">brightness_2</i>
+            </button>
+        </span>
+        <span id="lightOn{{coco.id}}" style="display: {% if coco.light == 1 %}none;{% elif coco.light == 0 %}inline-block;{% endif %}">
+            <button type="button" 
+            onclick="taskController('{{coco.proxy}}','{{coco.id}}',1, horus=1)" 
+            class="btn btn-outline-warning btn-sm ml-3" 
+            style="display: inline-block;">
+                <i class="material-icons-outlined" style="vertical-align:middle;">wb_sunny</i>
+            </button>
+        </span>
+        <br>
+        <div id="lightBright{{coco.id}}" style="display: {% if coco.light == 0 %}none;{% elif coco.light == 1 %}inline-block;{% endif %}"
+        data-toggle="tooltip" data-placement="top" title="Light brightness setting.">
+            <i class="material-icons-outlined mr-1" style="color: lightgray; vertical-align:middle;">highlight</i>
+            <input type="range" id="brightInput{{coco.id}}" onchange="taskController('{{coco.proxy}}','{{coco.id}}',1, horus=1)" 
+            name="brightInput{{coco.id}}" min="0.1" max="0.9" value="{{coco.lightBrightness}}" step="0.1">
+            <i class="material-icons ml-1" style="color: lightgray; vertical-align:middle;">highlight</i>
+            <span class="sr-only">Light brightness setting.</span>
+        </div>
+        </span>
+
+
+
     </div>
     <div class="card-body text-center">
         <div id="vid" class="vid-container mb-3">
@@ -88,7 +123,7 @@
             <i class="material-icons" style="vertical-align:middle;">videocam_off</i>
         </button>
         <button id="ring;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-        class="btn btn" onclick="taskController('{{coco.proxy}}','{{coco.id}}',3)">
+        class="btn btn" onclick="taskController('{{coco.proxy}}','{{coco.id}}',3)" disabled>
             <i class="material-icons" style="color: lightgray; vertical-align:middle;">notifications_active</i>
         </button>
     </div>
@@ -148,6 +183,8 @@
             </span>
 
         {% endif %}
+
+
         <button id="delete;{{coco.id}}" data-toggle="modal" data-id="{{coco.id}}" data-target="#modalDelete{{coco.id}}" 
         class="open-DeleteModal btn btn" style="float:right; background-color: rgb(205,103,122);">
             <i class="material-icons mr-1" style="vertical-align:middle;">delete</i>
