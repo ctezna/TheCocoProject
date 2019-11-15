@@ -126,11 +126,11 @@ function playVid(id){
     document.getElementById('stop;'+id).style.display = 'inline';
     document.getElementById('ring;'+id).style.display = 'inline';
     document.getElementById('refresh;'+id).style.display = 'inline';
-    document.getElementById('left'+id).style.display = 'inline';
-    document.getElementById('right'+id).style.display = 'inline';
-    document.getElementById('up'+id).style.display = 'inline';
-    document.getElementById('down'+id).style.display = 'inline';
-    document.getElementById('center'+id).style.display = 'inline';
+    document.getElementById('left;'+id).style.display = 'inline';
+    document.getElementById('right;'+id).style.display = 'inline';
+    document.getElementById('up;'+id).style.display = 'inline';
+    document.getElementById('down;'+id).style.display = 'inline';
+    document.getElementById('center;'+id).style.display = 'inline';
 }
 function stopVid(id, proxy){
     document.getElementById('play;'+id).style.display = 'inline';
@@ -140,11 +140,11 @@ function stopVid(id, proxy){
     document.getElementById('stop;'+id).style.display = 'none';
     document.getElementById('ring;'+id).style.display = 'none';
     document.getElementById('refresh;'+id).style.display = 'none';
-    document.getElementById('left'+id).style.display = 'none';
-    document.getElementById('right'+id).style.display = 'none';
-    document.getElementById('up'+id).style.display = 'none';
-    document.getElementById('down'+id).style.display = 'none';
-    document.getElementById('center'+id).style.display = 'none';
+    document.getElementById('left;'+id).style.display = 'none';
+    document.getElementById('right;'+id).style.display = 'none';
+    document.getElementById('up;'+id).style.display = 'none';
+    document.getElementById('down;'+id).style.display = 'none';
+    document.getElementById('center;'+id).style.display = 'none';
 }
 
 function fullscreen() {
