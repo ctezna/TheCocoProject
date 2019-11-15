@@ -105,15 +105,21 @@ def task():
             pass      
         pass
 
-    camOff = False
+    move = False
     try:
         taskSuccess = response.json()['response']
         pass
     except:
         taskSuccess = 0
         if response.status_code == 204:
-            taskSuccess = 1      
+            taskSuccess = 1
+            move = True   
         pass
+
+    if proxy.split('/')[3] == 'cam':
+        taskSuccess = 1
+
+        
     if taskSuccess != 1:
         msg = Markup('Task {} Unsuccessful: Please refresh page or \
             use refresh link to generate new proxy.'.format(proxy))
@@ -125,7 +131,6 @@ def task():
         msg = Markup('Coco Restarting. Please wait for <strong>light to turn on.</strong>')
         cat = 'info'
     elif proxy.split('/')[3] == 'camOff':
-        camOff = True
         taskSuccess = 1 
     elif (red > 0 and red < 300) or \
             (green > 0 and green < 300) or \
@@ -157,7 +162,7 @@ def task():
             "lightBrightness":coco.lightBrightness,
             "msg":msg,
             "msgcat":cat,
-            "camOff": camOff
+            "move": move
             }
     return jsonify(rsp)
 

@@ -87,7 +87,7 @@ function taskController(proxy, id, taskLabel, horus=null, move=null){
         data:proxy, 
         id:id
     }).done(function(response){
-        if (response.camOff == false){
+        if (response.move == true){
             taskController(proxy, id, 7);
         }
         if (response.msg.length > 1){
