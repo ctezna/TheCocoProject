@@ -23,7 +23,9 @@ function deleteData(url){
 }
 
 function pantiltControl(move, proxy){
-    $.ajax(proxy + '/camOff').done(function(){
+    $.ajax({ crossDomain: true,
+             url: proxy + '/camOff',
+             type:'GET' }).done(function(){
         $.ajax('http://ctezna.ngrok.io/cam/move/'+ move).done(function(){
             $.ajax(proxy + '/cam').done(function(){});
         });
