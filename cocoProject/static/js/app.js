@@ -22,6 +22,13 @@ function deleteData(url){
     post(url,null,'get');
 }
 
+function pantiltControl(move){
+    $.ajax('https://ctezna.ngrok.io/cam/move/'+ move).done(function(data){
+        console.log("done");
+    });
+
+}
+
 function progress(){
     document.getElementById('prog').style.display = 'inline';
     document.getElementById('prog').style.width = '10%';

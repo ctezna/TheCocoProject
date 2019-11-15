@@ -149,31 +149,31 @@
         {% if coco.deviceType == 'horus' %}
             <span id="panTilt{{coco.id}}">
                 <button id="left;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="post('https://ctezna.ngrok.io/cam/move/right', null, 'get')">
+                class="btn btn" onclick="pantiltControl('right')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">keyboard_arrow_left</i>
                     <text id="big" style="color: lightgray;" >{{_('Left')}}</text>
                 </button>
             
                 <button id="up;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="post('https://ctezna.ngrok.io/cam/move/up', null, 'get')">
+                class="btn btn" onclick="pantiltControl('up')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">keyboard_arrow_up</i>
                     <text id="big" style="color: lightgray;" >{{_('Up')}}</text>
                 </button>
             
                 <button id="center;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="post('https://ctezna.ngrok.io/cam/move/center', null, 'get')">
+                class="btn btn" onclick="pantiltControl('center')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">adjust</i>
                     <text id="big" style="color: lightgray;" >{{_('Center')}}</text>
                 </button>
         
                 <button id="down;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="post('https://ctezna.ngrok.io/cam/move/down', null, 'get')">
+                class="btn btn" onclick="pantiltControl('down')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">keyboard_arrow_down</i>
                     <text id="big" style="color: lightgray;" >{{_('Down')}}</text>
                 </button>
 
                 <button id="right;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="post('https://ctezna.ngrok.io/cam/move/left', null, 'get')">
+                class="btn btn" onclick="pantiltControl('left')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">keyboard_arrow_right</i>
                     <text id="big" style="color: lightgray;" >{{_('Right')}}</text>
                 </button>
