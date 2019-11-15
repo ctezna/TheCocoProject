@@ -46,29 +46,31 @@ def index():
             flash(_('Routine Created Unsuccessfully.'),'danger')
             return render_template("index.html", cocos=cocos, form=form)
         flash(_('Routine Added Successfully.'),'success')
-    # for c in cocos:
-    #     try:
-    #         rsp = requests.get(c.proxy + '/light/status').json()
-    #     except json.decoder.JSONDecodeError:
-    #         address = c.address
-    #         password = c.cred
-    #         token = remoteit_api.login(current_user.dev_id, current_user.username, password)
-    #         proxy = remoteit_api.connect(current_user.dev_id, token, address)
-    #         if not type(proxy) == int:
-    #             c.proxy = proxy
-    #             rsp = requests.get(c.proxy + '/light/status').json()
-    #         else:
-    #             rsp = {
-    #                 'status': False,
-    #                 'red': 255,
-    #                 'green': 255,
-    #                 'blue': 255,
-    #                 'brightness': 0.3
-    #             }
-    #     c.light = rsp['status']
-    #     c.lightColor = '#%02x%02x%02x' % (int(rsp['red']), int(rsp['green']), int(rsp['blue']))
-    #     c.lightBrightness = float(rsp['brightness'])
-    #     print(rsp['status'])
+    
+    for c in cocos:
+        if c.deviceType == 'coco':
+            try:
+                rsp = requests.get(c.proxy + '/light/status').json()
+            except json.decoder.JSONDecodeError:
+                address = c.address
+                password = c.cred
+                token = remoteit_api.login(current_user.dev_id, current_user.username, password)
+                proxy = remoteit_api.connect(current_user.dev_id, token, address)
+                if not type(proxy) == int:
+                    c.proxy = proxy
+                    rsp = requests.get(c.proxy + '/light/status').json()
+                else:
+                    rsp = {
+                        'status': False,
+                        'red': 255,
+                        'green': 255,
+                        'blue': 255,
+                        'brightness': 0.3
+                    }
+            c.light = rsp['status']
+            c.lightColor = '#%02x%02x%02x' % (int(rsp['red']), int(rsp['green']), int(rsp['blue']))
+            c.lightBrightness = float(rsp['brightness'])
+            print(rsp['status'])
     
     db.session.commit()
     return render_template("index.html", cocos=cocos, form=form)
