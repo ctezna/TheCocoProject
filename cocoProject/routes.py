@@ -87,6 +87,10 @@ def task():
         pass
     except:
         taskSuccess = 0
+        if response.status_code == 204:
+            taskSuccess = 1
+
+            
         pass
     if taskSuccess != 1:
         msg = Markup('Task {} Unsuccessful: Please refresh page or \
@@ -102,7 +106,8 @@ def task():
         taskSuccess = 1 
     elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) > 0) or \
             (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) > 0) or \
-            (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) > 0) and taskSuccess == 1:
+            (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) > 0) and \
+                (taskSuccess == 1 or response.status_code == 204):
         msg = ''
         cat = ''
         red = int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1])
@@ -114,7 +119,8 @@ def task():
         db.session.commit()
     elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) < 0) or \
             (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) < 0) or \
-            (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) < 0) and taskSuccess == 1:
+            (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) < 0) and \
+                (taskSuccess == 1 or response.status_code == 204):
         msg = Markup('Party for <strong>{}</strong>!'.format(coco.name))
         cat = 'warning'
         coco.light = 1
