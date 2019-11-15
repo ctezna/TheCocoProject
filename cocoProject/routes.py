@@ -79,9 +79,31 @@ def task():
     proxy = request.form['data']
     id = request.form['id']
     coco = Coco.query.filter_by(id=id).first_or_404()
-    msg = '';
-    cat = '';
+    msg = ''
+    cat = ''
     response = requests.get(proxy)
+    red = ''
+    green = ''
+    blue = ''
+    brightness = ''
+    try:
+        red = int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1])
+        green = int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1])
+        blue = int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1])
+        brightness = float(proxy.split('/')[3].split('?')[1].split('&')[3].split('=')[1])
+        pass
+    except IndexError:
+        try:
+            red = int(proxy.split('/')[2].split('?')[1].split('&')[0].split('=')[1])
+            green = int(proxy.split('/')[2].split('?')[1].split('&')[1].split('=')[1])
+            blue = int(proxy.split('/')[2].split('?')[1].split('&')[2].split('=')[1])
+            brightness = float(proxy.split('/')[2].split('?')[1].split('&')[3].split('=')[1])
+            pass
+        except IndexError:
+            pass      
+        pass
+
+
     try:
         taskSuccess = response.json()['response']
         pass
@@ -102,29 +124,26 @@ def task():
         cat = 'info'
     elif proxy.split('/')[3] == 'camOff':
         taskSuccess = 1 
-    elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) > 0) or \
-            (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) > 0) or \
-            (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) > 0) and taskSuccess == 1:
+    elif (red > 0) or \
+            (green > 0) or \
+            (blue > 0) and taskSuccess == 1:
         msg = ''
         cat = ''
-        red = int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1])
-        green = int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1])
-        blue = int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1])
         coco.light = 1
-        coco.lightBrightness = float(proxy.split('/')[3].split('?')[1].split('&')[3].split('=')[1])
+        coco.lightBrightness = brightness
         coco.lightColor = '#%02x%02x%02x' % (red, green, blue)
         db.session.commit()
-    elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) < 0) or \
-            (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) < 0) or \
-            (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) < 0) and taskSuccess == 1:
+    elif (red < 0) or \
+            (green < 0) or \
+            (blue < 0) and taskSuccess == 1:
         msg = Markup('Party for <strong>{}</strong>!'.format(coco.name))
         cat = 'warning'
         coco.light = 1
-        coco.lightBrightness = float(proxy.split('/')[3].split('?')[1].split('&')[3].split('=')[1])
+        coco.lightBrightness = brightness
         db.session.commit()
-    elif (int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1]) == 0) and \
-            (int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1]) == 0) and \
-            (int(proxy.split('/')[3].split('?')[1].split('&')[2].split('=')[1]) == 0) and taskSuccess == 1:
+    elif (red == 0) and \
+            (green == 0) and \
+            (blue == 0) and taskSuccess == 1:
         msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
         cat = 'secondary'
         coco.light = 0
