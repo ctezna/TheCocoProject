@@ -127,8 +127,8 @@ def task():
     elif (red > 0) or \
             (green > 0) or \
             (blue > 0) and taskSuccess == 1:
-        msg = ''
-        cat = ''
+        msg = 'Color: {}, {}, {}'.format(red,green,blue)
+        cat = 'info'
         coco.light = 1
         coco.lightBrightness = brightness
         coco.lightColor = '#%02x%02x%02x' % (red, green, blue)
