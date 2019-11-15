@@ -24,8 +24,8 @@ function deleteData(url){
 
 function pantiltControl(move, proxy){
     $.ajax(proxy + '/camOff').done(function(){
-        $.ajax('https://ctezna.ngrok.io/cam/move/'+ move).done(function(){
-            console.log("done");
+        $.ajax('http://ctezna.ngrok.io/cam/move/'+ move).done(function(){
+            $.ajax(proxy + '/cam').done(function(){});
         });
     });
 
