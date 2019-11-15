@@ -38,7 +38,7 @@ function progress(){
     setTimeout(function(){document.getElementById('prog').style.width = '99%';},1000);
 }
 
-function taskController(proxy, id, taskLabel, horus=null){
+function taskController(proxy, id, taskLabel, horus=null, move=null){
     switch (taskLabel) {
         case 0:
             proxy = proxy + '/feed';
@@ -77,6 +77,9 @@ function taskController(proxy, id, taskLabel, horus=null){
             break;
         case 7:
             proxy = proxy + '/cam';
+            break;
+        case 8:
+            proxy = 'https://ctezna.ngrok.io/cam/move/'+ move;
             break;
     }
     $.post('/task', {

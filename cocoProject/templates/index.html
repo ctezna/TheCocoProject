@@ -148,8 +148,10 @@
 
         {% if coco.deviceType == 'horus' %}
             <span id="panTilt{{coco.id}}">
+                <!-- <button id="left;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
+                class="btn btn" onclick="pantiltControl('right', '{{coco.proxy}}','{{coco.id}}')"> -->
                 <button id="left;{{coco.id}}" style="display:none; background-color: rgb(26,86,63);" 
-                class="btn btn" onclick="pantiltControl('right', '{{coco.proxy}}','{{coco.id}}')">
+                class="btn btn" onclick="taskController('{{coco.proxy}}','{{coco.id}}', 8, move='right')">
                     <i class="material-icons" style="color: lightgray; vertical-align:middle;">keyboard_arrow_left</i>
                     <text id="big" style="color: lightgray;" >{{_('Left')}}</text>
                 </button>
