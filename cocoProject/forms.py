@@ -58,6 +58,7 @@ class EditCocoForm(FlaskForm):
     name = StringField(_l('Change Name'))
     img = FileField(_l('Change Coco Picture'), validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField(_l('Save'))
+    #make coco address editable and make coco proxy refersh always available
 
 class EditProfileForm(FlaskForm):
     password = PasswordField(_l('Password'), validators=[DataRequired()])
