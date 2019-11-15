@@ -25,7 +25,7 @@ function deleteData(url){
 function pantiltControl(move, proxy, id){
     taskController(proxy, id, 4);
     $.ajax('https://ctezna.ngrok.io/cam/move/'+ move).done(function(){});
-    
+    proxyGen(id);
 }
 
 
