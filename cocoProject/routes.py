@@ -105,21 +105,15 @@ def task():
             pass      
         pass
 
-    move = False
     try:
         taskSuccess = response.json()['response']
         pass
     except:
         taskSuccess = 0
         if response.status_code == 204:
-            taskSuccess = 1
-            move = True   
+            taskSuccess = 1 
         pass
 
-    if proxy.split('/')[3] == 'cam':
-        taskSuccess = 1
-
-        
     if taskSuccess != 1:
         msg = Markup('Task {} Unsuccessful: Please refresh page or \
             use refresh link to generate new proxy.'.format(proxy))
@@ -161,8 +155,7 @@ def task():
             "lightColor":coco.lightColor,
             "lightBrightness":coco.lightBrightness,
             "msg":msg,
-            "msgcat":cat,
-            "move": move
+            "msgcat":cat
             }
     return jsonify(rsp)
 
