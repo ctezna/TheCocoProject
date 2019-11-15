@@ -94,10 +94,10 @@ def task():
         pass
     except IndexError:
         try:
-            red = int(proxy.split('/')[2].split('?')[1].split('&')[0].split('=')[1])
-            green = int(proxy.split('/')[2].split('?')[1].split('&')[1].split('=')[1])
-            blue = int(proxy.split('/')[2].split('?')[1].split('&')[2].split('=')[1])
-            brightness = float(proxy.split('/')[2].split('?')[1].split('&')[3].split('=')[1])
+            red = int(proxy.split('/')[4].split('?')[1].split('&')[0].split('=')[1])
+            green = int(proxy.split('/')[4].split('?')[1].split('&')[1].split('=')[1])
+            blue = int(proxy.split('/')[4].split('?')[1].split('&')[2].split('=')[1])
+            brightness = float(proxy.split('/')[4].split('?')[1].split('&')[3].split('=')[1])
             pass
         except IndexError:
             pass      
