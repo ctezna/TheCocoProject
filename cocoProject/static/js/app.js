@@ -24,8 +24,9 @@ function deleteData(url){
 
 function pantiltControl(move, proxy, id){
     taskController(proxy, id, 4);
-    $.ajax('https://ctezna.ngrok.io/cam/move/'+ move).done(function(){});
-    proxyGen(id);
+    $.ajax('https://ctezna.ngrok.io/cam/move/'+ move).done(function(){
+        taskController(proxy, id, 7);
+    });
 }
 
 
@@ -73,6 +74,9 @@ function taskController(proxy, id, taskLabel, horus=null){
             proxy = proxy + '/light?red=-1&green=-1&blue=-1&brightness=0.2';
             document.getElementById('lightBright'+id).style.display = 'inline';
             document.getElementById('lightOff'+id).style.display = 'inline';
+            break;
+        case 7:
+            proxy = proxy + '/cam';
             break;
     }
     $.post('/task', {
