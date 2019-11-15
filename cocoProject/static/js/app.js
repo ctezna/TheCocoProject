@@ -40,7 +40,7 @@ function taskController(proxy, id, taskLabel, horus=null){
             var brightness = document.getElementById('brightInput'+id).value;
             proxy = proxy + '/light?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
             if (horus){
-                proxy = 'https://ctezna.ngrok.io/light/on?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
+                proxy = 'ctezna.ngrok.io/light/on?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
             }
             document.getElementById('lightOn'+id).style.display = 'none';
             document.getElementById('lightBright'+id).style.display = 'inline';
@@ -49,7 +49,7 @@ function taskController(proxy, id, taskLabel, horus=null){
         case 2:
             proxy = proxy + '/light?red=0&green=0&blue=0&brightness=0';
             if (horus){
-                proxy = 'https://ctezna.ngrok.io/light/off';
+                proxy = 'ctezna.ngrok.io/light/off';
             }
             document.getElementById('lightOff'+id).style.display = 'none';
             break;
