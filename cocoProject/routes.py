@@ -84,10 +84,10 @@ def task():
     msg = ''
     cat = ''
     response = requests.get(proxy)
-    red = ''
-    green = ''
-    blue = ''
-    brightness = ''
+    red = 400
+    green = 400
+    blue = 400
+    brightness = 400
     try:
         red = int(proxy.split('/')[3].split('?')[1].split('&')[0].split('=')[1])
         green = int(proxy.split('/')[3].split('?')[1].split('&')[1].split('=')[1])
@@ -105,7 +105,6 @@ def task():
             pass      
         pass
 
-    print(proxy)
 
     try:
         taskSuccess = response.json()['response']
@@ -127,9 +126,9 @@ def task():
         cat = 'info'
     elif proxy.split('/')[3] == 'camOff':
         taskSuccess = 1 
-    elif (red > 0) or \
-            (green > 0) or \
-            (blue > 0) and taskSuccess == 1:
+    elif (red > 0 and red < 300) or \
+            (green > 0 and green < 300) or \
+            (blue > 0 and  blue < 300) and taskSuccess == 1:
         coco.light = 1
         coco.lightBrightness = brightness
         coco.lightColor = '#%02x%02x%02x' % (red, green, blue)
