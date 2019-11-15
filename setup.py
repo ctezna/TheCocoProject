@@ -9,7 +9,7 @@ setup(
     version='2.0',
     author='Carlos Tezna',
     author_email='coco.project3@gmail.com',
-    description='Client controller for Coco Project "Coco" Device',
+    description='Client controller for Coco Project Devices',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
