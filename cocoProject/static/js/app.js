@@ -22,9 +22,11 @@ function deleteData(url){
     post(url,null,'get');
 }
 
-function pantiltControl(move){
-    $.ajax('https://ctezna.ngrok.io/cam/move/'+ move).done(function(data){
-        console.log("done");
+function pantiltControl(move, proxy){
+    $.ajax(proxy + '/camOff').done(function(){
+        $.ajax('https://ctezna.ngrok.io/cam/move/'+ move).done(function(){
+            console.log("done");
+        });
     });
 
 }
