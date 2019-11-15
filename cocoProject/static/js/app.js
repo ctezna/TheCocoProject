@@ -23,34 +23,10 @@ function deleteData(url){
 }
 
 function pantiltControl(move, proxy){
-    var request = createCORSRequest( 'get', proxy + '/camOff' );
-    if ( request ){
-        // Define a callback function
-        request.onload = function(){
-            $.ajax('http://ctezna.ngrok.io/cam/move/'+ move).done(function(){
-                $.ajax(proxy + '/cam').done(function(){});
-            });
-        };
-        // Send request
-        request.send();
-      }
-
+    $.ajax('http://ctezna.ngrok.io/cam/move/'+ move).done(function(){});
 
 }
 
-function createCORSRequest(method, url){
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr){
-      // XHR has 'withCredentials' property only if it supports CORS
-      xhr.open(method, url, true);
-    } else if (typeof XDomainRequest != "undefined"){ // if IE use XDR
-      xhr = new XDomainRequest();
-      xhr.open(method, url);
-    } else {
-      xhr = null;
-    }
-    return xhr;
-}
 
 function progress(){
     document.getElementById('prog').style.display = 'inline';
