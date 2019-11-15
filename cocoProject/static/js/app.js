@@ -47,7 +47,6 @@ function taskController(proxy, id, taskLabel, horus=null){
             var brightness = document.getElementById('brightInput'+id).value;
             proxy = proxy + '/light?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
             if (horus){
-                console.log(colorRGB.r);
                 proxy = 'https://ctezna.ngrok.io/light/on?red='+colorRGB.r+'&green='+colorRGB.g+'&blue='+colorRGB.b+'&brightness='+brightness;
             }
             document.getElementById('lightOn'+id).style.display = 'none';

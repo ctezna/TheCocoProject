@@ -105,6 +105,7 @@ def task():
             pass      
         pass
 
+    print(proxy)
 
     try:
         taskSuccess = response.json()['response']
