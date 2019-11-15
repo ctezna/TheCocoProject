@@ -141,9 +141,9 @@ def task():
         coco.light = 1
         coco.lightBrightness = brightness
         db.session.commit()
-    elif (red == 0) and \
+    elif ((red == 0) and \
             (green == 0) and \
-            (blue == 0) and taskSuccess == 1:
+            (blue == 0) and taskSuccess == 1) or (proxy == 'https://ctezna.ngrok.io/light/off'):
         msg = Markup('Light Deactivated for <strong>{}</strong>.'.format(coco.name))
         cat = 'secondary'
         coco.light = 0
