@@ -105,7 +105,7 @@ def task():
             pass      
         pass
 
-
+    camOff = False
     try:
         taskSuccess = response.json()['response']
         pass
@@ -125,6 +125,7 @@ def task():
         msg = Markup('Coco Restarting. Please wait for <strong>light to turn on.</strong>')
         cat = 'info'
     elif proxy.split('/')[3] == 'camOff':
+        camOff = True
         taskSuccess = 1 
     elif (red > 0 and red < 300) or \
             (green > 0 and green < 300) or \
@@ -155,7 +156,8 @@ def task():
             "lightColor":coco.lightColor,
             "lightBrightness":coco.lightBrightness,
             "msg":msg,
-            "msgcat":cat
+            "msgcat":cat,
+            "camOff": camOff
             }
     return jsonify(rsp)
 

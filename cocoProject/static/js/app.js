@@ -79,6 +79,7 @@ function taskController(proxy, id, taskLabel, horus=null, move=null){
             proxy = proxy + '/cam';
             break;
         case 8:
+            taskController(proxy, id, 4);
             proxy = 'https://ctezna.ngrok.io/cam/move/'+ move;
             break;
     }
@@ -86,6 +87,9 @@ function taskController(proxy, id, taskLabel, horus=null, move=null){
         data:proxy, 
         id:id
     }).done(function(response){
+        if (response.camOff == false){
+            taskController(proxy, id, 7);
+        }
         if (response.msg.length > 1){
             $('#message').html('');
             $('#message').append(
