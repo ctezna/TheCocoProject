@@ -74,7 +74,18 @@ def index():
                     proxy = c.proxy
                 elif c.deviceType == 'horus':
                     proxy = 'https://ctezna.ngrok.io'
+
+            try: 
                 rsp = requests.get(proxy + '/light/status').json()
+            except json.decoder.JSONDecodeError:
+                rsp = {
+                    'status': False,
+                    'red': 255,
+                    'green': 255,
+                    'blue': 255,
+                    'brightness': 0.3
+                }
+
             else:
                 rsp = {
                     'status': False,
