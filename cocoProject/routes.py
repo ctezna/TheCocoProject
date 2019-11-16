@@ -297,8 +297,12 @@ def connectCoco():
 @login_required
 def cocoProfile(id):
     coco = Coco.query.filter_by(id=id).first_or_404()
-    #routines = Routine.query.filter_by(coco_id=coco.id).all()
-    routines = routine_control.get(coco.proxy)
+    proxy = ''
+    if coco.deviceType == 'coco':
+        proxy = coco.proxy
+    elif coco.deviceType == 'horus':
+        proxy = 'https://ctezna.ngrok.io/routine'
+    routines = routine_control.get(proxy)
     if routines == 0:
         flash(_('Profile loaded unsucessfully. Check connection.'),'danger')
         return redirect(url_for('index'))
@@ -314,7 +318,6 @@ def cocoProfile(id):
         coco.address = address
         db.session.commit()
         flash(_('Coco data changed successfully.'), 'success')
-        #return redirect(url_for('index'))
     elif request.method == 'GET':
         form.name.data = coco.name
         form.address.data = coco.address

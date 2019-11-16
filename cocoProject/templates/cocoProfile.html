@@ -63,7 +63,7 @@ data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco.
                     <text style="color:lightgray;">Download Data</text>
                 </button>
             </a>
-            <a href="https://ctezna.ngrok.io/main/getView">
+            <a href="https://ctezna.ngrok.io/main/getView" target="_blank">
                 <button class="btn btn" style="display:inline-block; background-color: rgb(26,86,63);">
                     <text style="color:lightgray;">Download Graph</text>
                 </button>
@@ -90,7 +90,7 @@ data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco.
         <tbody>
             {% for routine in routines %}
                 <tr>
-                    {% if routine['task'] == 'Light' %}
+                    {% if routine['task'] != 'Light' %}
                         <td><text style="color:lightgray;">{{ routine['task'] }}</text> </td>
                     {% else %}
                         <td>
