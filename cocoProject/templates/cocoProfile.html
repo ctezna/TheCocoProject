@@ -32,7 +32,12 @@
                 <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
             {{ form.name.label(class="form-control-label", style="color:lightgray;") }}
-            {{ form.name(class="form-control", size=32) }}<br>
+            {{ form.name(class="form-control", size=32) }}
+            {{ form.address.label(class="form-control-label", style="color:lightgray;") }}
+            {{ form.address(class="form-control", size=32) }}
+            <small class="text-muted">
+                &emsp;<text style="color:red;">{{ _('Changing device address can be detrimental') }}</text>
+            </small><br>
             {{ form.submit(class="btn btn", style="background-color:rgb(38,138,241); color: white;") }}
         </div> 
         

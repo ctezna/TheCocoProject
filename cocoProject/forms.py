@@ -57,6 +57,7 @@ class AddRoutineForm(FlaskForm):
 class EditCocoForm(FlaskForm):
     name = StringField(_l('Change Name'))
     img = FileField(_l('Change Coco Picture'), validators=[FileAllowed(['jpg', 'png'])])
+    address = StringField(_l('Device Address'))
     submit = SubmitField(_l('Save'))
     #make coco address editable and make coco proxy refersh always available
 

@@ -194,7 +194,13 @@ def deleteCoco(id):
 def deleteRoutine(id):
     routine = Routine.query.filter_by(id=id).first_or_404()
     coco = Coco.query.filter_by(id=routine.coco_id).first_or_404()
-    response = routine_control.remove(routine.id, coco.proxy)
+    proxy = ''
+    if coco.deviceType == 'coco':
+        proxy = coco.proxy
+    elif coco.deviceType == 'horus':
+        proxy = 'https://ctezna.ngrok.io/routine'
+    
+    response = routine_control.remove(routine.id, proxy)
     if response == 0:
         msg = Markup('Unable to remove Routine. Please check connection.')
         flash(_(msg),'danger')
@@ -292,12 +298,15 @@ def cocoProfile(id):
             img = 'cocoPics/' + img_name
             coco.img = img
         name = form.name.data
+        address = form.address.data
         coco.name = name
+        coco.address = address
         db.session.commit()
         flash(_('Coco data changed successfully.'), 'success')
         #return redirect(url_for('index'))
     elif request.method == 'GET':
         form.name.data = coco.name
+        form.address.data = coco.address
     return render_template("cocoProfile.html", coco=coco, routines=routines['routines'], form=form)
 
 @app.route('/userProfile/<username>', methods=['GET', 'POST'])
