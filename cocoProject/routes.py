@@ -39,6 +39,13 @@ def index():
             rgb = tuple(int(color[i:i+clen//3], 16) for i in range(0, clen, clen//3))
             light_splice = '{},{},{},{}'.format(rgb[0], rgb[1], rgb[2], request.form['brightInput'])
 
+        
+        if coco.deviceType == 'horus':
+            if task == 'Dispense Food':
+                flash(_('Routine Unavailable for Device Model'), 'danger')
+                return render_template("index.html", cocos=cocos, form=form)
+            proxy = 'https://ctezna.ngrok.io/routine'
+
         response = routine_control.send(routine.id, proxy, task, action_days, times, light_splice)
         if response == 0:
             db.session.remove(routine)
@@ -48,29 +55,38 @@ def index():
         flash(_('Routine Added Successfully.'),'success')
     
     for c in cocos:
-        if c.deviceType == 'coco':
-            try:
-                rsp = requests.get(c.proxy + '/light/status').json()
-            except json.decoder.JSONDecodeError:
-                address = c.address
-                password = c.cred
-                token = remoteit_api.login(current_user.dev_id, current_user.username, password)
-                proxy = remoteit_api.connect(current_user.dev_id, token, address)
-                if not type(proxy) == int:
-                    c.proxy = proxy
-                    rsp = requests.get(c.proxy + '/light/status').json()
-                else:
-                    rsp = {
-                        'status': False,
-                        'red': 255,
-                        'green': 255,
-                        'blue': 255,
-                        'brightness': 0.3
-                    }
-            c.light = rsp['status']
-            c.lightColor = '#%02x%02x%02x' % (int(rsp['red']), int(rsp['green']), int(rsp['blue']))
-            c.lightBrightness = float(rsp['brightness'])
-            print(rsp['status'])
+        try:
+            proxy = ''
+            if c.deviceType == 'coco':
+                proxy = c.proxy
+            elif c.deviceType == 'horus':
+                proxy = 'https://ctezna.ngrok.io'
+            rsp = requests.get(proxy + '/light/status').json()
+        except json.decoder.JSONDecodeError:
+            address = c.address
+            password = c.cred
+            token = remoteit_api.login(current_user.dev_id, current_user.username, password)
+            proxy = remoteit_api.connect(current_user.dev_id, token, address)
+            if not type(proxy) == int:
+                c.proxy = proxy
+                proxy = ''
+                if c.deviceType == 'coco':
+                    proxy = c.proxy
+                elif c.deviceType == 'horus':
+                    proxy = 'https://ctezna.ngrok.io'
+                rsp = requests.get(proxy + '/light/status').json()
+            else:
+                rsp = {
+                    'status': False,
+                    'red': 255,
+                    'green': 255,
+                    'blue': 255,
+                    'brightness': 0.3
+                }
+        c.light = rsp['status']
+        c.lightColor = '#%02x%02x%02x' % (int(rsp['red']), int(rsp['green']), int(rsp['blue']))
+        c.lightBrightness = float(rsp['brightness'])
+        print(rsp['status'])
     
     db.session.commit()
     return render_template("index.html", cocos=cocos, form=form)

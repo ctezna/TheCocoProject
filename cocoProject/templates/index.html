@@ -91,6 +91,11 @@
                 <i class="material-icons-outlined" style="vertical-align:middle;">wb_sunny</i>
             </button>
         </span>
+        <button id="routine;{{coco.id}}" style="background-color: rgb(26,86,63);" data-toggle="modal" 
+        data-id="{{coco.proxy}}" data-target="#modalForm" class="open-AddRoutine btn btn">
+            <i class="material-icons mr-1" style="color: lightgray; vertical-align:middle;">alarm_add</i>
+            <text id="big" style="color: lightgray;">{{ _('Add Routine')}}</text>
+        </button>
         <br>
         <div id="lightBright{{coco.id}}" style="display: {% if coco.light == 0 %}none;{% elif coco.light == 1 %}inline-block;{% endif %}"
         data-toggle="tooltip" data-placement="top" title="Light brightness setting.">
