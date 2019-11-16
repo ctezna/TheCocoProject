@@ -95,7 +95,7 @@ data-toggle="tooltip" data-placement="top" title="Use this to restart your Coco.
                     {% else %}
                         <td>
                             <input type="color" id="color{{coco.id}}"
-                            name="color{{coco.id}}" value="{{coco.lightColor}}" disabled>
+                            name="color{{coco.id}}" value="{{routine['light_splice']}}" disabled>
                             <text style="color:lightgray;">{{ routine['task'] }}</text>
                         </td>
                     {% endif %}      
